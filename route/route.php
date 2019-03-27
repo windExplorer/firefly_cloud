@@ -15,6 +15,8 @@ Route::get('think', function () {
 
 Route::get('hello/:name', 'index/hello');
 
+Route::get('installC', 'install/index/confirm');
+
 return [
 
 ];
