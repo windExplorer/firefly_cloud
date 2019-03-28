@@ -10,3 +10,24 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+/**
+ * 成功信息 
+ */
+function mSuccess($data = ''){
+  return [true, 'suc', $data];
+}
+
+/**
+ * 错误信息 
+ */
+function mError($data = ''){
+  return [false, 'err', $data];
+}
+
+/**
+ * 空信息 
+ */
+function mEmpty($data = ''){
+  return [false, 'emp', $data];
+}
