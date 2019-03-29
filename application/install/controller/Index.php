@@ -65,18 +65,29 @@ class Index extends Controller
 
     public function index()
     {
-        return '<br>123';
+        $this->assign([
+            'flag'  =>  $this->flag
+        ]);
+        return view();
     }
 
     public function confirm()
     {
         $this->assign([
-            'title' => '程序安装检测',
+            'title' => '安装检测',
             'file'  =>  $this->file,
             'db'    =>  $this->db,
             'admin' =>  $this->admin,
             'flag'  =>  $this->flag,
         ]);
         return view();
+    }
+
+    public function upfile(){
+        return '安装锁';
+    }
+
+    public function upfile_admin(){
+        return '安装锁+系统管理员';
     }
 }

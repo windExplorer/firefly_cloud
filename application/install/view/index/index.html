@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    安装
-</body>
-</html>
+{extend name='public/layout' /}
+
+{block name='content'}
+    {if $flag == 2}
+        <h1>您已经安装程序，无需再安装1</h1>
+    {elseif $flag == -1 }
+        <h1>安装程序</h1>
+    {else /}
+        <h1>需要进行安装检测</h1>
+    {/if}
+
+{/block}

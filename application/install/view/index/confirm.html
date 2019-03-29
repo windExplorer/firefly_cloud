@@ -1,14 +1,57 @@
 {extend name='public/layout' /}
 
-
 {block name='content'}
-    <div class="layui-row">
+    <div class="layui-row confirm">
         <div class="layui-col-md8 layui-col-md-offset2 content-parent">
-            <div class="content layui-bg-blue">
-                <div class="circle circle-box layui-bg-cyan">
-                    <div class="circle circle-left layui-bg-red"></div>
-                    <div class="circle circle-right layui-bg-green"></div>
-                    <div class="circle circle-center"></div>
+            <div class="content layui-bg-cyan">
+                <div class="layui-col-md12">
+                    <div class="layui-progress layui-progress-big check-progress" lay-showPercent="yes" lay-filter="progress-check">
+                        <div class="layui-progress-bar layui-bg-orange" lay-percent="0%"></div>
+                    </div>
+                </div>
+                
+                <div class="check-box">
+                    <div class="layui-col-md4">
+                        <div class="circle circle-box layui-bg-blue" fir-status='{$file}'>
+                            <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" fiy-id='pc-1'></i>  
+                            <i class="layui-icon layui-icon-{$file ? 'ok' : 'close'} layui-hide" fiy-id='pc-1-2'></i>  
+                        </div>
+                        <span>install.lock</span>
+                    </div>
+                    
+                    <div class="layui-col-md4">
+                        <div class="circle circle-box layui-bg-blue" fir-status='{$db}'>
+                            <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" fiy-id='pc-2'></i>  
+                            <i class="layui-icon layui-icon-{$db ? 'ok' : 'close'} layui-hide" fiy-id='pc-2-2'></i>  
+                        </div>
+                        <span>数据库</span>
+                    </div>
+
+                    <div class="layui-col-md4">
+                        <div class="circle circle-box layui-bg-blue" fir-status='{$admin}'>
+                            <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" fiy-id='pc-3'></i>  
+                            <i class="layui-icon layui-icon-{$admin ? 'ok' : 'close'} layui-hide" fiy-id='pc-3-2'></i>  
+                        </div>
+                        <span>系统管理员</span>
+                    </div>
+
+                </div>
+                
+                <div class="tip layui-bg-blue layui-elip"
+                    fiy-msg = "
+                        {if $flag == 2}
+                            <span class='layui-anim layui-anim-upbit'>一切OK,无需安装</span>
+                        {elseif $flag == 1}
+                            <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件<a class='layui-btn layui-btn-sm' href='{:url('install/index/upfile')}'>点击修复</a></span>
+                        {elseif $flag == 0}
+                            <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件，无系统管理员<a class='layui-btn layui-btn-sm' href='{:url('install/index/upfile_admin')}'>点击修复</a></span>
+                        {elseif $flag == -1}
+                            <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件，无法连接数据库，请检查数据库后重试!</span>
+                        {else if $flag == -2}
+                            <span class='layui-anim layui-anim-upbit'>装锁(install.lock)文件正常，无法连接数据库，请检查数据库后重试!</span>
+                        {/if}
+                    "
+                >
                 </div>
             </div>
         </div>
