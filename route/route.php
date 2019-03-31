@@ -15,9 +15,11 @@ Route::get('think', function () {
 
 Route::get('hello/:name', 'index/hello');
 
-Route::get('install', 'install/index/index');
+Route::get('installing', 'install/index/index');
 
 Route::get('installC', 'install/index/confirm');
+
+Route::get('login', 'admin/login/index');
 
 return [
 

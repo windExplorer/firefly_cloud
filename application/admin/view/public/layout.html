@@ -1,3 +1,4 @@
+{if $pjax == 0}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6,21 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{$title ?? "Sorry,This Page doesn't have name!"}</title>
     <link rel="stylesheet" href="__EXTEND__/layui/css/layui.css">
-    <link rel="stylesheet/less" href="__SOURCE_CSS__/install.less">
     {block name='css'}{/block}
 </head>
 <body>
+  <div id="pjax-container">
+      {block name='content'}{/block}
+  </div>
 
-    <div class="layui-container">
-        {block name='content'}{/block}
-    </div>
     <script src="__EXTEND__/layui/layui.js"></script>
     <script src="__EXTEND__/plugins/less.js"></script>
     <script src="__EXTEND__/plugins/jquery.js"></script>
     <script src="__EXTEND__/plugins/pjax.js"></script>
     <script src="__SOURCE_JS__/index.js"></script>
-    <script src="__SOURCE_JS__/install.js"></script>
     {block name='js'}{/block}
-    
 </body>
 </html>
+
+{else /}
+  {block name='css'}{/block}
+  {block name='content'}{/block}
+  {block name='js'}{/block}
+{/if}

@@ -14,16 +14,19 @@ class Index extends Controller
     protected $db = '';
     protected $admin = '';
     protected $flag = '';
+    protected $model = '';
+    protected $pjax = 0;
 
     protected function initialize()
     {
-        $model = model('index');
-        if(file_exists('./install.lock')){
+        $this->pjax = request()->isPjax() ? 1 : 0;
+        $this->model = model('index');
+        if(file_exists('../install.lock')){
             $this->file = 1;
         } else {
             $this->file = 0;
         }
-        $dbInfo = $model->index();
+        $dbInfo = $this->model->index();
         if(!$dbInfo[0]){
             if('err' === $dbInfo[1]){
                 $this->db = 0;
@@ -60,6 +63,10 @@ class Index extends Controller
             //有安装锁文件+数据库连接异常+系统管理员未知(检测数据库配置+然后重试)
             $this->flag = -2;
         }
+        if(1 == $this->file && 1 == $this->db && 0 == $this->admin){
+            //有安装锁文件+数据库连接正常+没有系统管理员(需要新增系统管理员)
+            $this->flag = -3;
+        }
 
     }
 
@@ -79,15 +86,38 @@ class Index extends Controller
             'db'    =>  $this->db,
             'admin' =>  $this->admin,
             'flag'  =>  $this->flag,
+            'pjax'  =>  $this->pjax
         ]);
         return view();
     }
 
-    public function upfile(){
-        return '安装锁';
+    
+    public function upfile()
+    {
+        $file = $this->model->create_file();
+        if(empty($file))
+            return $this->error($file);
+        else
+            return $this->success('文件写入成功!');
+    }
+
+    public function upadmin()
+    {
+        $admin = $this->model->create_admin();
+        if(empty($admin))
+            return $this->error($admin);
+        else{
+            return $this->success('用户名：admin  密码：'.$admin['password'].'  (密码可以在install.lock文件中查看)');
+        }
+            
     }
 
     public function upfile_admin(){
-        return '安装锁+系统管理员';
+        $file = $this->model->create_file();
+        if(empty($file))
+            return $this->error($file);
+        else
+            return $this->success('文件写入成功!');
     }
+
 }

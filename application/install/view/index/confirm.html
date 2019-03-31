@@ -42,13 +42,15 @@
                         {if $flag == 2}
                             <span class='layui-anim layui-anim-upbit'>一切OK,无需安装</span>
                         {elseif $flag == 1}
-                            <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件<a class='layui-btn layui-btn-sm' href='{:url('install/index/upfile')}'>点击修复</a></span>
+                            <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件<button class='layui-btn layui-btn-sm' fiy-link='{:url('install/index/upfile')}' fiy-class='repair'>点击修复</button></span>
                         {elseif $flag == 0}
-                            <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件，无系统管理员<a class='layui-btn layui-btn-sm' href='{:url('install/index/upfile_admin')}'>点击修复</a></span>
+                            <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件，无系统管理员<button class='layui-btn layui-btn-sm' fiy-link='{:url('install/index/upfile_admin')}' fiy-class='repair'>点击修复</button></span>
                         {elseif $flag == -1}
                             <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件，无法连接数据库，请检查数据库后重试!</span>
-                        {else if $flag == -2}
-                            <span class='layui-anim layui-anim-upbit'>装锁(install.lock)文件正常，无法连接数据库，请检查数据库后重试!</span>
+                        {elseif $flag == -2}
+                            <span class='layui-anim layui-anim-upbit'>安装锁(install.lock)文件正常，无法连接数据库，请检查数据库后重试!</span>
+                        {elseif $flag == -3}
+                            <span class='layui-anim layui-anim-upbit'>安装锁(install.lock)文件正常，无系统管理员<button class='layui-btn layui-btn-sm' fiy-link='{:url('install/index/upadmin')}' fiy-class='repair'>点击修复</button></span>
                         {/if}
                     "
                 >

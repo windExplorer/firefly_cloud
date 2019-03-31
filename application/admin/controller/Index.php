@@ -6,6 +6,7 @@ use app\common\behavior\BaseAdmin;
 class Index extends BaseAdmin
 {
 
+    protected $pjax = 0;
     /**
      * 初始化 
      * 1.检测是否安装程序
@@ -13,17 +14,24 @@ class Index extends BaseAdmin
     protected function initialize()
     {
         $this->checkInstall();
+        $this->checkLogin();
+        if(request()->isPjax())
+            $this->pjax = 1;
+
+        $this->assign('pjax', $this->pjax);
     }
  
 
     public function index()
     {
-        //echo \Env::get('root_path').'<br/>';
-        debug('begin');
-        dump($this->test(), $echo = true, $label = null);
-        debug('end');
-        dump(debug('begin', 'end'));
 
         return view();
     }
+
+    public function index2()
+    {
+
+        return view();
+    }
+
 }

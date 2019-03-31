@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$title ?? "Sorry,This Page doesn't have name!"}</title>
+    <link rel="stylesheet" href="__EXTEND__/layui/css/layui.css">
+    <link rel="stylesheet/less" href="__SOURCE_CSS__/login.less">
+</head>
+<body>
+    <div class="box">
+      <form action="javascript:;" class="layui-form form-box layui-anim layui-anim-upbit" lay-filter='login-form'>
+        <input type="text" name="username" placeholder="username" autocomplete="off">
+        <hr>
+        <input type="password" name="password" placeholder="password" autocomplete="off">
+        <div class="button-box">
+            <button type="submit" lay-submit lay-filter="login-submit" fiy-link="{:url('admin/login/check')}" fiy-to="{:url('admin/index/index')}" class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop"><i class="layui-icon layui-icon-triangle-r"></i> </button>
+        </div>
+        <span class="tip">forgot your password? <a href="">click here!</a></span>
+      </form>
+    </div>
+    <script src="__EXTEND__/layui/layui.js"></script>
+    <script src="__EXTEND__/plugins/less.js"></script>
+    <script src="__EXTEND__/plugins/jquery.js"></script>
+    <script src="__SOURCE_JS__/index.js"></script>
+    <script src="__SOURCE_JS__/login.js"></script>
+</body>
+</html>
+
+  
+
+
+
+
