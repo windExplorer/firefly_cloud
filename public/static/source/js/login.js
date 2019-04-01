@@ -1,6 +1,7 @@
-layui.use(['layer', 'form'], () => {
+layui.use(['layer', 'form', 'jquery'], () => {
   const layer = layui.layer
   const form = layui.form
+  const $ = layui.jquery
   layer.config({
     //skin: 'layer-login'
   })
@@ -16,9 +17,10 @@ layui.use(['layer', 'form'], () => {
       data: data.field,
       type: 'post',
       success: (res) => {
-        //console.log(res)
-        if(res || res.data ||res.data.length > 0){
+        if(res && res.data){
           location.href = ele.attr('fiy-to')
+        } else {
+          return
         }
       },
       complete: () => {

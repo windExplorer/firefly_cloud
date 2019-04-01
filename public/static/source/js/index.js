@@ -15,7 +15,7 @@ $(document).on('pjax:start', () => {
 $(document).on('pjax:end', () => {
   console.log('PJAX结束')
 })
-$(document).pjax('a[data-pjax]', '#pjax-container')
+$(document).pjax('a[data-pjax]', '#pjax-container', {})
 
 
 

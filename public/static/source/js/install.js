@@ -1,6 +1,7 @@
-var aa = layui.use(['layer', 'element'], ()=>{
+layui.use(['layer', 'element', 'jquery'], ()=>{
   const layer = layui.layer
   const element = layui.element
+  const $ = layui.jquery
 
     /**
    * 方法
@@ -68,11 +69,12 @@ var aa = layui.use(['layer', 'element'], ()=>{
    * dom操作
    * 
    */
-  $(document).on('click', '[fiy-class=repair]', function(e) {
+  $(document).on('click', '[fiy-class=repair]', function() {
     Request($(this).attr('fiy-link'))
-
   })
-
+  $(document).on('click', '[fiy-class=goto]', function() {
+    location.href = $(this).attr('fiy-link')
+  })
   /**
    * 运行
    */

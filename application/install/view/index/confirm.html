@@ -40,7 +40,7 @@
                 <div class="tip layui-bg-blue layui-elip"
                     fiy-msg = "
                         {if $flag == 2}
-                            <span class='layui-anim layui-anim-upbit'>一切OK,无需安装</span>
+                            <span class='layui-anim layui-anim-upbit'>一切OK,无需安装<button class='layui-btn layui-btn-sm' fiy-link='{:url('admin/login/index')}' fiy-class='goto'>登录</button></span>
                         {elseif $flag == 1}
                             <span class='layui-anim layui-anim-upbit'>无安装锁(install.lock)文件<button class='layui-btn layui-btn-sm' fiy-link='{:url('install/index/upfile')}' fiy-class='repair'>点击修复</button></span>
                         {elseif $flag == 0}
