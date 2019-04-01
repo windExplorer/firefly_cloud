@@ -13,10 +13,15 @@ class Index extends BaseAdmin
      */
     protected function initialize()
     {
-        $this->checkInstall();
-        $this->checkLogin();
         if(request()->isPjax())
             $this->pjax = 1;
+        else {
+            $this->checkInstall();
+            $this->checkLogin();
+            /* dump($this->getMenu());
+            die; */
+            $this->assign('nav', $this->getMenu());
+        }
 
         $this->assign('pjax', $this->pjax);
     }

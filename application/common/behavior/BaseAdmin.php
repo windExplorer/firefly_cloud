@@ -120,6 +120,36 @@ class BaseAdmin extends Controller
         return $this->Create('admin_log', $data);
     }
 
+
+    /**
+     * 获取导航[一级菜单]
+     * 左侧，顶部左，顶部右
+     */
+    public function getMenu()
+    {
+        $data = [];
+        for($i = 0; $i < 3; $i ++){
+            $res = db('menu')->where(['pid' => $i + 1])->select();
+            $data[$i] = $this->getMenu2($res);
+        }
+        return $data;
+    }
+
+    /**
+     * 获取导航[2级菜单]
+     *  
+     */
+    public function getMenu2($data)
+    {
+        if(!empty($data)){
+            foreach($data as $k => $v){
+                $data[$k]['child'] = db('menu')->where('pid', $v['id'])->select();
+            }
+        }
+        return $data;
+    }
+
+
     public function test()
     {
         $aa = Db::connect([

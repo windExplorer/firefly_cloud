@@ -7,17 +7,88 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{$title ?? "Sorry,This Page doesn't have name!"}</title>
     <link rel="stylesheet" href="__EXTEND__/layui/css/layui.css">
+    <link rel="stylesheet" href="__EXTEND__/plugins/hover.min.css">
+    <link rel="stylesheet" href="__EXTEND__/plugins/animate.min.css">
+    <link rel="stylesheet" href="__SOURCE_CSS__/admin.css">
     {block name='css'}{/block}
 </head>
-<body>
-  <div id="pjax-container">
-      {block name='content'}{/block}
-  </div>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+          <div class="layui-logo">layui 后台布局</div>
+          <!-- 头部区域（可配合layui已有的水平导航） -->
+          <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+              <a href="javascript:;">其它系统</a>
+              <dl class="layui-nav-child">
+                <dd><a href="">邮件管理</a></dd>
+                <dd><a href="">消息管理</a></dd>
+                <dd><a href="">授权管理</a></dd>
+              </dl>
+            </li>
+          </ul>
+          <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+              <a href="javascript:;">
+                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                贤心
+              </a>
+              <dl class="layui-nav-child">
+                <dd><a href="">基本资料</a></dd>
+                <dd><a href="">安全设置</a></dd>
+                <dd><a href="">退了</a></dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="layui-side layui-bg-black">
+          <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="nav-left">
+              {volist name='$nav[0]' id='vo'}
+              <li class="layui-nav-item layui-nav-itemed">
+                {in name='$vo.menu_type' value='1'}
+                <a data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                  {if !empty($vo.child)}
+                  <dl class="layui-nav-child">
+                    {volist name='$vo.child' id='vo1'}
+                    <dd><a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a></dd>
+                    {/volist}
+                  </dl>
+                  {/if}
+                {/in}
+              </li>
+              {/volist}
+            </ul>
+          </div>
+        </div>
+        
+        <div class="layui-body">
+          <!-- 内容主体区域 -->
+          <div style="padding: 15px;">
+              <div id="pjax-container">
+                {block name='content'}{/block}
+              </div>
+          </div>
+        </div>
+        
+        <div class="layui-footer">
+          <!-- 底部固定区域 -->
+          © layui.com - 底部固定区域
+        </div>
+      </div>
+
+  
+  
 
     <script src="__EXTEND__/layui/layui.js"></script>
     <script src="__EXTEND__/plugins/jquery.min.js"></script>
     <script src="__EXTEND__/plugins/pjax.min.js"></script>
-    <script src="__SOURCE_JS__/index.min.js"></script>
+    <script src="__SOURCE_JS__/admin.min.js"></script>
     {block name='js'}{/block}
 </body>
 </html>
