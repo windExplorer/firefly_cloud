@@ -15,26 +15,46 @@
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-          <div class="layui-logo">layui 后台布局</div>
+          <div class="layui-logo">萤火云后台管理系统 <span class="layui-badge layui-bg-green">v1.0</span></div>
           <!-- 头部区域（可配合layui已有的水平导航） -->
           <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
+            {volist name='$nav[1]' id='vo'}
             <li class="layui-nav-item">
-              <a href="javascript:;">其它系统</a>
-              <dl class="layui-nav-child">
-                <dd><a href="">邮件管理</a></dd>
-                <dd><a href="">消息管理</a></dd>
-                <dd><a href="">授权管理</a></dd>
-              </dl>
+                {if !empty($vo.child)}
+                <a href="javascript:;">{$vo.name}</a>
+                <dl class="layui-nav-child">
+                  {volist name='$vo.child' id='vo1'}
+                  <dd>    
+                    <a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a>
+                  </dd>
+                  {/volist}
+                </dl>
+                {else /}
+                  <a data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                {/if}
+              {/volist}
             </li>
           </ul>
           <ul class="layui-nav layui-layout-right">
+              {volist name='$nav[2]' id='vo'}
+              <li class="layui-nav-item">
+                  {if !empty($vo.child)}
+                  <a href="javascript:;">{$vo.name}</a>
+                  <dl class="layui-nav-child">
+                    {volist name='$vo.child' id='vo1'}
+                    <dd>    
+                      <a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a>
+                    </dd>
+                    {/volist}
+                  </dl>
+                  {else /}
+                    <a data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                  {/if}
+                {/volist}
             <li class="layui-nav-item">
               <a href="javascript:;">
-                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                贤心
+                <img src="{$admin.avatar}" class="layui-nav-img">
+                {$admin.nickname}
               </a>
               <dl class="layui-nav-child">
                 <dd><a href="">基本资料</a></dd>
@@ -48,19 +68,21 @@
         <div class="layui-side layui-bg-black">
           <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="nav-left">
+            <ul class="layui-nav layui-nav-tree" lay-filter="nav-left">
               {volist name='$nav[0]' id='vo'}
               <li class="layui-nav-item layui-nav-itemed">
-                {in name='$vo.menu_type' value='1'}
-                <a data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
-                  {if !empty($vo.child)}
-                  <dl class="layui-nav-child">
-                    {volist name='$vo.child' id='vo1'}
-                    <dd><a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a></dd>
-                    {/volist}
-                  </dl>
-                  {/if}
-                {/in}
+                {if !empty($vo.child)}
+                <a fiy-side-tpl href="javascript:;">{$vo.name}</a>
+                <dl class="layui-nav-child">
+                  {volist name='$vo.child' id='vo1'}
+                  <dd fiy-side-tpl class="{if $thUrl == url($vo1.rule)}layui-this{/if}">    
+                    <a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a>
+                  </dd>
+                  {/volist}
+                </dl>
+                {else /}
+                  <a data-pjax class="{if $thUrl == url($vo.rule)}layui-this{/if}" href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                {/if}
               </li>
               {/volist}
             </ul>
@@ -94,7 +116,5 @@
 </html>
 
 {else /}
-  {block name='css'}{/block}
   {block name='content'}{/block}
-  {block name='js'}{/block}
 {/if}

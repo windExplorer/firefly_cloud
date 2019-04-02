@@ -1,8 +1,5 @@
 {extend name='public/layout' /}
 
-{block name='css'}
-  <link rel="stylesheet/less" href="__SOURCE_CSS__/admin.less">
-{/block}
 
 {block name='content'}
     index2.html
@@ -10,8 +7,4 @@
     pjax: {$pjax}
     <hr>
     <a href="{:url('admin/index/index')}" data-pjax>go to index.html</a>
-{/block}
-
-{block name='js'}
-  <script src="__SOURCE_JS__/admin.js"></script>
 {/block}

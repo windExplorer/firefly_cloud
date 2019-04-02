@@ -20,7 +20,11 @@ class Index extends BaseAdmin
             $this->checkLogin();
             /* dump($this->getMenu());
             die; */
-            $this->assign('nav', $this->getMenu());
+            $this->assign([
+                'admin'     =>  session('admin'),
+                'nav'       =>  $this->getMenu(),
+                'thUrl'     =>  request()->url()
+            ]);
         }
 
         $this->assign('pjax', $this->pjax);

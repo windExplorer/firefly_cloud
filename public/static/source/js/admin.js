@@ -14,6 +14,18 @@ $(document).on('pjax:start', () => {
 })
 $(document).on('pjax:end', () => {
   console.log('PJAX结束')
+  layui.use(['element'], () => {
+    const element = layui.element
+    let thUrl = location.pathname
+    $('dd[fiy-side-tpl]').each((index, elem) => {
+        if($(elem).children('a').attr('href') == thUrl){
+            $('dd[fiy-side-tpl]').removeClass('layui-this')
+            $(elem).addClass('layui-this')
+            return false
+        }
+    })
+  })
+  
 })
 $(document).pjax('a[data-pjax]', '#pjax-container', {})
 
