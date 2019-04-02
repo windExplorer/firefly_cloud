@@ -38,4 +38,12 @@ class Login extends BaseAdmin
     }
     return $this->Result($res);
   }
+
+  public function logout()
+  {
+    session(null);
+    //data  code  msg
+    return $this->Result(true, 1, '退出成功');
+  }
+
 }

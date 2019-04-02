@@ -37,4 +37,28 @@ layui.use(['layer', 'form', 'element'], () => {
   const form = layui.form
   const element = layui.form
   
+  const Request = (url, data = '', type = 'get') => {
+    $.ajax({
+      url: url,
+      type: type,
+      data: data,
+      dataType: 'json',
+      async: true,
+      success: (res) => {
+        if(1 == res.code){
+          layer.msg(res.msg)
+          setTimeout(function(){
+            location.reload()
+          },1000)
+        } else {
+          layer.msg(res.msg)
+        }
+      },
+    })
+  }
+
+  $(document).on('click', 'a[fiy-logout]', function() {
+    Request($(this).attr('fiy-link'))
+  })
+
 })
