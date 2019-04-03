@@ -1,10 +1,25 @@
 body {
-  background-color: #34383D;
+  background-color: #01AAED;
+}
+body .box1 {
+  background-image: url('../img/login-bg.jpg');
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 body .box {
   width: 400px;
   height: 120px;
   position: fixed;
+  z-index: 2;
   top: 0;
   bottom: 0;
   left: 0;
@@ -14,7 +29,7 @@ body .box {
 body .box .form-box {
   width: 320px;
   height: 76px;
-  background-color: #1C1E21;
+  background-color: #fff;
   border-radius: 8px;
   margin: auto;
   padding: 15px 20px 20px;
@@ -24,7 +39,7 @@ body .box .form-box hr {
   border: none;
   width: 100%;
   height: 2px;
-  background: #34383D;
+  background: #01AAED;
   margin: 0;
 }
 body .box .form-box input {
@@ -33,7 +48,7 @@ body .box .form-box input {
   outline: none;
   height: 35px;
   background: transparent;
-  color: #ccc;
+  color: #333;
   letter-spacing: 1px;
 }
 body .box .form-box input:nth-child(1) {
@@ -51,7 +66,7 @@ body .box .form-box .button-box {
   border-radius: 60px;
   text-align: center;
   line-height: 60px;
-  background: #34383D;
+  background: #01AAED;
 }
 body .box .form-box .button-box button {
   border: none;
@@ -59,9 +74,9 @@ body .box .form-box .button-box button {
   width: 44px;
   height: 44px;
   margin-top: 8px;
-  background: #1C1E21;
+  background: #fff;
   cursor: pointer;
-  color: #34383D;
+  color: #01AAED;
   text-indent: 4px;
 }
 body .box .form-box .button-box .layui-icon {
@@ -72,17 +87,19 @@ body .box .form-box .button-box button:hover {
 }
 body .box .form-box .button-box button:active {
   opacity: .5;
-  color: #ccc;
+  color: #333;
 }
 body .box .tip {
   display: block;
-  color: #757575;
+  color: #f5f5f5;
   margin-top: 20px;
   text-align: center;
   letter-spacing: .5px;
+  text-shadow: 4px 4px 3px #ccc;
 }
 body .box .tip a {
-  color: #ccc;
+  color: #333;
+  font-weight: bold;
 }
 body .box .tip a:hover {
   text-decoration: underline;
