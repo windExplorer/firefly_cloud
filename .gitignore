@@ -1,9 +1,0 @@
-/.idea
-/vendor
-*.log
-thinkphp
-.env
-.DS_Store
-runtime
-install.lock
-./install.lock
