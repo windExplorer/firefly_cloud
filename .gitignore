@@ -6,4 +6,3 @@ thinkphp
 .DS_Store
 runtime
 install.lock
-./install.lock
