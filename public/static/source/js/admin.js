@@ -57,8 +57,30 @@ layui.use(['layer', 'form', 'element'], () => {
     })
   }
 
+  /**
+   * dom操作
+    */
   $(document).on('click', 'a[fiy-logout]', function() {
     Request($(this).attr('fiy-link'))
+  })
+
+  $(document).on('click', 'a[fiy-shrink]', function() {
+    let flag = $(this).attr('fiy-flag')
+    if(1 == flag){
+      $(this).children('i').removeClass('layui-icon-shrink-right')
+      $(this).children('i').addClass('layui-icon-spread-left')
+      $('.layui-layout-admin .layui-side').addClass('layui-side2')
+      $('.layui-body').addClass('layui-body2')
+      $('.layui-footer').addClass('layui-footer2')
+      $(this).attr('fiy-flag', 2)
+    } else {
+      $(this).children('i').removeClass('layui-icon-spread-left')
+      $(this).children('i').addClass('layui-icon-shrink-right')
+      $('.layui-layout-admin .layui-side').removeClass('layui-side2')
+      $('.layui-body').removeClass('layui-body2')
+      $('.layui-footer').removeClass('layui-footer2')
+      $(this).attr('fiy-flag', 1)
+    }
   })
 
 })

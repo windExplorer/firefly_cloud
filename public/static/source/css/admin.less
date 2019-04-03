@@ -1,4 +1,5 @@
 @color_1: #01AAED;
+@color_2: #fff;
 .hvr-overline-from-left:before {
     height: 2px;
     background: @color_1;
@@ -6,18 +7,47 @@
 .hvr-overline-from-left.active::before {
     width: 100%;
 }
-.layui-nav-bar{
-    background-color: @color_1 !important;
-    height: 4px; 
-}
-.layui-header{
-    .layui-logo{
-        color: @color_1;
+.layui-layout-admin{
+
+    .layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after{
+        background-color: @color_1 !important;
+        height: 4px; 
     }
-    .layui-badge{
-        top: -10px;
+    .layui-header{
+        background-color: @color_1;
+        .layui-logo{
+            color: @color_2;
+        }
+        .layui-badge{
+            top: -10px;
+        }
     }
-}
-.layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
-    background-color: @color_1;
+    .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
+        background-color: @color_1;
+    }
+
+    .layui-nav-side-level2{
+        margin-left: 5px;
+    }
+    .layui-side{
+        margin-top: -4px;
+    }
+    .layui-side,
+    .layui-nav-name{
+        transition: .5s;
+    }
+    .layui-side2{
+        width: 60px;
+        .layui-nav-name{
+            display: none;
+        }
+    }
+    .layui-body,
+    .layui-footer{
+        transition: .5s;
+    }
+    .layui-body2,
+    .layui-footer2{
+        left: 60px;
+    }
 }

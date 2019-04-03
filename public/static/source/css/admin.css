@@ -5,20 +5,49 @@
 .hvr-overline-from-left.active::before {
   width: 100%;
 }
-.layui-nav-bar {
+.layui-layout-admin .layui-nav .layui-this:after,
+.layui-layout-admin .layui-nav-bar,
+.layui-layout-admin .layui-nav-tree .layui-nav-itemed:after {
   background-color: #01AAED !important;
   height: 4px;
 }
-.layui-header .layui-logo {
-  color: #01AAED;
+.layui-layout-admin .layui-header {
+  background-color: #01AAED;
 }
-.layui-header .layui-badge {
+.layui-layout-admin .layui-header .layui-logo {
+  color: #fff;
+}
+.layui-layout-admin .layui-header .layui-badge {
   top: -10px;
 }
-.layui-nav-tree .layui-nav-child dd.layui-this,
-.layui-nav-tree .layui-nav-child dd.layui-this a,
-.layui-nav-tree .layui-this,
-.layui-nav-tree .layui-this > a,
-.layui-nav-tree .layui-this > a:hover {
+.layui-layout-admin .layui-nav-tree .layui-nav-child dd.layui-this,
+.layui-layout-admin .layui-nav-tree .layui-nav-child dd.layui-this a,
+.layui-layout-admin .layui-nav-tree .layui-this,
+.layui-layout-admin .layui-nav-tree .layui-this > a,
+.layui-layout-admin .layui-nav-tree .layui-this > a:hover {
   background-color: #01AAED;
+}
+.layui-layout-admin .layui-nav-side-level2 {
+  margin-left: 5px;
+}
+.layui-layout-admin .layui-side {
+  margin-top: -4px;
+}
+.layui-layout-admin .layui-side,
+.layui-layout-admin .layui-nav-name {
+  transition: .5s;
+}
+.layui-layout-admin .layui-side2 {
+  width: 60px;
+}
+.layui-layout-admin .layui-side2 .layui-nav-name {
+  display: none;
+}
+.layui-layout-admin .layui-body,
+.layui-layout-admin .layui-footer {
+  transition: .5s;
+}
+.layui-layout-admin .layui-body2,
+.layui-layout-admin .layui-footer2 {
+  left: 60px;
 }
