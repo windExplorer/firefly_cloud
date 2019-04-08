@@ -31,8 +31,8 @@ class Login extends BaseAdmin
 
   public function logout()
   {
-    session(null);
     $this->Addlog($this->table, '退出成功', 5);
+    session(null);
     //data  code  msg
     return $this->Result(true, 1, '退出成功');
   }
