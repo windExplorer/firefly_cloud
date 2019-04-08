@@ -1,0 +1,146 @@
+{extend name='public/layout' /}
+
+{block name='buttons'}
+  <button class="layui-btn layui-btn-normal">添加菜单</button>
+  <button class="layui-btn layui-btn-danger">批量删除</button>
+{/block}
+
+{block name='content'}
+
+<fieldset class="layui-elem-field">
+  <legend>条件查询</legend>
+  <div class="layui-field-box">
+    <form class="layui-form layui-form-pane" action="javascript:;" method="POST" fiy-url="{:request()->url()}">
+      <div class="layui-row layui-col-space10">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item" pane>
+              <label class="layui-form-label">精准搜索</label>
+              <div class="layui-input-block">
+                  <input type="checkbox" name="accurate" lay-skin="switch" lay-text="开启|关闭" checked value="1">
+              </div>
+            </div>
+        </div>
+          
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item">
+                <label class="layui-form-label">ID</label>
+                <div class="layui-input-block">
+                  <select name="id" lay-filter="id" lay-search>
+                    <option value=""> - 搜索选择ID - </option>
+                    {volist name='menu' id='vo'}
+                      <option value="{$vo.id}">{$vo.name}</option>
+                    {/volist}
+                  </select>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item">
+                <label class="layui-form-label">父级ID</label>
+                <div class="layui-input-block">
+                  <select name="pid" lay-filter="pid" lay-search>
+                    <option value=""> - 搜索选择父级ID - </option>
+                    {volist name='menu' id='vo'}
+                      {in name='vo.level' value='0,1'}
+                      <option value="{$vo.id}">{$vo.name}</option>
+                      {/in}
+                    {/volist}
+                  </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item">
+              <label class="layui-form-label">名称</label>
+              <div class="layui-input-block">
+                <input type="text" name="name" placeholder="输入名称" autocomplete="off" class="layui-input" >
+              </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+          <div class="layui-form-item">
+            <label class="layui-form-label">菜单类型</label>
+            <div class="layui-input-block">
+              <select name="menu_type" lay-filter="menu_type" lay-search>
+                <option value=""> - 选择菜单类型 - </option>
+                {volist name='menu_type' id='vo'}
+                  <option value="{$vo.code}">{$vo.name}</option>
+                {/volist}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+          <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+              <select name="menu_type" lay-filter="menu_type" lay-search>
+                <option value=""> - 选择状态 - </option>
+                {volist name='status' id='vo'}
+                  <option value="{$vo.code}">{$vo.name}</option>
+                {/volist}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+          <div class="layui-form-item">
+            <label class="layui-form-label">级别</label>
+            <div class="layui-input-block">
+              <input type="text" name="name" placeholder="输入级别" autocomplete="off" class="layui-input" >
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+          <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-block">
+              <input type="text" name="regtime" placeholder="选择时间范围" autocomplete="off" class="layui-input" id="search_regtime">
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+          <div class="layui-form-item">
+            <label class="layui-form-label">更新时间</label>
+            <div class="layui-input-block">
+              <input type="text" name="uptime" placeholder="选择时间范围" autocomplete="off" class="layui-input" id="search_uptime">
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item">
+                <div class="layui-input-block form-btn form-btn-left layui-btn-container">
+                  <button class="layui-btn" type="button" lay-submit lay-filter="*">提交</button>
+                  <button class="layui-btn layui-btn-primary" type="reset" lay>重置</button>
+                </div>
+              </div>
+        </div>
+            
+            
+      </div>
+    </form>
+  </div>
+</fieldset>
+<table id="data_table" lay-filter="dtb" fiy-url='{:url("admin/form/data_table")}' fiy-table='{$table}' class="layui-hide">
+  <th>{"type": "checkbox", "fixed": "left"}</th>
+  <th>{"field": "id", "title": "ID", "align": "center", "sort": "true", "fixed": "left"}</th>
+  <th>{"field": "icon", "title": "图标", "templet": "#Tpl_icon", "align": "center"}</th>
+  <th>{"field": "name", "title": "名称", "align": "center"}</th>
+  <th>{"field": "menu_type", "title": "类型", "templet": "#Tpl_menu_type", "align": "center", "sort": "true"}</th>
+  <th>{"field": "weigh", "title": "权重", "align": "center", "sort": "true"}</th>
+  <th>{"field": "level", "title": "级别", "align": "center", "sort": "true"}</th>
+  <th>{"field": "status", "title": "状态", "align": "center", "sort": "true", "templet": "#Tpl_status"}</th>
+  <th>{"templet": "#Tpl_tool", "title": "操作", "align": "center", "fixed": "right", "minWidth": "150"}</th>
+</table>
+
+
+
+  
+{/block}

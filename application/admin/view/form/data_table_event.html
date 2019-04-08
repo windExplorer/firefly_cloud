@@ -1,0 +1,36 @@
+<div class="modal-container">
+  <table class="layui-table">
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>值</th>
+      </tr> 
+    </thead>
+    <tbody>
+      {volist name='cols' id='vo'}
+        <tr>
+          <td>{$vo.title}</td>
+          <td>
+            {if empty($data[$vo.name])}
+              <i class="layui-word-aux">NULL</i>
+            {elseif empty($vo.child) /}
+              {if stripos($vo.name, 'icon')}
+                <i class="{$data[$vo.name]}"></i>
+              {elseif stripos($vo.name, 'time') /}
+                {$data[$vo.name]|date='Y-m-d H:i:s'}
+              {else /}
+                {$data[$vo.name]}
+              {/if} 
+            {else /}
+            <div class="layui-form" lay-filter="test1">
+              <input type="checkbox" name="{$vo.name}" lay-skin="switch" lay-text="{$vo.child[$data[$vo.name]]}|1" value="{$data[$vo.name]}" checked disabled>
+            </div>
+            {/if}
+            
+            
+          </td>
+        </tr>
+      {/volist}
+    </tbody>
+  </table>
+</div>

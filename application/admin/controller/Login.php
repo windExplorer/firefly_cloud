@@ -7,16 +7,6 @@ class Login extends BaseAdmin
 {
 
   protected $table = 'admin';
-  /**
-   * 初始化 
-   * 1.检测是否安装程序
-   */
-  protected function initialize()
-  {
-      $this->checkInstall();
-  }
-
-
   public function index()
   {
     $this->assign([
@@ -42,6 +32,7 @@ class Login extends BaseAdmin
   public function logout()
   {
     session(null);
+    $this->Addlog($this->table, '退出成功', 5);
     //data  code  msg
     return $this->Result(true, 1, '退出成功');
   }

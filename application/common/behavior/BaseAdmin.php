@@ -9,26 +9,50 @@ use thnk\facade\APP;
 class BaseAdmin extends Controller 
 {
 
+    public $pjax = 0;
+    public $title = '萤火云管理系统';
+    public $where = ['is_deleted' => 0];
+    
+
     /**
      * admin所有都需要登录才允许进入
      */
     
     protected $beforeActionList = [
-        'checkInstall',
+        
     ];
 
     /**
+     * 
      * 初始化 
+     * 1.检测是否安装程序
      */
-    protected function initialize()
+    public function initialize()
     {
+        $this->checkInstall();
+        if(!strpos(request()->url(), 'login'))
+            $this->checkLogin();
+        if(request()->isPjax())
+            $this->pjax = 1;
+        else {
+            /* dump($this->getMenu());
+            die; */
+            $this->assign([
+                'title'     =>  $this->title,
+                'admin'     =>  session('admin'),
+                'nav'       =>  $this->getMenu(),
+                'thUrl'     =>  request()->url()
+            ]);
+        }
 
+        $this->assign('pjax', $this->pjax);
     }
 
     /**
      * 检测是否安装程序
      */
-    public function checkInstall(){
+    public function checkInstall()
+    {
         if(!file_exists('../install.lock')){
             $this->redirect(url('install/index/confirm'));
         }
@@ -39,6 +63,7 @@ class BaseAdmin extends Controller
      * 
      */
     public function checkLogin(){
+
         //检测session('admin')是否存在
         if(!session('?admin')){
             $this->redirect(url('admin/Login/index'));
@@ -75,14 +100,27 @@ class BaseAdmin extends Controller
 
     /**
      * 查询数据库
-     *  
+     *  limit 0:查记录集   1:查一个  其他:根据页码查
      */
-    public function Retrieve($table, $where = '', $order = 'id asc', $limit = 1, $page = 0)
+    public function Retrieve($table, $where = '', $limit = 1, $page = 0, $order = 'id asc')
     {
-        if($limit !== 1)
-            return db($table)->where($where)->order($order)->limit($limit * $page, $limit)->select();
+        $db = db($table)->where($where)->order($order);
+        if($limit == 0)
+            return $db->select();
+        else if($limit == 1)
+            return $db->find();
         else
-            return db($table)->where($where)->order($order)->find();
+            return $db->page($page, $limit)->select();
+            
+    }
+
+    /**
+     * 查询
+     * 
+      */
+    public function SearchRetrieve($table, $data)
+    {
+
     }
 
     /**
@@ -95,8 +133,72 @@ class BaseAdmin extends Controller
     }
 
     /**
+     * 更新数据 
+     * $data包含主键
+      */
+    public function Update($table, $data)
+    {
+        return db($table)->update($data);
+    }
+
+    /**
+     * 删除数据
+     * 如果表中存在字段is_deleted，则为软删除，否则进行硬删除
+      */
+    public function Delete($table, $id)
+    {
+        if(CheckTableField($table, 'is_deleted')){
+            return $this->update($table, ['id' => $id, 'is_deleted' => 1]);
+        } else {
+            return db($table)->delete($id);
+        }
+    }
+
+    /**
+     * 获取数据库表字段以及相关信息-并且进行转化
+      */
+    public function GetColumnInfo($table)
+    {
+        $res = Db::query("select * from information_schema.columns where table_schema = ?  and table_name = ?", [config('database.database'), config('database.prefix').$table] );
+        $data = [];
+        foreach($res as $k => $v)
+        {
+            $column = $v['COLUMN_NAME'];
+            $comment = $v['COLUMN_COMMENT'];
+            if(in_array($column, config('dbrule.need_enum'))){
+                $com = explode('[', $comment);
+                $data[$column] = [
+                    'name'  =>  $column,
+                    'title' =>  $com[0]
+                ];
+                $child = explode(',', explode(']', $com[1])[0]);
+                foreach($child as $k => $v){
+                    $a = explode(':', $v); 
+                    $data[$column]['child'][$a[0]] = $a[1];
+               } 
+            }else{
+                $data[] = [
+                    'name'  =>  $column,
+                    'title' =>  $comment,
+                    'child' =>  []
+                ];
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * 判断数据库表中字段是否存在
+     * 返回 true false
+      */
+    public function CheckTableField($table, $field)
+    {
+        return empty(Db::query("select count(*) from information_schema.columns where table_name = ? and column_name = ?", [config('database.prefix').$table, $field])) ? false : true;
+    }
+
+    /**
      * 写管理员日志表
-     *  
+     * admin_log_type 日志类型[0:增,1:删,2:改,3:查,4:登录,5:退出]
      */
     public function Addlog($table, $info, $admin_log_type)
     {
@@ -127,9 +229,10 @@ class BaseAdmin extends Controller
      */
     public function getMenu()
     {
+        $this->where = ['is_deleted' => 0, 'status' => 1];
         $data = [];
         for($i = 0; $i < 3; $i ++){
-            $res = db('menu')->where(['pid' => $i + 1])->select();
+            $res = db('menu')->where(['pid' => $i + 1])->where($this->where)->order('weigh', 'asc')->select();
             $data[$i] = $this->getMenu2($res);
         }
         return $data;
@@ -141,9 +244,10 @@ class BaseAdmin extends Controller
      */
     public function getMenu2($data)
     {
+        $this->where = ['is_deleted' => 0, 'status' => 1];
         if(!empty($data)){
             foreach($data as $k => $v){
-                $data[$k]['child'] = db('menu')->where('pid', $v['id'])->select();
+                $data[$k]['child'] = db('menu')->where('pid', $v['id'])->where($this->where)->order('weigh', 'asc')->select();
             }
         }
         return $data;

@@ -1,5 +1,7 @@
 @color_1: #01AAED;
 @color_2: #fff;
+
+/* nav */
 .hvr-overline-from-left:before {
     height: 2px;
     background: @color_1;
@@ -7,8 +9,10 @@
 .hvr-overline-from-left.active::before {
     width: 100%;
 }
+.layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this{
+    background-color: @color_1 !important;
+}
 .layui-layout-admin{
-
     .layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after{
         background-color: @color_1 !important;
         height: 4px; 
@@ -49,5 +53,97 @@
     .layui-body2,
     .layui-footer2{
         left: 60px;
+    }
+}
+
+
+
+
+body{
+    /* layer */
+    .fiy-layer{
+        .layui-layer-title{
+            background: @color_1; 
+            color:#fff; 
+            border: none;
+        }
+        .layui-layer-btn{
+            border-top: 1px solid #E9E7E7;
+            .layui-layer-btn0{
+                background: @color_1;
+            }
+            .layui-layer-btn1{
+                background: transparent;
+            }
+        }
+    }
+    /* form */
+    .form-style{
+        width: 85%;
+        margin: 20px auto;
+        .layui-form-label{
+            color: #797979;
+        }
+    }
+    .form-btn{
+        text-align: center;
+        margin-left: 0 !important;
+    }
+    .form-btn-left{
+        text-align: left;
+    }
+    .inline-block{
+        display: inline-block;
+        vertical-align: center;
+    }
+    
+    /* placehoder */
+    input::-webkit-input-placeholder{
+        color: #999999;
+    }
+    input:-moz-placeholder{
+        color: #999999;
+    }                 
+    input::-moz-placeholder{
+        color: #999999;
+    }                  
+    input:-ms-input-placeholder{
+        color: #999999;
+    }
+    
+    /* banner */
+    .banner{
+        height: 35px;
+        line-height: 35px;
+        box-shadow: 0 0 10px #777777;
+        padding: 10px 15px;
+        i{
+            margin-right: 5px;
+            font-size: 18px;
+        }
+        .title{
+            font-size: 16px;
+        }
+        .banner-btns{
+            float: right;
+        }
+    }
+
+    /* 数据表格按钮 */
+    .tpl_normal_btns{
+        button{
+            height: 26px;
+            line-height: 26px;
+            width: 26px;
+            i{
+                margin-left: -5px;
+            }
+        }
+    }
+
+    /* 弹窗modal */
+    .modal-container{
+        width: 95%;
+        margin: 20px auto;
     }
 }

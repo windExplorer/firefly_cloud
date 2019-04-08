@@ -25,16 +25,16 @@
             {volist name='$nav[1]' id='vo'}
             <li class="layui-nav-item">
                 {if !empty($vo.child)}
-                <a href="javascript:;">{$vo.name}</a>
+                <a {$vo.extend} href="javascript:;">{$vo.name}</a>
                 <dl class="layui-nav-child">
                   {volist name='$vo.child' id='vo1'}
-                  <dd>    
-                    <a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a>
+                  <dd lay-unselect>    
+                    <a {$vo1.extend} data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a>
                   </dd>
                   {/volist}
                 </dl>
                 {else /}
-                  <a data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                  <a {$vo.extend} data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
                 {/if}
               {/volist}
             </li>
@@ -43,16 +43,30 @@
               {volist name='$nav[2]' id='vo'}
               <li class="layui-nav-item">
                   {if !empty($vo.child)}
-                  <a href="javascript:;">{$vo.name}</a>
+                  <a {$vo.extend} href="javascript:;">
+                      {in name='$vo.menu_type' value='1'}
+                      {$vo.name}
+                      {/in}
+                      {in name='$vo.menu_type' value='4'}
+                      <i class="{$vo.icon}"></i>
+                      {/in}
+                  </a>
                   <dl class="layui-nav-child">
                     {volist name='$vo.child' id='vo1'}
-                    <dd>    
-                      <a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a>
+                    <dd lay-unselect>    
+                      <a {$vo1.extend} data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}">{$vo1.name}</a>
                     </dd>
                     {/volist}
                   </dl>
                   {else /}
-                    <a data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                    <a {$vo.extend} data-pjax href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">
+                      {in name='$vo.menu_type' value='1'}
+                      {$vo.name}
+                      {/in}
+                      {in name='$vo.menu_type' value='4'}
+                      <i class="{$vo.icon}"></i>
+                      {/in}
+                    </a>
                   {/if}
                 {/volist}
             <li class="layui-nav-item">
@@ -61,9 +75,9 @@
                 {$admin.nickname}
               </a>
               <dl class="layui-nav-child">
-                <dd><a href="">基本资料</a></dd>
-                <dd><a href="">安全设置</a></dd>
-                <dd><a href="javascript:;" fiy-link="{:url('admin/login/logout')}" fiy-logout>退了</a></dd>
+                <dd lay-unselect><a href="">基本资料</a></dd>
+                <dd lay-unselect><a href="javascript:;" fiy-modal="{:url('admin/form/edit_password')}" fiy-area='400px' fiy-title="修改密码">修改密码</a></dd>
+                <dd lay-unselect><a href="javascript:;" fiy-link="{:url('admin/login/logout')}" fiy-logout>退了</a></dd>
               </dl>
             </li>
           </ul>
@@ -72,20 +86,20 @@
         <div class="layui-side layui-bg-black">
           <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="nav-left">
+            <ul class="layui-nav layui-nav-tree" lay-filter="nav-left" lay-shrink="all">
               {volist name='$nav[0]' id='vo'}
               <li class="layui-nav-item layui-nav-itemed">
                 {if !empty($vo.child)}
-                <a fiy-side-tpl href="javascript:;">{if !empty($vo.icon)}<i class="{$vo.icon}" aria-hidden="true"></i> <span class="layui-nav-name">{/if} {$vo.name}</span></a>
+                <a {$vo.extend} fiy-side-tpl href="javascript:;">{if !empty($vo.icon)}<i class="{$vo.icon}" aria-hidden="true"></i> <span class="layui-nav-name">{/if} {$vo.name}</span></a>
                 <dl class="layui-nav-child">
                   {volist name='$vo.child' id='vo1'}
                   <dd fiy-side-tpl class="{if $thUrl == url($vo1.rule)}layui-this{/if}">    
-                    <a data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}" class="layui-nav-side-level2">{if !empty($vo1.icon)}<i class="{$vo1.icon}" aria-hidden="true"></i> <span class="layui-nav-name">{/if} {$vo1.name}</span></a>
+                    <a {$vo1.extend} data-pjax href="{$vo1.rule ? url($vo1.rule) : 'javascript:;'}" class="layui-nav-side-level2">{if !empty($vo1.icon)}<i class="{$vo1.icon}" aria-hidden="true"></i> <span class="layui-nav-name">{/if} {$vo1.name}</span></a>
                   </dd>
                   {/volist}
                 </dl>
                 {else /}
-                  <a data-pjax class="{if $thUrl == url($vo.rule)}layui-this{/if}" href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                  <a {$vo.extend} data-pjax class="{if $thUrl == url($vo.rule)}layui-this{/if}" href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
                 {/if}
               </li>
               {/volist}
@@ -95,10 +109,16 @@
         
         <div class="layui-body">
           <!-- 内容主体区域 -->
-          <div style="padding: 15px;">
-              <div id="pjax-container">
-                {block name='content'}{/block}
+          <div id="pjax-container">
+            <div class="banner layui-btn-container {if empty($menu_title)}layui-hide{/if}">
+              <i class="{$menu_icon ?? 'layui-icon layui-icon-engine'} fa-fw"></i> <span class="title">{$menu_title ?? ''}</span>
+              <div class="banner-btns">
+                {block name='buttons'}{/block}
               </div>
+            </div>
+            <div style="padding: 15px;">
+              {block name='content'}{/block}
+            </div>
           </div>
         </div>
         
@@ -109,16 +129,64 @@
       </div>
 
   
-  
+    
+    <script>
+      //全局变量
+      const DTB_ID = 'data_table' //数据表格的id
+      const DTB_STATUS = `{:url("admin/form/dtb_status")}` //数据表格状态修改地址
 
+    </script>
     <script src="__EXTEND__/layui/layui.js"></script>
     <script src="__EXTEND__/plugins/jquery.min.js"></script>
-    <script src="__EXTEND__/plugins/pjax.min.js"></script>
-    <script src="__SOURCE_JS__/admin.min.js"></script>
+    <script src="__EXTEND__/plugins/pjax.js"></script>
+    <script src="__SOURCE_JS__/admin.js"></script>
     {block name='js'}{/block}
 </body>
 </html>
 
 {else /}
-  {block name='content'}{/block}
+  <div class="banner layui-btn-container {if empty($menu_title)}layui-hide{/if}">
+    <i class="{$menu_icon ?? 'layui-icon layui-icon-engine'} fa-fw"></i> <span class="title">{$menu_title ?? ''}</span>
+    <div class="banner-btns">
+      {block name='buttons'}{/block}
+    </div>
+  </div>
+  <div style="padding: 15px;">
+    {block name='content'}{/block}
+  </div>
 {/if}
+
+<script type="text/html" id="Tpl_tool">
+  <div class="layui-btn-group tpl_normal_btns" fiy-url='{:url("admin/form/data_table_event")}' fiy-id='{{d.id}}'>
+    <button class="layui-btn layui-btn-normal layui-btn-sm" fiy-title='查看' lay-event="view">
+      <i class="fa fa-hand-o-left"></i>
+    </button>
+    <button class="layui-btn layui-btn-sm" fiy-title='编辑' lay-event="edit">
+      <i class="layui-icon layui-icon-edit"></i>
+    </button>
+    <button class="layui-btn layui-btn-danger layui-btn-sm" fiy-title='删除' lay-event="del">
+      <i class="layui-icon layui-icon-delete"></i>
+    </button>
+  </div>
+</script>
+<script type="text/html" id="Tpl_icon">
+   <i class="{{d.icon}}"></i>
+</script>
+<script type="text/html" id="Tpl_menu_type">
+  {{# if(d.menu_type == 0){ }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary'>非菜单</button>
+  {{# }else if(d.menu_type == 1) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal'>链接</button>
+  {{# }else if(d.menu_type == 2) { }}
+    <button class='layui-btn layui-btn-sm'>图片</button>
+  {{# }else if(d.menu_type == 3) { }}
+    <button class='layui-btn layui-btn-sm'>文字</button>
+  {{# }else if(d.menu_type == 4) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-warm'>图标</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal'>自定义</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_status">
+  <input type="checkbox" name="close" lay-skin="switch" lay-text="显示|隐藏" lay-filter="tpl_status_switch" value="{{d.status}}" fiy-id="{{d.id}}" {{ d.status == '1' ? 'checked' : "" }}>
+</script>
