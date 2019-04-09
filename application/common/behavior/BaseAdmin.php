@@ -136,9 +136,13 @@ class BaseAdmin extends Controller
      * 更新数据 
      * $data包含主键
       */
-    public function Update($table, $data)
+    public function Update($table, $id, $data)
     {
-        return db($table)->update($data);
+        foreach($id as $k => $v){
+            $row = db($table)->where('id', $v)->update($data);
+        }
+        return $row;
+
     }
 
     /**
@@ -147,8 +151,8 @@ class BaseAdmin extends Controller
       */
     public function Delete($table, $id)
     {
-        if(CheckTableField($table, 'is_deleted')){
-            return $this->update($table, ['id' => $id, 'is_deleted' => 1]);
+        if($this->CheckTableField($table, 'is_deleted')){
+            return $this->Update($table, $id, ['is_deleted' => 1, 'uptime' => time()]);
         } else {
             return db($table)->delete($id);
         }

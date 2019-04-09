@@ -128,7 +128,7 @@
     </form>
   </div>
 </fieldset>
-<table id="data_table" lay-filter="dtb" fiy-url='{:url("admin/form/data_table")}' fiy-table='{$table}' class="layui-hide">
+<table id="data_table" lay-filter="dtb" fiy-url='{:url("admin/form/data_table")}' fiy-event-url="{:url('admin/form/data_table_event')}" fiy-table='{$table}' class="layui-hide">
   <th>{"type": "checkbox", "fixed": "left"}</th>
   <th>{"field": "id", "title": "ID", "align": "center", "sort": "true", "fixed": "left"}</th>
   <th>{"field": "icon", "title": "图标", "templet": "#Tpl_icon", "align": "center"}</th>

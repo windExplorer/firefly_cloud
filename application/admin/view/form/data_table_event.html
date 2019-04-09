@@ -1,9 +1,10 @@
 <div class="modal-container">
-  <table class="layui-table">
+  {in name='event' value='view'}
+  <table class="layui-table" lay-even>
     <thead>
       <tr>
-        <th>名称</th>
-        <th>值</th>
+        <th><b>名称</b></th>
+        <th><b>参数</b></th>
       </tr> 
     </thead>
     <tbody>
@@ -23,14 +24,22 @@
               {/if} 
             {else /}
             <div class="layui-form" lay-filter="test1">
-              <input type="checkbox" name="{$vo.name}" lay-skin="switch" lay-text="{$vo.child[$data[$vo.name]]}|1" value="{$data[$vo.name]}" checked disabled>
+              <button class="layui-btn layui-btn-sm">{$vo.child[$data[$vo.name]]}</button>
             </div>
             {/if}
-            
-            
           </td>
         </tr>
       {/volist}
     </tbody>
   </table>
+  {/in}
+
+  {in name='event' value='edit'}
+  编辑
+  {/in}
+
+  {in name='event' value='add'}
+  添加
+  {/in}
+
 </div>

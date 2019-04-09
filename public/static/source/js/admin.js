@@ -114,7 +114,10 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
               Set_Dtb_Status(ele)
               break
             case 3: //行event删除
-              obj.del()
+              ele.del()
+              break
+            case 4: //更新表格
+              Table_Reload()
               break
             default:
               Page_Reload() 
@@ -168,7 +171,6 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
             area: area,
             content: html,
             success: function(layero, index){
-              console.log('更新表单渲染')
               form.render()
             },
             cancel: function(index1, layero){ 
@@ -222,22 +224,49 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
 
   // 监听数据表格头部工具
   table.on('toolbar(dtb)', function(obj){
-    var checkStatus = table.checkStatus(obj.config.id) //获取选中项
+    let checkStatus = table.checkStatus(obj.config.id) //获取选中项
+    let data = {
+      id: 0,
+      table: Get_Dtb_Table(),
+      event: obj.event
+    }
+    let th = $(`#${DTB_ID}`)
     switch(obj.event){
       case 'add':
-        layer.msg('添加');
-      break;
-      case 'delete':
-        layer.msg('删除');
-      break;
+        modal(th.attr('fiy-event-url'), `添加`, ``, `800px` , data, 'post')
+      break
       case 'update':
-        layer.msg('编辑');
-      break;
+        if(checkStatus.data.length > 1){
+          layer.msg('请仅选择一项')
+          return
+        }
+        if(checkStatus.data.length == 0){
+          layer.msg('请选择一项进行操作')
+          return
+        }
+        data.id = checkStatus.data[0].id
+        data.event = `edit`
+        modal(th.attr('fiy-event-url'), `编辑`, ``, `800px` , data, 'post')
+      break
+      case 'delete':
+        if(checkStatus.data.length == 0){
+          layer.msg('请至少选择一项进行操作')
+          return
+        }
+        data.event = 'del'
+        data.id = []
+        checkStatus.data.map(function(item, index){
+          data.id.push(item.id)
+        })
+        layer.confirm('真的删除这些项目么', {icon: 3, title:'删除提示'}, function(index){
+          layer.close(index)
+          Request(th.attr('fiy-event-url'), data, 'post', 4)
+        })
+      break
     }
   })
   //监听数据表格行工具条
-  table.on('tool(dtb)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-    //let data = obj.data
+  table.on('tool(dtb)', function(obj){
     let layEvent = obj.event
     let th = $(this)
     let data = {
@@ -248,13 +277,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     if(layEvent === 'view'){ //查看      
       modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px` , data, 'post')
     } else if(layEvent === 'del'){ //删除
-      layer.confirm('真的删除此项么', {icon: 3, title:'关闭提示'}, function(index){
+      layer.confirm('真的删除此项么', {icon: 3, title:'删除提示'}, function(index){
         layer.close(index)
         Request(th.parent().attr('fiy-url'), data, 'post', 3, obj)
       })
     } else if(layEvent === 'edit'){ //编辑
-      //do something
-      console.log('编辑')
       modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px` , data, 'post')
       //同步更新缓存对应的值
       obj.update({

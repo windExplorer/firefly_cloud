@@ -45,6 +45,19 @@ class Form extends BaseAdmin
   public function data_table_event()
   {
     $post = input('post.');
+    if($post['event'] == 'del'){
+      $post['id'] = (array)$post['id'];
+      $ret = $this->Delete($post['table'], $post['id']);
+      if(empty($ret)){
+        $this->Addlog($post['table'], '删除[id:'.implode(',', $post['id']).']失败', 1);
+        return  $this->Result(false, 0, '删除失败');
+
+      }else{
+        $this->Addlog($post['table'], '删除[id:'.implode(',', $post['id']).']成功', 1);
+        return  $this->Result($ret, 1, '删除成功');
+        
+      }
+    }
     $cols = $this->GetColumnInfo($post['table']);
     //dump($cols);
     $this->where = [
@@ -55,7 +68,8 @@ class Form extends BaseAdmin
     //dump($data);
     $this->assign([
       'cols'  =>  $cols,
-      'data'  =>  $data
+      'data'  =>  $data,
+      'event' =>  $post['event']
     ]);
     return view();
   }
