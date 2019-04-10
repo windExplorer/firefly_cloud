@@ -27,11 +27,10 @@ class Form extends BaseAdmin
   {
     $post = input('post.');
     $data = [
-      'id'  =>  $post['id'],
       'status'  =>  $post['status'],
       'uptime'  =>  time()
     ];
-    $res = $this->Update($post['table'], $data);
+    $res = $this->Update($post['table'], $post['id'], $data);
     if(empty($res)){
       return $this->Result(false, 0, '状态修改失败');
     } else {
@@ -66,10 +65,15 @@ class Form extends BaseAdmin
     ];
     $data = $this->Retrieve($post['table'], $this->where);
     //dump($data);
+    $pids = [];
+    if($this->CheckTableField($post['table'], 'pid')){
+      $pids = $this->GetTree($post['table']);
+    }
     $this->assign([
       'cols'  =>  $cols,
       'data'  =>  $data,
-      'event' =>  $post['event']
+      'event' =>  $post['event'],
+      'pids'  =>  $pids
     ]);
     return view();
   }

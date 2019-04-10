@@ -8,6 +8,8 @@ class Index extends BaseAdmin
 
     public function index()
     {
+        $ret = $this->GetColumnInfo('menu');
+        dump($ret);
         return view();
     }
 

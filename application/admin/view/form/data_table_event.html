@@ -39,7 +39,36 @@
   {/in}
 
   {in name='event' value='add'}
-  添加
+  <form class="layui-form" action="javascript:;">
+    
+    {volist name='cols' id='vo'}
+      {notin name='vo.name' value='id'}
+      <div class="layui-form-item">
+        <label class="layui-form-label">{$vo.title}</label>
+        <div class="layui-input-block">
+          {if empty($vo.child) /}
+            <input type="text" name="title" required lay-verify="required" lay-verType='tips' placeholder="请输入标题" autocomplete="off" class="layui-input">  
+          {else /}
+            {volist name='$vo.child' id='vo1'}
+            <input type="radio" name="{$vo.name}" value="{$i-1}" title="{$vo1}">
+            {/volist}
+          {/if}
+      
+        
+        
+        
+      </div>
+      </div>
+      {/notin}
+    {/volist}
+    
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      </div>
+    </div>
+  </form>
   {/in}
 
 </div>

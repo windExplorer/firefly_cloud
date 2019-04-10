@@ -138,6 +138,7 @@ class BaseAdmin extends Controller
       */
     public function Update($table, $id, $data)
     {
+        $id = (array)$id;
         foreach($id as $k => $v){
             $row = db($table)->where('id', $v)->update($data);
         }
@@ -169,11 +170,13 @@ class BaseAdmin extends Controller
         {
             $column = $v['COLUMN_NAME'];
             $comment = $v['COLUMN_COMMENT'];
+            $default = $v['COLUMN_DEFAULT'];
             if(in_array($column, config('dbrule.need_enum'))){
                 $com = explode('[', $comment);
                 $data[$column] = [
                     'name'  =>  $column,
-                    'title' =>  $com[0]
+                    'title' =>  $com[0],
+                    'default' =>$default,
                 ];
                 $child = explode(',', explode(']', $com[1])[0]);
                 foreach($child as $k => $v){
@@ -184,6 +187,7 @@ class BaseAdmin extends Controller
                 $data[] = [
                     'name'  =>  $column,
                     'title' =>  $comment,
+                    'default' => $default,
                     'child' =>  []
                 ];
             }
@@ -257,6 +261,23 @@ class BaseAdmin extends Controller
         return $data;
     }
 
+    /**
+     * 无限极菜单
+     * 
+      */
+    
+    public function GetTree($table){
+        $arr = $this->Retrieve($table, [['is_deleted', '=', 0], ['pid', '=', 0]], 0);
+        $arr2 = $this->Retrieve($table, [['is_deleted', '=', 0], ['pid', '<>', 0]], 0);
+        foreach($arr as $k => $v){
+            foreach($arr2 as $k2 => $v2){
+                if($v2['pid'] == $v['id']){
+                    $arr[$k]['child'][] = $v2;
+                }     
+            }
+        }
+        return $arr;
+    }
 
     public function test()
     {
