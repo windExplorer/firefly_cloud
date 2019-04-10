@@ -20,6 +20,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   Render_Table()
   Render_Time()
   
+  //标记事件
+  if(FLAG.search_box){
+    $('[fiy-id=search-box]').slideToggle()
+  }
+
   /* window事件 ***************************************************************************************************************** */
   //监听窗口size改变
   $(window).resize(function () {
@@ -160,7 +165,8 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
           load = layer.load(2)
         },
         complete: function(){
-          form.render()
+          /* form.render()
+          Render_Time() */
           layer.close(load)
         },
         success: function(html){
@@ -170,8 +176,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
             skin: 'fiy-layer',
             area: area,
             content: html,
+            maxmin: true,
+            shade: 0,
             success: function(layero, index){
               form.render()
+              Render_Time()
             },
             cancel: function(index1, layero){ 
               layer.confirm('确定关闭么?', {icon: 3, title:'关闭提示'}, function(index2){
@@ -310,6 +319,18 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       type: 'datetime',
       range: '~'
     })
+    laydate.render({
+      elem: '#form_regtime',
+      type: 'datetime',
+      range: false,
+      value: new Date()
+    })
+    laydate.render({
+      elem: '#form_uptime',
+      type: 'datetime',
+      range: false,
+      value: new Date()
+    })
   }
   // 重置数据表格
   function Render_Table(id = '#'+DTB_ID){
@@ -423,8 +444,55 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     open_loop_anim()
     Table_Reload()
   })
+  //打开图标库
+  $(document).on('click', 'a[fiy-id=select-icon]', function() {
+    let load
+    $.ajax({
+      type: 'get',
+      url: ICON_URL,
+      beforeSend: function(){
+        load = layer.load(2)
+      },
+      complete: function() {
+        layer.close(load)
+      },
+      success: function(html){
+        layer.open({
+          type: 1,
+          title: '图标库',
+          content: html,
+          area: ["800px", "700px"],
+          maxmin: true,
+          shade: 0,
+          skin: 'fiy-layer',
+          success: function(layero, index){
+            //点击图标库中图标获取图标
+            $(document).on('click', '.icon-ku li', function(){
+              $('a[fiy-id=show-icon]').find('i').attr('class', $(this).find('i').attr('class'))
+              $('a[fiy-id=show-icon]').parent().prev().find('input').val($(this).find('i').attr('class'))
+              layer.close(index)
+            })
+          }
+        })
+      }
+    })
+  })
+  //收起搜索面板
+  $(document).on('click', '[fiy-id=search-box-tag]', function() {
+    $('[fiy-id=search-box]').slideToggle()
+  })
+  //提示
+  $(document).on('mouseover', '[fiy-tips]', function() {
+    let th = $(this)
+    let index = layer.tips(th.attr('fiy-tips'), th, {
+      tips: th.attr('fiy-tips-area') || 1,
+      time: 0
+    })
+    th.on('mouseout', function(){
+      layer.close(index)
+    })
+  })  
 
-  
 
 
 

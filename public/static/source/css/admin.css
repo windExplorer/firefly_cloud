@@ -61,8 +61,10 @@ body {
   /* form */
   /* placehoder */
   /* banner */
+  /* main-container */
   /* 数据表格按钮 */
   /* 弹窗modal */
+  /* icon */
 }
 body .fiy-layer .layui-layer-title {
   background: #01AAED;
@@ -113,6 +115,9 @@ body .banner {
   line-height: 35px;
   box-shadow: 0 0 10px #777777;
   padding: 10px 15px;
+  position: fixed;
+  width: 100%;
+  margin-top: -50px;
 }
 body .banner i {
   margin-right: 5px;
@@ -123,6 +128,10 @@ body .banner .title {
 }
 body .banner .banner-btns {
   float: right;
+}
+body .main-container {
+  margin-top: 50px;
+  overflow: hidden;
 }
 body .tpl_normal_btns button {
   height: 26px;
@@ -135,4 +144,76 @@ body .tpl_normal_btns button i {
 body .modal-container {
   width: 95%;
   margin: 20px auto;
+}
+body .icon-ku ::-webkit-input-placeholder {
+  color: #aaa;
+}
+body .icon-ku ::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+body .icon-ku ::-webkit-scrollbar-track {
+  background: #ccc;
+}
+body .icon-ku ::-webkit-scrollbar-thumb {
+  background-color: #666;
+}
+body .icon-ku ::selection {
+  background-color: #ec494e;
+  color: #fff;
+}
+body .icon-ku ::-moz-selection {
+  background-color: #ec494e;
+  color: #fff;
+}
+body .icon-ku :-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: #333;
+}
+body .icon-ku ul li {
+  width: 20%;
+  height: 65px;
+  display: block;
+  float: left;
+  margin-right: -1px;
+  margin-left: -2px;
+  margin-bottom: -2px;
+  cursor: pointer;
+  font-size: 14px;
+  overflow: hidden;
+  text-align: center;
+  padding: 15px 0 10px 0;
+  border: 1px solid #e2e2e2;
+  background-color: #efefef;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  transition: all .2s linear;
+  -o-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -webkit-transition: all 0.2s linear;
+}
+body .icon-ku ul li:hover {
+  color: #fff;
+  background-color: #563d7c;
+}
+body .icon-ku ul li:hover i,
+body .icon-ku ul li:hover div {
+  color: #fff;
+}
+body .icon-ku ul li i {
+  color: #333;
+  display: inline-block;
+  font-size: 30px !important;
+}
+body .icon-ku ul li div {
+  color: #333;
+  height: 35px;
+  font-size: 13px;
+  line-height: 35px;
+  white-space: nowrap;
+}
+body .search-box-tag {
+  cursor: pointer;
 }

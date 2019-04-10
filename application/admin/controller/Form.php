@@ -69,12 +69,19 @@ class Form extends BaseAdmin
     if($this->CheckTableField($post['table'], 'pid')){
       $pids = $this->GetTree($post['table']);
     }
+    $default['weigh'] = $this->Retrieve($post['table'], '', 1, 0, 'id desc')['id'] + 1;
     $this->assign([
       'cols'  =>  $cols,
       'data'  =>  $data,
       'event' =>  $post['event'],
-      'pids'  =>  $pids
+      'pids'  =>  $pids,
+      'default' =>  $default
     ]);
+    return view();
+  }
+
+  /* icon */
+  public function icon(){
     return view();
   }
 

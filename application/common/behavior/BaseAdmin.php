@@ -176,6 +176,7 @@ class BaseAdmin extends Controller
                 $data[$column] = [
                     'name'  =>  $column,
                     'title' =>  $com[0],
+                    'allow_null' => $v['IS_NULLABLE'],
                     'default' =>$default,
                 ];
                 $child = explode(',', explode(']', $com[1])[0]);
@@ -188,6 +189,7 @@ class BaseAdmin extends Controller
                     'name'  =>  $column,
                     'title' =>  $comment,
                     'default' => $default,
+                    'allow_null' => $v['IS_NULLABLE'],
                     'child' =>  []
                 ];
             }
@@ -266,17 +268,24 @@ class BaseAdmin extends Controller
      * 
       */
     
-    public function GetTree($table){
-        $arr = $this->Retrieve($table, [['is_deleted', '=', 0], ['pid', '=', 0]], 0);
-        $arr2 = $this->Retrieve($table, [['is_deleted', '=', 0], ['pid', '<>', 0]], 0);
-        foreach($arr as $k => $v){
-            foreach($arr2 as $k2 => $v2){
-                if($v2['pid'] == $v['id']){
-                    $arr[$k]['child'][] = $v2;
-                }     
-            }
+    public function GetCategory($table, $pid = 0){
+        $arr = $this->Retrieve($table, [['is_deleted', '=', 0], ['pid', '=', $pid]], 0);
+        return $this->GetTree($arr, 0);
+    }
+
+    public function GetTree($data, $pId){
+        $tree = [];
+        foreach($data as $k => $v)
+        {
+        if($v['pid'] == $pId)
+        {        //父亲找到儿子
+        $v['pid'] = $this->getTree($data, $v['id']);
+        $tree[] = $v;
+        //unset($data[$k]);
         }
-        return $arr;
+        }
+        return $tree;
+
     }
 
     public function test()

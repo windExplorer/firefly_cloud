@@ -1,15 +1,14 @@
 {extend name='public/layout' /}
 
 {block name='buttons'}
-  <button class="layui-btn layui-btn-normal">添加菜单</button>
-  <button class="layui-btn layui-btn-danger">批量删除</button>
+  
 {/block}
 
 {block name='content'}
 
 <fieldset class="layui-elem-field">
-  <legend>条件查询</legend>
-  <div class="layui-field-box">
+  <legend fiy-id='search-box-tag' class="search-box-tag" fiy-tips='点击伸缩' fiy-tips-area='1'>条件查询</legend>
+  <div class="layui-field-box" fiy-id='search-box'>
     <form class="layui-form layui-form-pane" action="javascript:;" method="POST" fiy-url="{:request()->url()}">
       <div class="layui-row layui-col-space10">
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
@@ -41,9 +40,9 @@
                   <select name="pid" lay-filter="pid" lay-search>
                     <option value=""> - 搜索选择父级ID - </option>
                     {volist name='menu' id='vo'}
-                      {in name='vo.level' value='0,1'}
+   
                       <option value="{$vo.id}">{$vo.name}</option>
-                      {/in}
+                    
                     {/volist}
                   </select>
                 </div>
@@ -89,7 +88,7 @@
 
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
           <div class="layui-form-item">
-            <label class="layui-form-label">级别</label>
+            <label class="layui-form-label">权重</label>
             <div class="layui-input-block">
               <input type="text" name="name" placeholder="输入级别" autocomplete="off" class="layui-input" >
             </div>
@@ -135,7 +134,6 @@
   <th>{"field": "name", "title": "名称", "align": "center"}</th>
   <th>{"field": "menu_type", "title": "类型", "templet": "#Tpl_menu_type", "align": "center", "sort": "true"}</th>
   <th>{"field": "weigh", "title": "权重", "align": "center", "sort": "true"}</th>
-  <th>{"field": "level", "title": "级别", "align": "center", "sort": "true"}</th>
   <th>{"field": "status", "title": "状态", "align": "center", "sort": "true", "templet": "#Tpl_status"}</th>
   <th>{"templet": "#Tpl_tool", "title": "操作", "align": "center", "fixed": "right", "minWidth": "150"}</th>
 </table>

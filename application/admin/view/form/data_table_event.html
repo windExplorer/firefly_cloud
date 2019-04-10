@@ -17,7 +17,7 @@
             {elseif empty($vo.child) /}
               {if stripos($vo.name, 'icon')}
                 <i class="{$data[$vo.name]}"></i>
-              {elseif stripos($vo.name, 'time') /}
+              {elseif stripos($vo.name, 'time') !== false /}
                 {$data[$vo.name]|date='Y-m-d H:i:s'}
               {else /}
                 {$data[$vo.name]}
@@ -40,24 +40,35 @@
 
   {in name='event' value='add'}
   <form class="layui-form" action="javascript:;">
-    
     {volist name='cols' id='vo'}
       {notin name='vo.name' value='id'}
       <div class="layui-form-item">
         <label class="layui-form-label">{$vo.title}</label>
         <div class="layui-input-block">
           {if empty($vo.child) /}
-            <input type="text" name="title" required lay-verify="required" lay-verType='tips' placeholder="请输入标题" autocomplete="off" class="layui-input">  
+            {if $vo.name=='weigh'}
+            <input type="text" name="{$vo.name}" required lay-verify="required|number" lay-verType='tips' placeholder="请输入{$vo.title}" value="{$default.weigh}" autocomplete="off" class="layui-input">  
+            {elseif $vo.name=='regtime' || $vo.name=='uptime'/}
+            <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="form_{$vo.name}">
+            {elseif $vo.name=='icon' /}
+            <div class="layui-input-inline">
+              <input type="text" name="{$vo.name}" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input">  
+            </div>
+            <div class="layui-input-inline">
+              <a class="layui-btn layui-btn-primary" fiy-id='show-icon'><i></i></a>
+              <a class="layui-btn layui-btn-normal" fiy-id='select-icon'>选择图标</a>
+            </div>
+            {elseif $vo.name=='pid' /}
+            
+            {else /}
+            <input type="text" name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} lay-verType='tips' placeholder="请输入{$vo.title}" value="{$vo.default}" autocomplete="off" class="layui-input">  
+            {/if}
           {else /}
             {volist name='$vo.child' id='vo1'}
-            <input type="radio" name="{$vo.name}" value="{$i-1}" title="{$vo1}">
+            <input type="radio" name="{$vo.name}" value="{$i-1}" title="{$vo1}" {in name='$vo.default' value='$i-1'}checked{/in}>
             {/volist}
           {/if}
-      
-        
-        
-        
-      </div>
+        </div>
       </div>
       {/notin}
     {/volist}
