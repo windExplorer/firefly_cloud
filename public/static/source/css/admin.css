@@ -10,6 +10,9 @@
 .layui-nav-child dd.layui-this {
   background-color: #01AAED !important;
 }
+.layui-layout-admin .layui-side-bg {
+  background: #2F4056;
+}
 .layui-layout-admin .layui-nav .layui-this:after,
 .layui-layout-admin .layui-nav-bar,
 .layui-layout-admin .layui-nav-tree .layui-nav-itemed:after {
@@ -17,10 +20,11 @@
   height: 4px;
 }
 .layui-layout-admin .layui-header {
-  background-color: #01AAED;
+  background-color: #FF6F61;
 }
 .layui-layout-admin .layui-header .layui-logo {
   color: #fff;
+  cursor: pointer;
 }
 .layui-layout-admin .layui-header .layui-badge {
   top: -10px;
@@ -30,7 +34,7 @@
 .layui-layout-admin .layui-nav-tree .layui-this,
 .layui-layout-admin .layui-nav-tree .layui-this > a,
 .layui-layout-admin .layui-nav-tree .layui-this > a:hover {
-  background-color: #01AAED;
+  background-color: #FF6F61;
 }
 .layui-layout-admin .layui-nav-side-level2 {
   margin-left: 5px;
@@ -67,7 +71,7 @@ body {
   /* icon */
 }
 body .fiy-layer .layui-layer-title {
-  background: #01AAED;
+  background: #FF6F61;
   color: #fff;
   border: none;
 }
@@ -75,7 +79,7 @@ body .fiy-layer .layui-layer-btn {
   border-top: 1px solid #E9E7E7;
 }
 body .fiy-layer .layui-layer-btn .layui-layer-btn0 {
-  background: #01AAED;
+  background: #FF6F61;
 }
 body .fiy-layer .layui-layer-btn .layui-layer-btn1 {
   background: transparent;

@@ -59,18 +59,26 @@ class Form extends BaseAdmin
       }
     }
     $cols = $this->GetColumnInfo($post['table']);
-    //dump($cols);
-    $this->where = [
-      'is_deleted'  => 0,
-      'id'          =>  $post['id'],  
-    ];
-    $data = $this->Retrieve($post['table'], $this->where);
-    //dump($data);
     $pid_dom = '';
-    if($this->CheckTableField($post['table'], 'pid')){
-      $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>')['dom'];
+    $data = [];
+    $default = [];
+    if($post['event'] == 'add'){
+      if($this->CheckTableField($post['table'], 'pid')){
+        $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>')['dom'];
+      }
+      $default['weigh'] = $this->Retrieve($post['table'], '', 1, 0, 'id desc')['id'] + 1;
+    }else{
+      $this->where = [
+        'is_deleted'  => 0,
+        'id'          =>  $post['id'],  
+      ];
+      $data = $this->Retrieve($post['table'], $this->where);
+      if($post['event'] == 'edit'){
+        if($this->CheckTableField($post['table'], 'pid')){
+          $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>', $data['pid'])['dom'];
+        }
+      }
     }
-    $default['weigh'] = $this->Retrieve($post['table'], '', 1, 0, 'id desc')['id'] + 1;
     $this->assign([
       'table' =>  $post['table'],
       'cols'  =>  $cols,
@@ -98,11 +106,26 @@ class Form extends BaseAdmin
     }
     $ret = $this->Create($post['table'], $post['data']);
     if(empty($ret)){
-      $this->Addlog($post['table'], '添加数据失败', 1);
+      $this->Addlog($post['table'], '添加数据失败', 0);
       return $this->Result($ret, 0, '添加数据失败');
     }else{
-      $this->Addlog($post['table'], '添加[id:'.$ret.']数据项成功', 1);
+      $this->Addlog($post['table'], '添加[id:'.$ret.']数据项成功', 0);
       return $this->Result($ret, 1, '添加数据成功');
+    }
+  }
+
+  /* 编辑数据 */
+  public function event_edit(){
+    $post = input('post.');
+    unset($post['data']['regtime']); //不进行regtime写库
+    $post['data']['uptime'] = time(); //进行uptime记录
+    $ret = $this->Update($post['table'], $post['data']['id'], $post['data']);
+    if(empty($ret)){
+      $this->Addlog($post['table'], '修改[id:'.$post['data']['id'].']数据项失败', 2);
+      return $this->Result($ret, 0, '修改数据失败');
+    }else{
+      $this->Addlog($post['table'], '修改[id:'.$post['data']['id'].']数据项成功', 2);
+      return $this->Result($ret, 1, '修改数据成功');
     }
   }
 
@@ -131,7 +154,7 @@ class Form extends BaseAdmin
         'uptime'        =>  time()
       ];
       $table = 'admin';
-      $data = $this->Update($table, $sql);
+      $data = $this->Update($table, $sql['id'], $sql);
       if(empty($data)){
         return $this->Result(false, 0, '修改失败!');
       }else{

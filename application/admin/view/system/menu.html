@@ -13,120 +13,49 @@
       <div class="layui-row layui-col-space10">
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
             <div class="layui-form-item" pane>
-              <label class="layui-form-label">精准搜索</label>
+              <label class="layui-form-label">模糊搜索</label>
               <div class="layui-input-block">
-                  <input type="checkbox" name="accurate" lay-skin="switch" lay-text="开启|关闭" checked value="1">
+                  <input type="checkbox" name="blur" lay-skin="switch" lay-text="开启|关闭" value="1">
               </div>
             </div>
         </div>
-          
+        {volist name='cols' id='vo'}
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-            <div class="layui-form-item">
-                <label class="layui-form-label">ID</label>
-                <div class="layui-input-block">
-                  <select name="id" lay-filter="id" lay-search>
-                    <option value=""> - 搜索选择ID - </option>
-                    {volist name='menu' id='vo'}
-                      <option value="{$vo.id}">{$vo.name}</option>
+          <div class="layui-form-item">
+            <label class="layui-form-label">{$vo.title}</label>
+            <div class="layui-input-block">
+              {if empty($vo.child)}
+                {if stripos($vo.name, 'time') !== false}
+                <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}范围" autocomplete="off" class="layui-input" id="search_{$vo.name}">
+                {else /}
+                  <input type="text" name="{$vo.name}" placeholder="输入{$vo.title}" autocomplete="off" class="layui-input" >
+                {/if}
+              {else /}
+                <select name="{$vo.name}" lay-search>
+                    <option value=""> - 选择{$vo.title} - </option>
+                    {volist name='$vo.child' id='vo1'}
+                    <option value="{$i-1}">{$vo1}</option>
                     {/volist}
-                  </select>
-                </div>
-              </div>
-        </div>
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-            <div class="layui-form-item">
-                <label class="layui-form-label">父级ID</label>
-                <div class="layui-input-block">
-                  <select name="pid" lay-filter="pid" lay-search>
-                    <option value=""> - 搜索选择父级ID - </option>
-                    {volist name='menu' id='vo'}
-   
-                      <option value="{$vo.id}">{$vo.name}</option>
-                    
-                    {/volist}
-                  </select>
-                </div>
-            </div>
-        </div>
-        
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-            <div class="layui-form-item">
-              <label class="layui-form-label">名称</label>
-              <div class="layui-input-block">
-                <input type="text" name="name" placeholder="输入名称" autocomplete="off" class="layui-input" >
-              </div>
-            </div>
-        </div>
-
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-          <div class="layui-form-item">
-            <label class="layui-form-label">菜单类型</label>
-            <div class="layui-input-block">
-              <select name="menu_type" lay-filter="menu_type" lay-search>
-                <option value=""> - 选择菜单类型 - </option>
-                {volist name='menu_type' id='vo'}
-                  <option value="{$vo.code}">{$vo.name}</option>
-                {/volist}
-              </select>
+                </select>
+              {/if}
             </div>
           </div>
         </div>
-
+        {/volist}
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
           <div class="layui-form-item">
-            <label class="layui-form-label">状态</label>
-            <div class="layui-input-block">
-              <select name="menu_type" lay-filter="menu_type" lay-search>
-                <option value=""> - 选择状态 - </option>
-                {volist name='status' id='vo'}
-                  <option value="{$vo.code}">{$vo.name}</option>
-                {/volist}
-              </select>
+            <div class="layui-input-block form-btn form-btn-left layui-btn-container">
+              <button class="layui-btn" type="button" lay-submit lay-filter="form_search">提交</button>
+              <button class="layui-btn layui-btn-primary" type="reset" lay>重置</button>
             </div>
           </div>
-        </div>
-
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-          <div class="layui-form-item">
-            <label class="layui-form-label">权重</label>
-            <div class="layui-input-block">
-              <input type="text" name="name" placeholder="输入级别" autocomplete="off" class="layui-input" >
-            </div>
-          </div>
-        </div>
-
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-          <div class="layui-form-item">
-            <label class="layui-form-label">创建时间</label>
-            <div class="layui-input-block">
-              <input type="text" name="regtime" placeholder="选择时间范围" autocomplete="off" class="layui-input" id="search_regtime">
-            </div>
-          </div>
-        </div>
-
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-          <div class="layui-form-item">
-            <label class="layui-form-label">更新时间</label>
-            <div class="layui-input-block">
-              <input type="text" name="uptime" placeholder="选择时间范围" autocomplete="off" class="layui-input" id="search_uptime">
-            </div>
-          </div>
-        </div>
-
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-            <div class="layui-form-item">
-                <div class="layui-input-block form-btn form-btn-left layui-btn-container">
-                  <button class="layui-btn" type="button" lay-submit lay-filter="*">提交</button>
-                  <button class="layui-btn layui-btn-primary" type="reset" lay>重置</button>
-                </div>
-              </div>
-        </div>
-            
-            
+        </div>    
       </div>
     </form>
   </div>
 </fieldset>
+
+
 <table id="data_table" lay-filter="dtb" fiy-url='{:url("admin/form/data_table")}' fiy-event-url="{:url('admin/form/data_table_event')}" fiy-table='{$table}' class="layui-hide">
   <th>{"type": "checkbox", "fixed": "left"}</th>
   <th>{"field": "id", "title": "ID", "align": "center", "sort": "true", "fixed": "left"}</th>
@@ -138,11 +67,6 @@
   <th>{"templet": "#Tpl_tool", "title": "操作", "align": "center", "fixed": "right", "minWidth": "150"}</th>
 </table>
 
-
-
-<div>
-  {$treedom|raw}
-</div>
 
   
 {/block}

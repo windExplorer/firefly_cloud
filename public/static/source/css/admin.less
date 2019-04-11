@@ -1,26 +1,33 @@
-@color_1: #01AAED;
+@color_1: #FF6F61; //珊瑚橘
 @color_2: #fff;
+@color_3: #01AAED;
+@color_4: #FF6D70;
+@color_5: #2F4056;
 
 /* nav */
 .hvr-overline-from-left:before {
     height: 2px;
-    background: @color_1;
+    background: @color_3;
 }
 .hvr-overline-from-left.active::before {
     width: 100%;
 }
 .layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this{
-    background-color: @color_1 !important;
+    background-color: @color_3 !important;
 }
 .layui-layout-admin{
+    .layui-side-bg{
+        background: @color_5;
+    }
     .layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after{
-        background-color: @color_1 !important;
+        background-color: @color_3 !important;
         height: 4px; 
     }
     .layui-header{
         background-color: @color_1;
         .layui-logo{
             color: @color_2;
+            cursor: pointer;
         }
         .layui-badge{
             top: -10px;

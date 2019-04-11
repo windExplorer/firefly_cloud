@@ -10,7 +10,7 @@ class Index extends BaseAdmin
     {
         //$ret = $this->GetColumnInfo('menu');
         $ret = $this->GetChildren('menu');
-        dump($ret);
+        //dump($ret);
         return view();
     }
 

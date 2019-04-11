@@ -228,7 +228,25 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     Request(url, data.field, type)
     return false
   })
-
+  // 监听搜索
+  form.on('submit(form_search)', function(data){
+    //let url = $(data.form).attr('fiy-url')
+    //let type = $(data.form).attr('method')
+    console.log(data.field)
+    let arr = []
+    for(let item in data.field){
+      if(data.field.item.length > 0)
+        arr.item = data.field.item
+    }
+    let where = {
+      table: Get_Dtb_Table(),
+      data: arr
+    }
+    console.log(where)
+    return
+    Render_Table()
+    return false
+  })
   // 监听数据表格switch
   form.on('switch(tpl_status_switch)', function(data){
     let url = DTB_STATUS
@@ -336,20 +354,34 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       range: '~'
     })
     laydate.render({
-      elem: '#form_regtime',
+      elem: '#add_regtime',
       type: 'datetime',
       range: false,
       value: new Date()
     })
     laydate.render({
-      elem: '#form_uptime',
+      elem: '#add_uptime',
       type: 'datetime',
       range: false,
       value: new Date()
     })
+    laydate.render({
+      elem: '#edit_regtime',
+      type: 'datetime',
+      range: false,
+    })
+    laydate.render({
+      elem: '#edit_uptime',
+      type: 'datetime',
+      range: false,
+    })
   }
   // 重置数据表格
-  function Render_Table(id = '#'+DTB_ID){
+  function Render_Table(where = '', id = '#'+DTB_ID){
+    if(where.length == 0)
+      where = {
+        table: Get_Dtb_Table()
+      }
     let ele = $(id)
     if(ele.length == 0)
       return
@@ -363,9 +395,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       height: 'auto', 
       url: ele.attr('fiy-url'),
       page: true,
-      where: {
-        table: Get_Dtb_Table()
-      },
+      where: where,
       cols: [cols],
       even: false,
       toolbar: 'default',
@@ -508,8 +538,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       layer.close(index)
     })
   })  
-
-
+  //logo刷新页面
+  $(document).on('click', '.layui-logo', function() {
+    location.reload()
+  })
+  
 
 
 

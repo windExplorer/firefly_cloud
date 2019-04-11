@@ -268,11 +268,11 @@ class BaseAdmin extends Controller
      * 
       */
     
-    public function GetChildren($table, $dom_s = '<li>', $dom_e = '</li>'){
+    public function GetChildren($table, $dom_s = '<li>', $dom_e = '</li>', $selected = 0){
         $arr = $this->Retrieve($table, ['is_deleted' => 0], 0);
         return [
             'tree'  =>  $this->GetTree($arr, 0),
-            'dom'   =>  $this->TreeToDom($arr, 0, 0, $dom_s, $dom_e)
+            'dom'   =>  $this->TreeToDom($arr, 0, 0, $dom_s, $dom_e, $selected)
         ];
     }
 
@@ -292,7 +292,7 @@ class BaseAdmin extends Controller
      * 生成dom元素
      * 
       */
-    public function TreeToDom($data, $pid, $level = 0, $dom_s = '<li>', $dom_e = '</li>'){
+    public function TreeToDom($data, $pid, $level = 0, $dom_s = '<li>', $dom_e = '</li>', $selected){
         
         $html = '';
         $deep = '';
@@ -306,16 +306,20 @@ class BaseAdmin extends Controller
         }
         
         foreach($data as $k => $v){
+            if($dom_s == '<option>'){
+                if($selected == $v['id'])
+                    $dom_s_s = '<option value='.$v['id'].' selected>';
+                else
+                    $dom_s_s = '<option value='.$v['id'].' >';  
+            }else{
+                $dom_s_s = $dom_s;
+            }
             if($v['pid'] == $pid){ 
-                if($dom_s == '<option>'){
-                    $dom_s_s = '<option value='.$v['id'].' >';
-                }else{
-                    $dom_s_s = $dom_s;
-                }
                 $html .= $dom_s_s.$deep.$v['name'];
-                $html .= $this->TreeToDom($data, $v['id'], $level + 1, $dom_s, $dom_e);
+                $html .= $this->TreeToDom($data, $v['id'], $level + 1, $dom_s, $dom_e, $selected);
                 $html = $html.$dom_e;
             }
+            
         }
         //return $html ? '<ul>'.$html.'</ul>' : $html ;
         return $html;

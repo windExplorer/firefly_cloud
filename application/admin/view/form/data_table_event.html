@@ -12,10 +12,10 @@
         <tr>
           <td>{$vo.title}</td>
           <td>
-            {if empty($data[$vo.name])}
-              <i class="layui-word-aux">NULL</i>
-            {elseif empty($vo.child) /}
-              {if stripos($vo.name, 'icon')}
+            {if empty($vo.child) /}
+              {if empty($data[$vo.name])}
+                <i class="layui-word-aux">NULL</i>
+              {elseif stripos($vo.name, 'icon') !== false /}
                 <i class="{$data[$vo.name]}"></i>
               {elseif stripos($vo.name, 'time') !== false /}
                 {$data[$vo.name]|date='Y-m-d H:i:s'}
@@ -34,10 +34,6 @@
   </table>
   {/in}
 
-  {in name='event' value='edit'}
-  编辑
-  {/in}
-
   {in name='event' value='add'}
   <form class="layui-form" action="javascript:;" fiy-url="{:url('admin/form/event_add')}" method="POST" fiy-table="{$table}" fiy-event='add'>
     {volist name='cols' id='vo'}
@@ -49,7 +45,7 @@
             {if $vo.name=='weigh'}
             <input type="text" name="{$vo.name}" required lay-verify="required|number" lay-verType='tips' placeholder="请输入{$vo.title}" value="{$default.weigh}" autocomplete="off" class="layui-input">  
             {elseif $vo.name=='regtime' || $vo.name=='uptime'/}
-            <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="form_{$vo.name}">
+            <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}">
             {elseif $vo.name=='icon' /}
             <div class="layui-input-inline">
               <input type="text" name="{$vo.name}" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input">  
@@ -82,6 +78,53 @@
       </div>
     </div>
   </form>
+  {/in}
+
+  {in name='event' value='edit'}
+  <form class="layui-form" action="javascript:;" fiy-url="{:url('admin/form/event_edit')}" method="POST" fiy-table="{$table}" fiy-event='edit'>
+    {volist name='cols' id='vo'}
+      <div class="layui-form-item">
+        <label class="layui-form-label">{$vo.title}</label>
+        <div class="layui-input-block">
+          {if empty($vo.child) /}
+            {if $vo.name=='id'}
+            <input type="text" name="{$vo.name}" value="{$data[$vo.name]}" class="layui-input" disabled>  
+            {elseif $vo.name=='weigh'/}
+            <input type="text" name="{$vo.name}" required lay-verify="required|number" lay-verType='tips' placeholder="请输入{$vo.title}" value="{$data[$vo.name]}" autocomplete="off" class="layui-input">  
+            {elseif $vo.name=='regtime' || $vo.name=='uptime'/}
+            <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" value="{$data[$vo.name]|date='Y-m-d H:i:s'}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}" disabled>
+            {elseif $vo.name=='icon' /}
+            <div class="layui-input-inline">
+              <input type="text" name="{$vo.name}" placeholder="请输入{$vo.title}" autocomplete="off" value="{$data[$vo.name]}" class="layui-input">  
+            </div>
+            <div class="layui-input-inline">
+              <a class="layui-btn layui-btn-primary" fiy-id='show-icon'><i class="{$data[$vo.name]}"></i></a>
+              <a class="layui-btn layui-btn-normal" fiy-id='select-icon'>选择图标</a>
+            </div>
+            {elseif $vo.name=='pid' /}
+            <select name="{$vo.name}">
+              {$pid_dom|raw}
+            </select>
+            
+            {else /}
+            <input type="text" name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} lay-verType='tips' placeholder="请输入{$vo.title}" value="{$data[$vo.name]}" autocomplete="off" class="layui-input">  
+            {/if}
+          {else /}
+            {volist name='$vo.child' id='vo1'}
+            <input type="radio" name="{$vo.name}" value="{$i-1}" title="{$vo1}" {in name='$data[$vo.name]' value='$i-1'}checked{/in}>
+            {/volist}
+          {/if}
+        </div>
+      </div>
+    {/volist}
+    
+    <div class="layui-form-item">
+      <div class="layui-input-block form-btn">
+        <button class="layui-btn" lay-submit lay-filter="event_form">立即提交</button>
+      </div>
+    </div>
+  </form>
+
   {/in}
 
 </div>
