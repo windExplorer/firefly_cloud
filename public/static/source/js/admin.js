@@ -124,6 +124,10 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
             case 4: //更新表格
               Table_Reload()
               break
+            case 5: //添加数据
+              layer.close(ele)
+              Table_Reload()
+              break
             default:
               Page_Reload() 
               break
@@ -181,6 +185,18 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
             success: function(layero, index){
               form.render()
               Render_Time()
+              // 监听表单提交 - 此监听将获取数据库表与数据，并且会关闭弹窗
+              form.on('submit(event_form)', function(data){
+                let url = $(data.form).attr('fiy-url')
+                let type = $(data.form).attr('method')
+                console.log(data.field)
+                let formData = {
+                    table: $(data.form).attr('fiy-table'),
+                    data: data.field
+                }
+                Request(url, formData, type, 5, index)
+                return false
+              })
             },
             cancel: function(index1, layero){ 
               layer.confirm('确定关闭么?', {icon: 3, title:'关闭提示'}, function(index2){
@@ -204,7 +220,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
 
 
   /* layui事件监听 **************************************************************************************************************** */
-  // 监听表单提交
+  // 监听表单提交-此方法不主动获取数据库表，仅仅将表单数据提交到url进行处理
   form.on('submit(*)', function(data){
     let url = $(data.form).attr('fiy-url')
     let type = $(data.form).attr('method')

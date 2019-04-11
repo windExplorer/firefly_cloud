@@ -32,9 +32,10 @@ class Form extends BaseAdmin
     ];
     $res = $this->Update($post['table'], $post['id'], $data);
     if(empty($res)){
+      $this->Addlog($post['table'], '修改[id:'.$post['id'].']的状态失败', 2);
       return $this->Result(false, 0, '状态修改失败');
     } else {
-      $this->Addlog($post['table'], '状态修改成功', 2);
+      $this->Addlog($post['table'], '修改[id:'.$post['id'].']的状态成功', 2);
       return $this->Result(true, 1, '状态修改成功');
     }
     
@@ -65,16 +66,17 @@ class Form extends BaseAdmin
     ];
     $data = $this->Retrieve($post['table'], $this->where);
     //dump($data);
-    $pids = [];
+    $pid_dom = '';
     if($this->CheckTableField($post['table'], 'pid')){
-      $pids = $this->GetTree($post['table']);
+      $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>')['dom'];
     }
     $default['weigh'] = $this->Retrieve($post['table'], '', 1, 0, 'id desc')['id'] + 1;
     $this->assign([
+      'table' =>  $post['table'],
       'cols'  =>  $cols,
       'data'  =>  $data,
       'event' =>  $post['event'],
-      'pids'  =>  $pids,
+      'pid_dom'  =>  $pid_dom,
       'default' =>  $default
     ]);
     return view();
@@ -83,6 +85,25 @@ class Form extends BaseAdmin
   /* icon */
   public function icon(){
     return view();
+  }
+
+  /* 新增数据 */
+  public function event_add(){
+    $post = input('post.');
+    if(isset($post['data']['regtime'])){
+      $post['data']['regtime'] = strtotime($post['data']['regtime']);
+    }
+    if(isset($post['data']['uptime'])){
+      $post['data']['uptime'] = strtotime($post['data']['uptime']);
+    }
+    $ret = $this->Create($post['table'], $post['data']);
+    if(empty($ret)){
+      $this->Addlog($post['table'], '添加数据失败', 1);
+      return $this->Result($ret, 0, '添加数据失败');
+    }else{
+      $this->Addlog($post['table'], '添加[id:'.$ret.']数据项成功', 1);
+      return $this->Result($ret, 1, '添加数据成功');
+    }
   }
 
   /* 密码 */

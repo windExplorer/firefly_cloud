@@ -174,10 +174,10 @@ class BaseAdmin extends Controller
             if(in_array($column, config('dbrule.need_enum'))){
                 $com = explode('[', $comment);
                 $data[$column] = [
-                    'name'  =>  $column,
-                    'title' =>  $com[0],
-                    'allow_null' => $v['IS_NULLABLE'],
-                    'default' =>$default,
+                    'name'          =>  $column,
+                    'title'         =>  $com[0],
+                    'allow_null'    =>  $v['IS_NULLABLE'],
+                    'default'       =>  $default,
                 ];
                 $child = explode(',', explode(']', $com[1])[0]);
                 foreach($child as $k => $v){
@@ -186,11 +186,11 @@ class BaseAdmin extends Controller
                } 
             }else{
                 $data[] = [
-                    'name'  =>  $column,
-                    'title' =>  $comment,
-                    'default' => $default,
-                    'allow_null' => $v['IS_NULLABLE'],
-                    'child' =>  []
+                    'name'          =>  $column,
+                    'title'         =>  $comment,
+                    'default'       =>  $default,
+                    'allow_null'    =>  $v['IS_NULLABLE'],
+                    'child'         =>  []
                 ];
             }
         }
@@ -268,24 +268,57 @@ class BaseAdmin extends Controller
      * 
       */
     
-    public function GetCategory($table, $pid = 0){
-        $arr = $this->Retrieve($table, [['is_deleted', '=', 0], ['pid', '=', $pid]], 0);
-        return $this->GetTree($arr, 0);
+    public function GetChildren($table, $dom_s = '<li>', $dom_e = '</li>'){
+        $arr = $this->Retrieve($table, ['is_deleted' => 0], 0);
+        return [
+            'tree'  =>  $this->GetTree($arr, 0),
+            'dom'   =>  $this->TreeToDom($arr, 0, 0, $dom_s, $dom_e)
+        ];
     }
 
-    public function GetTree($data, $pId){
+    public function GetTree($data, $pid){
         $tree = [];
-        foreach($data as $k => $v)
-        {
-        if($v['pid'] == $pId)
-        {        //父亲找到儿子
-        $v['pid'] = $this->getTree($data, $v['id']);
-        $tree[] = $v;
-        //unset($data[$k]);
-        }
+        foreach($data as $k => $v){
+            if($v['pid'] == $pid){
+                $v['child'] = $this->GetTree($data, $v['id']);
+                $tree[] = $v;
+                //unset($data[$k]);
+            }
         }
         return $tree;
+    }
 
+    /**
+     * 生成dom元素
+     * 
+      */
+    public function TreeToDom($data, $pid, $level = 0, $dom_s = '<li>', $dom_e = '</li>'){
+        
+        $html = '';
+        $deep = '';
+        for($i = 0; $i < $level; $i ++){
+            $deep .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if($pid == 0){
+            $deep = '┎ '.$deep;
+        }else{
+            $deep .= '┠━ ';
+        }
+        
+        foreach($data as $k => $v){
+            if($v['pid'] == $pid){ 
+                if($dom_s == '<option>'){
+                    $dom_s_s = '<option value='.$v['id'].' >';
+                }else{
+                    $dom_s_s = $dom_s;
+                }
+                $html .= $dom_s_s.$deep.$v['name'];
+                $html .= $this->TreeToDom($data, $v['id'], $level + 1, $dom_s, $dom_e);
+                $html = $html.$dom_e;
+            }
+        }
+        //return $html ? '<ul>'.$html.'</ul>' : $html ;
+        return $html;
     }
 
     public function test()

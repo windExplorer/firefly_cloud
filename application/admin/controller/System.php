@@ -22,6 +22,7 @@ class System extends BaseAdmin
           'menu_title'  =>  '菜单配置',
           'menu_icon'   =>  'layui-icon layui-icon-layouts',
           'menu'        =>  $this->Retrieve($table, '', 0),
+          'treedom'     =>  $this->GetChildren($table, '<option>', '</option>')['dom']
         ]);
         return view();
       }
