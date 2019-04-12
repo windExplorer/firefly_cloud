@@ -10,19 +10,27 @@ class Form extends BaseAdmin
   /* 数据表格 */
   public function data_table()
   {
-    $where = [];
     $get = input('get.');
-    if(isset($get['data'])){
+    $db = db($get['table']);
+    if(input('?get.data')){
+      $data = $get['data'];
+      if(!empty($data['regtime'])){
+        $t = TurnTime($data['regtime']);
+        $db = $db->whereTime('regtime', 'between', [$t[0], $t[1]]);
+      }
+      if(!empty($data['uptime'])){
+        $t = TurnTime($get['data']['uptime']);
+        $db = $db->whereTime('uptime', 'between', [$t[0], $t[1]]);
+      }
+      unset($data['regtime']);
+      unset($data['uptime']);
       if($get['blur'] == 0){
-        $where = $get['data'];
-        if(!empty($get['data']['regtime'])){
-          $regtime = explode('~', $get['data']['regtime']);
-          $where = $where->whereTime('', 'between', [trim($regtime[0]), trim($regtime[0])]);
-        }
-
+        $db = $db->where($data);
+      }else{
+        $db = $db->where(BlurSearch($data));
       }
     }
-    $res = db($table)->$where->where('is_deleted', 0)->page($get['page'], $get['limit'])->order('id desc')->select();
+    $res = $db->where('is_deleted', 0)->page($get['page'], $get['limit'])->order('id desc')->select();
     $ret = [
       "code"  =>  0,
       "msg"   =>  '',

@@ -10,6 +10,7 @@ class Index extends BaseAdmin
     {
         //$ret = $this->GetColumnInfo('menu');
         $ret = $this->GetChildren('menu');
+        $ret = db('menu')->whereTime('uptime', 'between', ['', '']);
         //dump($ret);
         return view();
     }

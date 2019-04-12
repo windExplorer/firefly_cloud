@@ -90,3 +90,26 @@ function getGeo($ip='171.43.239.104'){
     }
     
 }
+
+/**
+ *  时间转化 regtime uptime
+ * */
+function TurnTime($time, $tag = '~'){
+  //$time = preg_replace('# #','', $time);
+  $t = explode($tag, $time);
+  /* foreach($t as $k => $v){
+    $t[$k] = strtotime($v);
+  } */
+  return $t;
+}
+
+/**
+ * 模糊搜索
+  */
+function BlurSearch($data){
+  $ret = [];
+  foreach($data as $k => $v){
+    $ret[] = [$k, 'like', '%'.$v.'%'];
+  }
+  return $ret;
+}

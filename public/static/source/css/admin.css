@@ -69,6 +69,8 @@ body {
   /* 数据表格按钮 */
   /* 弹窗modal */
   /* icon */
+  /* 搜索 */
+  /* dtb */
 }
 body .fiy-layer .layui-layer-title {
   background: #FF6F61;
@@ -221,5 +223,19 @@ body .icon-ku ul li div {
   white-space: nowrap;
 }
 body .search-box-tag {
+  cursor: pointer;
+}
+body .dtb-image {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+body .event-image-container {
+  margin-top: 10px;
+}
+body .event-image-container img {
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
   cursor: pointer;
 }

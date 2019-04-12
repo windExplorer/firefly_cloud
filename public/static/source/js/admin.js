@@ -185,6 +185,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
             success: function(layero, index){
               form.render()
               Render_Time()
+              element.render()
               // 监听表单提交 - 此监听将获取数据库表与数据，并且会关闭弹窗
               form.on('submit(event_form)', function(data){
                 let url = $(data.form).attr('fiy-url')
@@ -407,6 +408,9 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       even: false,
       toolbar: 'default',
       defaultToolbar: ['filter', 'print', 'exports'],
+      done: function() {
+        close_loop_anim()
+      }
       
     })
   }
@@ -442,12 +446,14 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   /* 默认操作 **************************************************************************************************************** */
   // PJAX开始
   $(document).on('pjax:start', () => {
-    pjax_load = layer.load(2)
+    //pjax_load = layer.load(2)
+    NProgress.start()
   })
   // PJAX结束
   $(document).on('pjax:end', () => {
-    layer.close(pjax_load)
+    //layer.close(pjax_load)
     PJAX_END()
+    NProgress.done()
   })
   // PJAX事件
   $(document).pjax('a[data-pjax]', '#pjax-container', {
@@ -491,11 +497,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     //Table_Reload()
   })
   //表格重载
-  $(document).on('click', 'a[table_reload]', function() {
+  $(document).on('click', 'a[table_render]', function() {
     if($('#'+DTB_ID).length == 0)
       return
     open_loop_anim()
-    Table_Reload()
+    Render_Table()
   })
   //打开图标库
   $(document).on('click', 'a[fiy-id=select-icon]', function() {
@@ -549,7 +555,12 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   $(document).on('click', '.layui-logo', function() {
     location.reload()
   })
-  
+  //查看图片
+  $(document).on('click', '[fiy-photo-list]', function() {
+    new Viewer($(this)[0], {
+      zIndex: 19951020
+    })
+  })
 
 
 

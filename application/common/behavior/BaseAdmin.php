@@ -10,7 +10,7 @@ class BaseAdmin extends Controller
 {
 
     public $pjax = 0;
-    public $title = '萤火云管理系统';
+    public $title = 'FireFly';
     public $where = ['is_deleted' => 0];
     
 
