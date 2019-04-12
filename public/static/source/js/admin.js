@@ -232,19 +232,26 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   form.on('submit(form_search)', function(data){
     //let url = $(data.form).attr('fiy-url')
     //let type = $(data.form).attr('method')
-    console.log(data.field)
-    let arr = []
+    let arr = {}
+    let blur= 0
     for(let item in data.field){
-      if(data.field.item.length > 0)
-        arr.item = data.field.item
+      if(item != 'blur'){
+        if(data.field[item].length > 0)
+          arr[item] = data['field'][item]
+      }else{
+        blur = data['field'][item]
+      }
+    }
+    if(Object.keys(arr).length == 0){
+      layer.msg('请输入条件再搜索')
+      return
     }
     let where = {
       table: Get_Dtb_Table(),
-      data: arr
+      data: arr,
+      blur: blur
     }
-    console.log(where)
-    return
-    Render_Table()
+    Render_Table(where)
     return false
   })
   // 监听数据表格switch

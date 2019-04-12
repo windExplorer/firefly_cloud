@@ -20,27 +20,31 @@
             </div>
         </div>
         {volist name='cols' id='vo'}
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-          <div class="layui-form-item">
-            <label class="layui-form-label">{$vo.title}</label>
-            <div class="layui-input-block">
-              {if empty($vo.child)}
-                {if stripos($vo.name, 'time') !== false}
-                <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}范围" autocomplete="off" class="layui-input" id="search_{$vo.name}">
-                {else /}
-                  <input type="text" name="{$vo.name}" placeholder="输入{$vo.title}" autocomplete="off" class="layui-input" >
-                {/if}
-              {else /}
-                <select name="{$vo.name}" lay-search>
-                    <option value=""> - 选择{$vo.title} - </option>
-                    {volist name='$vo.child' id='vo1'}
-                    <option value="{$i-1}">{$vo1}</option>
-                    {/volist}
-                </select>
-              {/if}
+          {if $vo.name != 'is_deleted'}
+          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item">
+              <label class="layui-form-label">{$vo.title}</label>
+              <div class="layui-input-block">
+                
+                  {if empty($vo.child)}
+                    {if stripos($vo.name, 'time') !== false}
+                    <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}范围" autocomplete="off" class="layui-input" id="search_{$vo.name}">
+                    {else /}
+                      <input type="text" name="{$vo.name}" placeholder="输入{$vo.title}" autocomplete="off" class="layui-input" >
+                    {/if}
+                  {else /}
+                    <select name="{$vo.name}" lay-search>
+                        <option value=""> - 选择{$vo.title} - </option>
+                        {volist name='$vo.child' id='vo1'}
+                        <option value="{$i-1}">{$vo1}</option>
+                        {/volist}
+                    </select>
+                  {/if}
+                
+              </div>
             </div>
           </div>
-        </div>
+          {/if}
         {/volist}
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
           <div class="layui-form-item">

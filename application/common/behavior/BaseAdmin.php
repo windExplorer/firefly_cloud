@@ -115,12 +115,12 @@ class BaseAdmin extends Controller
     }
 
     /**
-     * 查询
+     * 查询-表格
      * 
       */
-    public function SearchRetrieve($table, $data)
+    public function SearchRetrieve($table, $db)
     {
-
+        
     }
 
     /**

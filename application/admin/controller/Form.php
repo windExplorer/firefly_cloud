@@ -10,9 +10,19 @@ class Form extends BaseAdmin
   /* 数据表格 */
   public function data_table()
   {
-    $this->where = ['is_deleted' => 0];
+    $where = [];
     $get = input('get.');
-    $res = $this->Retrieve($get['table'], $this->where, $get['limit'], $get['page'], 'id desc');
+    if(isset($get['data'])){
+      if($get['blur'] == 0){
+        $where = $get['data'];
+        if(!empty($get['data']['regtime'])){
+          $regtime = explode('~', $get['data']['regtime']);
+          $where = $where->whereTime('', 'between', [trim($regtime[0]), trim($regtime[0])]);
+        }
+
+      }
+    }
+    $res = db($table)->$where->where('is_deleted', 0)->page($get['page'], $get['limit'])->order('id desc')->select();
     $ret = [
       "code"  =>  0,
       "msg"   =>  '',
