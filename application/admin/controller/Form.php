@@ -147,6 +147,15 @@ class Form extends BaseAdmin
     }
   }
 
+  /* 上传图片 */
+  public function upload(){
+    $file = request()->file('file');
+    $table = input('table');
+    $ret = $this->upImage($file, $table);
+    $this->Addlog($table, $ret['msg'], 0);
+    return $ret;
+  }
+
   /* 密码 */
   public function edit_password ()
   {

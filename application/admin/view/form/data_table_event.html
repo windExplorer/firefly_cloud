@@ -43,7 +43,7 @@
         <div class="layui-input-block">
           {if empty($vo.child) /}
             {if $vo.name=='weigh'}
-            <input type="text" name="{$vo.name}" required lay-verify="required|number" lay-verType='tips' placeholder="请输入{$vo.title}" value="{$default.weigh}" autocomplete="off" class="layui-input">  
+            <input type="text" name="{$vo.name}" required lay-verify="required|number" lay-verType='tips' placeholder="请输入{$vo.title}" value="{$default.weigh ?? $vo.default}" autocomplete="off" class="layui-input">  
             {elseif $vo.name=='regtime' || $vo.name=='uptime'/}
             <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}">
             {elseif $vo.name=='icon' /}
@@ -57,13 +57,14 @@
             {elseif stripos($vo.name, 'context') !== false /}
             <textarea name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} placeholder="请输入{$vo.title}" class="layui-textarea"></textarea>
             {elseif stripos($vo.name, 'image') !== false || stripos($vo.name, 'avatar') !== false /}
-              <button type="button" class="layui-btn layui-btn-normal" id="event_upload">
+            <div class="layui-input-inline">
+              <input type="text" name="{$vo.name}" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" >  
+            </div>
+              <button type="button" class="layui-btn layui-btn-normal" fiy-upload>
                 <i class="layui-icon">&#xe67c;</i>上传{$vo.title}
               </button>
-            <div class="event-image-container" id="images-1" fiy-photo-list>
-              <img src="https://admin.aroad.xyz/static/img/cover/7.jpg" alt="">
-              <img src="https://admin.aroad.xyz/static/img/cover/7.jpg" alt="">
-              <img src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/doc/uni-android.png" alt="">
+            <div class="event-image-container" fiy-photo-list>
+
             </div>
 
             {elseif $vo.name=='pid' /}
@@ -112,6 +113,18 @@
             <div class="layui-input-inline">
               <a class="layui-btn layui-btn-primary" fiy-id='show-icon'><i class="{$data[$vo.name]}"></i></a>
               <a class="layui-btn layui-btn-normal" fiy-id='select-icon'>选择图标</a>
+            </div>
+            {elseif stripos($vo.name, 'context') !== false /}
+            <textarea name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} placeholder="请输入{$vo.title}" class="layui-textarea">{$data[$vo.name]}</textarea>
+            {elseif stripos($vo.name, 'image') !== false || stripos($vo.name, 'avatar') !== false /}
+            <div class="layui-input-inline">
+              <input type="text" value="{$data[$vo.name]}" name="{$vo.name}" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" >  
+            </div>
+              <button type="button" class="layui-btn layui-btn-normal" fiy-upload>
+                <i class="layui-icon">&#xe67c;</i>上传{$vo.title}
+              </button>
+            <div class="event-image-container" fiy-photo-list>
+              <img src="{$data[$vo.name]}" alt="">
             </div>
             {elseif $vo.name=='pid' /}
             <select name="{$vo.name}">

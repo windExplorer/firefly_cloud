@@ -7,4 +7,4 @@ thinkphp
 .DS_Store
 runtime
 install.lock
-public/upload
+public/uploads

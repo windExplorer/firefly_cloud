@@ -113,3 +113,39 @@ function BlurSearch($data){
   }
   return $ret;
 }
+
+/* 创建文件目录 */
+function adddir($path){
+  if(!file_exists($path) || !is_writable($path)){
+      if(!mkdir($path, 0777, true)){
+          return false;
+      }else{
+          return true;
+      }
+  }else{
+      return true;
+  } 
+}
+
+
+/**
+ * 获取文件大小
+ * Returns a human readable filesize
+ */
+function HumanReadableFilesize($size) {
+  $mod = 1024; 
+  //$units = explode(' ','B KB MB GB TB PB');
+  $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+  for ($i = 0; $size > $mod; $i++) {
+      $size /= $mod;
+  }
+  return round($size, 2) . ' ' . $units[$i];
+}
+
+/**
+ * 获取system_config配置
+ * 
+  */
+function sysConf($name){
+  return db('system_config')->where('name', $name)->find()['value_context'];
+}

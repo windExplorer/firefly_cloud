@@ -16,9 +16,12 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   const table = layui.table
   const upload = layui.upload
   const laydate = layui.laydate
+  let viewer
   let pjax_load
   Render_Table()
   Render_Time()
+  Render_Upload()
+  Render_Viewer()
   
   //标记事件
   if(FLAG.search_box){
@@ -186,6 +189,8 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
               form.render()
               Render_Time()
               element.render()
+              Render_Viewer()
+              Render_Upload()
               // 监听表单提交 - 此监听将获取数据库表与数据，并且会关闭弹窗
               form.on('submit(event_form)', function(data){
                 let url = $(data.form).attr('fiy-url')
@@ -341,6 +346,34 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       })
     }
   })
+  /* 表单验证 */
+  form.verify({
+    username: function(value, item){ //value：表单的值、item：表单的DOM对象
+      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+        return '用户名不能有特殊字符';
+      }
+      if(/(^\_)|(\__)|(\_+$)/.test(value)){
+        return '用户名首尾不能出现下划线\'_\'';
+      }
+      if(/^\d+\d+\d$/.test(value)){
+        return '用户名不能全为数字';
+      }
+    },
+    
+    //我们既支持上述函数式的方式，也支持下述数组的形式
+    //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+    pass: [
+      /^[\S]{5,20}$/
+      ,'密码必须5到20位，且不能出现空格'
+    ] ,
+    pass2: function(value, item){
+      if($(item).parents('.layui-form-item').prev().find('input[name=new]').val() != value){
+        return '两次密码不一致'
+      }
+    }
+  })
+
+  
 
 
   /* function **************************************************************************************************************** */
@@ -410,37 +443,62 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       defaultToolbar: ['filter', 'print', 'exports'],
       done: function() {
         close_loop_anim()
+        Render_Viewer()
       }
       
     })
   }
 
-  /* 表单验证 */
-  form.verify({
-    username: function(value, item){ //value：表单的值、item：表单的DOM对象
-      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-        return '用户名不能有特殊字符';
+  /* 图片查看器初始化 */
+  function Render_Viewer(){
+    if($('[fiy-photo-list]').length > 0)
+      viewer = new Viewer($('[fiy-photo-list]')[0], {
+        zIndex: 19951020
+      })
+  }
+
+  /* 上传图片 */
+  function Render_Upload(){
+    upload.render({
+      elem: '[fiy-upload]',
+      url: UPLOAD_URL,
+      data: {
+        table: Get_Dtb_Table()
+      },
+      field: 'file',
+      size: 2 * 1024 * 1024,
+      accept: 'images',
+      acceptMime: 'image/*',
+      multiple: true,
+      before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+        layer.load() //上传loading
+      },
+      allDone: function(obj){
+        /* console.log(obj)
+        console.log(obj.total)
+        console.log(obj.successful)
+        console.log(obj.aborted) */
+      },
+      done: function(res, index, upload){
+        layer.closeAll('loading')
+        layer.msg(res.msg)
+        console.log(res)
+        if(res.code == 1){
+          let img = `<img src='${res.url}' />`
+          this.item.nextAll('[fiy-photo-list]').append(img)
+          this.item.prev().find('input').val(res.url)
+          viewer.update()
+        }
+      },
+      error: function(index, upload) {
+        layer.closeAll('loading')
       }
-      if(/(^\_)|(\__)|(\_+$)/.test(value)){
-        return '用户名首尾不能出现下划线\'_\'';
-      }
-      if(/^\d+\d+\d$/.test(value)){
-        return '用户名不能全为数字';
-      }
-    },
-    
-    //我们既支持上述函数式的方式，也支持下述数组的形式
-    //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
-    pass: [
-      /^[\S]{5,20}$/
-      ,'密码必须5到20位，且不能出现空格'
-    ] ,
-    pass2: function(value, item){
-      if($(item).parents('.layui-form-item').prev().find('input[name=new]').val() != value){
-        return '两次密码不一致'
-      }
-    }
-  })
+    })
+  }
+  
+  
+
+ 
 
 
   /* 默认操作 **************************************************************************************************************** */
@@ -555,13 +613,6 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   $(document).on('click', '.layui-logo', function() {
     location.reload()
   })
-  //查看图片
-  $(document).on('click', '[fiy-photo-list]', function() {
-    new Viewer($(this)[0], {
-      zIndex: 19951020
-    })
-  })
-
 
 
 

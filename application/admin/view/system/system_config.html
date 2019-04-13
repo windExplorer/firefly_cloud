@@ -63,8 +63,9 @@
 <table id="data_table" lay-filter="dtb" fiy-url='{:url("admin/form/data_table")}' fiy-event-url="{:url('admin/form/data_table_event')}" fiy-table='{$table}' class="layui-hide">
   <th>{"type": "checkbox", "fixed": "left"}</th>
   <th>{"field": "id", "title": "编号", "align": "center", "sort": "true", "fixed": "left"}</th>
+  <th>{"field": "title", "title": "标题", "align": "center"}</th>
   <th>{"field": "name", "title": "名称", "align": "center"}</th>
-  <th>{"field": "value", "title": "值", "align": "center"}</th>
+  <th>{"field": "value_context", "title": "值", "align": "center"}</th>
   <th>{"field": "image", "title": "图片", "templet": "#Tpl_image", "align": "center"}</th>
   <th>{"field": "config_type", "title": "类型", "templet": "#Tpl_config_type", "align": "center", "sort": "true"}</th>
   <th>{"field": "weigh", "title": "权重", "align": "center", "sort": "true"}</th>
@@ -73,5 +74,4 @@
 </table>
 
 
-  
 {/block}

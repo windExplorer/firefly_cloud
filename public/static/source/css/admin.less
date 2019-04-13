@@ -119,14 +119,24 @@ body{
     }
     
     /* banner */
+    #pjax-container,
+    .layui-body{
+        overflow: hidden;
+    }
+    /* main-container */
+    .main-container{
+        margin-top: 30px;
+        height: ~"calc(100vh - 45px - 44px - 60px)";
+        overflow-y: auto;
+    }
     .banner{
         height: 35px;
         line-height: 35px;
         box-shadow: 0 0 10px #777777;
-        padding: 10px 15px;
+        padding: 3px 15px;
         position: fixed;
         width: 100%;
-        margin-top: -50px;
+
         background: #fff;
         z-index: 1000;
         i{
@@ -141,11 +151,6 @@ body{
         }
     }
 
-    /* main-container */
-    .main-container{
-        margin-top: 50px;
-        overflow: hidden;
-    }
 
     /* 数据表格按钮 */
     .tpl_normal_btns{
@@ -256,9 +261,10 @@ body{
     }
     /* dtb */
     .dtb-image{
-        width: 100%;
-        height: 100%;
+        width: 26px;
+        height: 26px;
         vertical-align: middle;
+        cursor: pointer;
     }
     .event-image-container{
         margin-top: 10px;
