@@ -183,7 +183,7 @@ body .icon-ku ::-moz-selection {
   color: #fff;
 }
 body .icon-ku :-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
+  box-shadow: 0 0 0 1000px white inset;
   -webkit-text-fill-color: #333;
 }
 body .icon-ku ul li {
