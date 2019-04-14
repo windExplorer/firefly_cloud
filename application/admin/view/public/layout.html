@@ -79,7 +79,7 @@
                 {$admin.nickname}
               </a>
               <dl class="layui-nav-child">
-                <dd lay-unselect><a href="">基本资料</a></dd>
+                <dd lay-unselect><a href="{:url('admin/system/userinfo')}">基本资料</a></dd>
                 <dd lay-unselect><a href="javascript:;" fiy-modal="{:url('admin/form/edit_password')}" fiy-area='400px' fiy-title="修改密码">修改密码</a></dd>
                 <dd lay-unselect><a href="javascript:;" fiy-link="{:url('admin/login/logout')}" fiy-logout>退了</a></dd>
               </dl>
@@ -92,7 +92,7 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="nav-left" lay-shrink="all">
               {volist name='$nav[0]' id='vo'}
-              <li class="layui-nav-item layui-nav-itemed">
+              <li class="layui-nav-item {in name='$i' value='1'}layui-nav-itemed{/in}">
                 {if !empty($vo.child)}
                 <a {$vo.extend} fiy-side-tpl href="javascript:;">{if !empty($vo.icon)}<i class="{$vo.icon}" aria-hidden="true"></i> <span class="layui-nav-name">{/if} {$vo.name}</span></a>
                 <dl class="layui-nav-child">
@@ -120,7 +120,7 @@
                 {block name='buttons'}{/block}
               </div>
             </div>
-            <div style="padding: 15px;" class="main-container">
+            <div class="main-container">
               {block name='content'}{/block}
             </div>
           </div>
@@ -161,20 +161,20 @@
       {block name='buttons'}{/block}
     </div>
   </div>
-  <div style="padding: 15px;" class="main-container">
+  <div class="main-container">
     {block name='content'}{/block}
   </div>
 {/if}
 
 <script type="text/html" id="Tpl_tool">
   <div class="layui-btn-group tpl_normal_btns" fiy-url='{:url("admin/form/data_table_event")}' fiy-id='{{d.id}}'>
-    <button class="layui-btn layui-btn-normal layui-btn-sm" fiy-title='查看' lay-event="view">
+    <button class="layui-btn layui-btn-normal layui-btn-sm tpl_btn" fiy-title='查看' lay-event="view">
       <i class="fa fa-hand-o-left"></i>
     </button>
-    <button class="layui-btn layui-btn-sm" fiy-title='编辑' lay-event="edit">
+    <button class="layui-btn layui-btn-sm tpl_btn" fiy-title='编辑' lay-event="edit">
       <i class="layui-icon layui-icon-edit"></i>
     </button>
-    <button class="layui-btn layui-btn-danger layui-btn-sm" fiy-title='删除' lay-event="del">
+    <button class="layui-btn layui-btn-danger layui-btn-sm tpl_btn" fiy-title='删除' lay-event="del">
       <i class="layui-icon layui-icon-delete"></i>
     </button>
   </div>
@@ -185,28 +185,40 @@
 <script type="text/html" id="Tpl_image">
   <img src="{{d.image || ''}}" class="dtb-image" fiy-photo-list />
 </script>
+<script type="text/html" id="Tpl_avatar">
+  <img src="{{d.avatar || ''}}" class="dtb-image" fiy-photo-list />
+</script>
 <script type="text/html" id="Tpl_menu_type">
   {{# if(d.menu_type == 0){ }}
-    <button class='layui-btn layui-btn-sm layui-btn-primary'>非菜单</button>
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl_btn'>非菜单</button>
   {{# }else if(d.menu_type == 1) { }}
-    <button class='layui-btn layui-btn-sm layui-btn-normal'>链接</button>
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>链接</button>
   {{# }else if(d.menu_type == 2) { }}
-    <button class='layui-btn layui-btn-sm'>图片</button>
+    <button class='layui-btn layui-btn-sm tpl_btn'>图片</button>
   {{# }else if(d.menu_type == 3) { }}
-    <button class='layui-btn layui-btn-sm'>文字</button>
+    <button class='layui-btn layui-btn-sm tpl_btn'>文字</button>
   {{# }else if(d.menu_type == 4) { }}
-    <button class='layui-btn layui-btn-sm layui-btn-warm'>图标</button>
+    <button class='layui-btn layui-btn-sm layui-btn-warm tpl_btn'>图标</button>
   {{# }else { }}
-    <button class='layui-btn layui-btn-sm layui-btn-normal'>自定义</button>
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>自定义</button>
   {{# } }}
 </script>
 <script type="text/html" id="Tpl_config_type">
   {{# if(d.config_type == 0){ }}
-    <button class='layui-btn layui-btn-sm layui-btn-normal'>站点</button>
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>站点</button>
   {{# }else { }}
-    <button class='layui-btn layui-btn-sm'>邮箱</button>
+    <button class='layui-btn layui-btn-sm tpl_btn'>邮箱</button>
   {{# } }}
 </script>
 <script type="text/html" id="Tpl_status">
   <input type="checkbox" name="close" lay-skin="switch" lay-text="显示|隐藏" lay-filter="tpl_status_switch" value="{{d.status}}" fiy-id="{{d.id}}" {{ d.status == '1' ? 'checked' : "" }}>
+</script>
+<script type="text/html" id="Tpl_gender">
+  {{# if(d.gender == 0){ }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>保密男</button>
+  {{# }else if(d.gender == 1) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-warm tpl_btn'>女</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm tpl_btn'>男</button>
+  {{# } }}
 </script>

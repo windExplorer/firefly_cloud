@@ -45,4 +45,8 @@
       'status', 'is_deleted', 'type', 'menu_type', 'gender', 'admin_log', 'user_log', 'email_type', 'is_encrypt', 'share_type', 'allow_comment',
       'show_location', 'is_system', 'is_read', 'config_type', 'up_type', 'user_log_type', 'role'
     ],
+    //所有需要检测唯一性的字段
+    'column_unique' => [
+      'username', 'name'
+    ],
   ];

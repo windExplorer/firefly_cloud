@@ -3,17 +3,17 @@ namespace app\admin\controller;
 
 use app\common\behavior\BaseAdmin;
 
-class System extends BaseAdmin
+class User extends BaseAdmin
 {
 
-  public function menu()
+  public function admin()
   {
-    $table = 'menu';
+    $table = 'admin';
     //固定参数
     $this->assign([
       'table'       =>  $table,
       'cols'        =>  $this->GetColumnInfo($table),
-      'menu_title'  =>  '菜单配置',
+      'menu_title'  =>  '管理员用户',
       'menu_icon'   =>  'layui-icon layui-icon-layouts',
     ]);
     //附加参数
@@ -25,19 +25,21 @@ class System extends BaseAdmin
     return view();
   }
 
-  public function system_config()
+  public function user()
   {
-    $table = 'system_config';
+    $table = 'user';
     //固定参数
     $this->assign([
       'table'       =>  $table,
       'cols'        =>  $this->GetColumnInfo($table),
-      'menu_title'  =>  '参数配置',
+      'menu_title'  =>  '普通用户',
       'menu_icon'   =>  'layui-icon layui-icon-layouts',
     ]);
     //附加参数
     $this->assign([
 
+      //'menu'        =>  $this->Retrieve($table, '', 0),
+      //'treedom'     =>  $this->GetChildren($table, '<option>', '</option>')['dom']
     ]);
     return view();
   }

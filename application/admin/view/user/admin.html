@@ -62,15 +62,16 @@
 
 <table id="data_table" lay-filter="dtb" fiy-url='{:url("admin/form/data_table")}' fiy-event-url="{:url('admin/form/data_table_event')}" fiy-table='{$table}' class="layui-hide">
   <th>{"type": "checkbox", "fixed": "left"}</th>
-  <th>{"field": "id", "title": "ID", "align": "center", "sort": "true", "fixed": "left"}</th>
-  <th>{"field": "icon", "title": "图标", "templet": "#Tpl_icon", "align": "center"}</th>
-  <th>{"field": "name", "title": "名称", "align": "center"}</th>
-  <th>{"field": "menu_type", "title": "类型", "templet": "#Tpl_menu_type", "align": "center", "sort": "true"}</th>
+  <th>{"field": "id", "title": "编号", "align": "center", "sort": "true", "fixed": "left"}</th>
+  <th>{"field": "username", "title": "用户名", "align": "center"}</th>
+  <th>{"field": "nickname", "title": "名称", "align": "center"}</th>
+  <th>{"field": "avatar", "title": "头像", "templet": "#Tpl_avatar", "align": "center"}</th>
+  <th>{"field": "gender", "title": "性别", "templet": "#Tpl_gender", "align": "center"}</th>
+  <th>{"field": "born", "title": "出生年月", "align": "center", "sort": "true"}</th>
   <th>{"field": "weigh", "title": "权重", "align": "center", "sort": "true"}</th>
   <th>{"field": "status", "title": "状态", "align": "center", "sort": "true", "templet": "#Tpl_status"}</th>
   <th>{"templet": "#Tpl_tool", "title": "操作", "align": "center", "fixed": "right", "minWidth": "150"}</th>
 </table>
 
 
-  
 {/block}

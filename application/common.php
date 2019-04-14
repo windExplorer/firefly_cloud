@@ -149,3 +149,13 @@ function HumanReadableFilesize($size) {
 function sysConf($name){
   return db('system_config')->where('name', $name)->find()['value_context'];
 }
+
+/* 后去表字段 */
+function getTableColumn($table){
+  $res = Db::query("select * from information_schema.columns where table_schema = ?  and table_name = ?", [config('database.database'), config('database.prefix').$table] );
+  $ret = [];
+  for($i = 0; $i < count($res); $i ++){
+    $ret[] = $res[$i]['COLUMN_NAME'];
+  }
+  return $ret;
+}

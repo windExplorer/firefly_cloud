@@ -128,6 +128,8 @@ body{
         margin-top: 30px;
         height: ~"calc(100vh - 45px - 44px - 60px)";
         overflow-y: auto;
+        padding: 15px;
+        padding-top: 25px;
     }
     .banner{
         height: 35px;
@@ -154,13 +156,15 @@ body{
 
     /* 数据表格按钮 */
     .tpl_normal_btns{
-        button{
-            height: 26px;
-            line-height: 26px;
+        .tpl_btn{
             width: 26px;
-            i{
-                margin-left: -5px;
-            }
+        }
+    }
+    .tpl_btn{
+        height: 26px;
+        line-height: 26px;
+        i{
+            margin-left: -5px;
         }
     }
 

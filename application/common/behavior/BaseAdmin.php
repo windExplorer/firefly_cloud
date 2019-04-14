@@ -124,6 +124,50 @@ class BaseAdmin extends Controller
     }
 
     /**
+     * 检测唯一字段
+      */
+    public function SearchUnique($table, $data, $n = 0)
+    {
+        $db = db($table);
+        if(isset($data['id'])){
+            $db = $db->where('id', '<>', $data['id']);
+        }
+        unset($data['id']);
+        foreach($data as $k => $v){
+            if(in_array($k, config('dbrule.column_unique'))){
+                if(count($db->where($k, $v)->select()) > $n){
+                    return [
+                        'code'      =>  0,
+                        'column'    =>  $k,
+                        'msg'       =>  $v.'已存在'
+                    ];
+                }
+            }
+        }
+        return ['code'  =>  1, 'msg' => '无误'];
+    }
+
+    /**
+     * 检测是否有改动
+     * 
+      */
+    public function SearchEdit($table, $data){
+        $db_data = db($table)->where('id', $data['id'])->find();
+        $flag = false;
+        foreach($db_data as $k => $v){
+            if(stripos($k, 'time') === false){
+                if(isset($data[$k])){
+                    if($v != $data[$k]){
+                        return true;
+                    }
+                    //echo $k.'=>'.$v.":".$data[$k]."[".$flag."]"."\r\n";
+                }  
+            }
+        }
+        return $flag;
+    }
+
+    /**
      * 新增数据
      * 返回id
      */
@@ -171,7 +215,7 @@ class BaseAdmin extends Controller
             $column = $v['COLUMN_NAME'];
             $comment = $v['COLUMN_COMMENT'];
             $default = $v['COLUMN_DEFAULT'];
-            if(in_array($column, config('dbrule.need_enum'))){
+            if(in_array($column, config('dbrule.need_enum')) && stripos($comment, '[') !== false){
                 $com = explode('[', $comment);
                 $data[$column] = [
                     'name'          =>  $column,

@@ -122,6 +122,16 @@ class Form extends BaseAdmin
     if(isset($post['data']['uptime'])){
       $post['data']['uptime'] = strtotime($post['data']['uptime']);
     }
+    if(!empty($post['data']['password'])){
+      $salt = getLenRand(5);
+      $post['data']['password'] = sha1($post['data']['password'].$salt);
+      $post['data']['salt'] = $salt;
+    }
+    //检测唯一性
+    $check_unique = $this->SearchUnique($post['table'], $post['data'] , 0);
+    if($check_unique['code'] == 0){
+      return $this->Result(false, 0, '添加数据失败,'.$check_unique['msg']);
+    }
     $ret = $this->Create($post['table'], $post['data']);
     if(empty($ret)){
       $this->Addlog($post['table'], '添加数据失败', 0);
@@ -137,6 +147,26 @@ class Form extends BaseAdmin
     $post = input('post.');
     unset($post['data']['regtime']); //不进行regtime写库
     $post['data']['uptime'] = time(); //进行uptime记录
+
+    if(!empty($post['data']['password'])){
+      if(mb_strlen($post['data']['password'], 'utf-8') <= 16){
+        $salt = getLenRand(5);
+        $post['data']['password'] = sha1($post['data']['password'].$salt);
+        $post['data']['salt'] = $salt;
+      }
+    }
+    
+    //检测是否修改了
+    $check_edit = $this->SearchEdit($post['table'], $post['data']);
+    if(!$check_edit){
+      return $this->Result(false, 0, '没有数据被修改');
+    }
+
+    //检测唯一性
+    $check_unique = $this->SearchUnique($post['table'], $post['data'] , 0);
+    if($check_unique['code'] == 0){
+      return $this->Result(false, 0, '修改数据失败,'.$check_unique['msg']);
+    }
     $ret = $this->Update($post['table'], $post['data']['id'], $post['data']);
     if(empty($ret)){
       $this->Addlog($post['table'], '修改[id:'.$post['data']['id'].']数据项失败', 2);

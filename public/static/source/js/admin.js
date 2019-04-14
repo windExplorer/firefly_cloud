@@ -234,6 +234,18 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     Request(url, data.field, type)
     return false
   })
+  //监听页面层
+  form.on('submit(event_page_form)', function(data){
+    let url = $(data.form).attr('fiy-url')
+    let type = $(data.form).attr('method')
+    console.log(data.field)
+    let formData = {
+        table: $(data.form).attr('fiy-table'),
+        data: data.field
+    }
+    Request(url, formData, type)
+    return false
+  })
   // 监听搜索
   form.on('submit(form_search)', function(data){
     //let url = $(data.form).attr('fiy-url')
@@ -340,10 +352,10 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     } else if(layEvent === 'edit'){ //编辑
       modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px` , data, 'post')
       //同步更新缓存对应的值
-      obj.update({
+      /* obj.update({
         username: '123'
         ,title: 'xxx'
-      })
+      }) */
     }
   })
   /* 表单验证 */
@@ -395,6 +407,12 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       range: '~'
     })
     laydate.render({
+      elem: '#search_born',
+      type: 'date',
+      range: '~'
+    })
+
+    laydate.render({
       elem: '#add_regtime',
       type: 'datetime',
       range: false,
@@ -414,6 +432,17 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     laydate.render({
       elem: '#edit_uptime',
       type: 'datetime',
+      range: false,
+    })
+
+    laydate.render({
+      elem: '#add_born',
+      type: 'date',
+      range: false,
+    })
+    laydate.render({
+      elem: '#edit_born',
+      type: 'date',
       range: false,
     })
   }
@@ -519,7 +548,12 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   })
   // 退出
   $(document).on('click', 'a[fiy-logout]', function() {
-    Request($(this).attr('fiy-link'))
+    let th = $(this)
+    layer.confirm('真的退了么?', {icon: 3, title: '退出提示'}, function(index){
+      layer.close(index)
+      Request(th.attr('fiy-link'))
+    })
+    
   })
   // 侧边栏隐藏
   $(document).on('click', 'a[fiy-shrink]', function() {
