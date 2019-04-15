@@ -50,7 +50,7 @@
           {/if}
         {else /}
           {volist name='$vo.child' id='vo1'}
-          <input type="radio" name="{$vo.name}" value="{$i-1}" title="{$vo1}" {in name='$data[$vo.name]' value='$i-1'}checked{/in}>
+          <input type="radio" name="{$vo.name}" value="{$i-1}" title="{$vo1}" {in name='$data[$vo.name]' value='$i-1'}checked{/in} autocomplete="off">
           {/volist}
         {/if}
       </div>

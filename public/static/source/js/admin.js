@@ -279,6 +279,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     let status = data.value == 0 ? 1 : 0
     Request(url, {table: Get_Dtb_Table(), id: Get_Dtb_Item_Id(ele), status: status}, 'POST', 2, ele)
   })  
+  //监听user_id下拉框
+  form.on('select(user_id)', function(data){
+    let ele = $(data.elem)
+    $(document).find('input[name=to]').val(ele.find('option:selected').attr('fiy-email'))
+  })
   //监听行双击事件
   table.on('rowDouble(dtb)', function(obj){
     console.log(obj.tr) //得到当前行元素对象
@@ -500,7 +505,9 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       acceptMime: 'image/*',
       multiple: true,
       before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-        layer.load() //上传loading
+        //layer.load() //上传loading
+        console.log(obj)
+        return
       },
       allDone: function(obj){
         /* console.log(obj)

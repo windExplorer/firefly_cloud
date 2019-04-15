@@ -147,14 +147,14 @@ body .banner .title {
 body .banner .banner-btns {
   float: right;
 }
-body .tpl_normal_btns .tpl_btn {
+body .tpl_normal_btns .tpl-btn {
   width: 26px;
 }
-body .tpl_btn {
+body .tpl-btn {
   height: 26px;
   line-height: 26px;
 }
-body .tpl_btn i {
+body .tpl-btn i {
   margin-left: -5px;
 }
 body .modal-container {

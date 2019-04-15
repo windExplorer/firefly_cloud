@@ -3,17 +3,17 @@ namespace app\admin\controller;
 
 use app\common\behavior\BaseAdmin;
 
-class User extends BaseAdmin
+class Mail extends BaseAdmin
 {
 
-  public function admin()
+  public function email()
   {
-    $table = 'admin';
+    $table = 'email';
     //固定参数
     $this->assign([
       'table'       =>  $table,
       'cols'        =>  $this->GetColumnInfo($table),
-      'menu_title'  =>  '管理员用户',
+      'menu_title'  =>  '电子邮件',
       'menu_icon'   =>  'layui-icon layui-icon-layouts',
     ]);
     //附加参数

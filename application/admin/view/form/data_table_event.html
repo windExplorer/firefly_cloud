@@ -34,10 +34,18 @@
   </table>
   {/in}
 
+
+
+
+
+
+
+
+
   {in name='event' value='add'}
   <form class="layui-form" action="javascript:;" fiy-url="{:url('admin/form/event_add')}" method="POST" fiy-table="{$table}" fiy-event='add'>
     {volist name='cols' id='vo'}
-      {notin name='vo.name' value='id,salt,vcode,token'}
+      {notin name='vo.name' value='id,salt,vcode,token,from'}
       <div class="layui-form-item">
         <label class="layui-form-label">{$vo.title}</label>
         <div class="layui-input-block">
@@ -56,6 +64,20 @@
               <a class="layui-btn layui-btn-primary" fiy-id='show-icon'><i></i></a>
               <a class="layui-btn layui-btn-normal" fiy-id='select-icon'>选择图标</a>
             </div>
+            {elseif $vo.name=='user_id' /}
+            <select name="{$vo.name}" lay-filter="{$vo.name}">
+              <option value=""> - 请选择用户 - </option>
+              {volist name='user_id' id='vo_user_id'}
+              <option value="{$vo_user_id.id ?? ''}" fiy-email='{$vo_user_id.email ?? ""}'>{$vo_user_id.nickname ?? ''}</option>
+              {/volist}
+            </select>
+            {elseif $vo.name=='admin_id' /}
+            <select name="{$vo.name}">
+              <option value=""> - 请选择管理员 - </option>
+              {volist name='admin_id' id='vo_admin_id'}
+              <option value="{$vo_admin_id.id ?? ''}">{$vo_admin_id.nickname ?? ''}</option>
+              {/volist}
+            </select>
             {elseif stripos($vo.name, 'context') !== false /}
             <textarea name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} placeholder="请输入{$vo.title}" class="layui-textarea"></textarea>
             {elseif stripos($vo.name, 'image') !== false || stripos($vo.name, 'avatar') !== false /}
@@ -95,10 +117,20 @@
   </form>
   {/in}
 
+
+
+
+
+
+
+
+
+
+  
   {in name='event' value='edit'}
   <form class="layui-form" action="javascript:;" fiy-url="{:url('admin/form/event_edit')}" method="POST" fiy-table="{$table}" fiy-event='edit'>
     {volist name='cols' id='vo'}
-    {notin name='vo.name' value='salt,vcode,token'}
+    {notin name='vo.name' value='salt,vcode,token,from'}
       <div class="layui-form-item">
         <label class="layui-form-label">{$vo.title}</label>
         <div class="layui-input-block">
@@ -119,6 +151,20 @@
               <a class="layui-btn layui-btn-primary" fiy-id='show-icon'><i class="{$data[$vo.name]}"></i></a>
               <a class="layui-btn layui-btn-normal" fiy-id='select-icon'>选择图标</a>
             </div>
+            {elseif $vo.name=='user_id' /}
+            <select name="{$vo.name}" lay-filter="{$vo.name}">
+              <option value=""> - 请选择用户 - </option>
+              {volist name='user_id' id='vo_user_id'}
+              <option value="{$vo_user_id.id ?? ''}" fiy-email='{$vo_user_id.email ?? ""}'>{$vo_user_id.nickname ?? ''}</option>
+              {/volist}
+            </select>
+            {elseif $vo.name=='admin_id' /}
+            <select name="{$vo.name}">
+              <option value=""> - 请选择管理员 - </option>
+              {volist name='admin_id' id='vo_admin_id'}
+              <option value="{$vo_admin_id.id ?? ''}">{$vo_admin_id.nickname ?? ''}</option>
+              {/volist}
+            </select>
             {elseif stripos($vo.name, 'context') !== false /}
             <textarea name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} placeholder="请输入{$vo.title}" class="layui-textarea">{$data[$vo.name]}</textarea>
             {elseif stripos($vo.name, 'image') !== false || stripos($vo.name, 'avatar') !== false /}

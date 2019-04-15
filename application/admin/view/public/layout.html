@@ -94,7 +94,7 @@
               {volist name='$nav[0]' id='vo'}
               <li class="layui-nav-item {in name='$i' value='1'}layui-nav-itemed{/in}">
                 {if !empty($vo.child)}
-                <a {$vo.extend} fiy-side-tpl href="javascript:;">{if !empty($vo.icon)}<i class="{$vo.icon}" aria-hidden="true"></i> <span class="layui-nav-name">{/if} {$vo.name}</span></a>
+                <a {$vo.extend} fiy-side-tpl href="javascript:;">{if !empty($vo.icon)}<i class="{$vo.icon}" aria-hidden="true"></i> {/if}<span class="layui-nav-name"> {$vo.name}</span></a>
                 <dl class="layui-nav-child">
                   {volist name='$vo.child' id='vo1'}
                   <dd fiy-side-tpl class="{if $thUrl == url($vo1.rule)}layui-this{/if}">    
@@ -103,7 +103,7 @@
                   {/volist}
                 </dl>
                 {else /}
-                  <a {$vo.extend} data-pjax class="{if $thUrl == url($vo.rule)}layui-this{/if}" href="{$vo.rule ? url($vo.rule) : 'javascript:;'}">{$vo.name}</a>
+                  <a {$vo.extend} data-pjax class="{if $thUrl == url($vo.rule)}layui-this{/if}" href="{$vo.rule ? url($vo.rule) : 'javascript:;'}"><i class="{$vo.icon ?? ''}" aria-hidden="true"></i> {$vo.name}</a>
                 {/if}
               </li>
               {/volist}
@@ -168,13 +168,13 @@
 
 <script type="text/html" id="Tpl_tool">
   <div class="layui-btn-group tpl_normal_btns" fiy-url='{:url("admin/form/data_table_event")}' fiy-id='{{d.id}}'>
-    <button class="layui-btn layui-btn-normal layui-btn-sm tpl_btn" fiy-title='查看' lay-event="view">
+    <button class="layui-btn layui-btn-normal layui-btn-sm tpl-btn" fiy-title='查看' lay-event="view">
       <i class="fa fa-hand-o-left"></i>
     </button>
-    <button class="layui-btn layui-btn-sm tpl_btn" fiy-title='编辑' lay-event="edit">
+    <button class="layui-btn layui-btn-sm tpl-btn" fiy-title='编辑' lay-event="edit">
       <i class="layui-icon layui-icon-edit"></i>
     </button>
-    <button class="layui-btn layui-btn-danger layui-btn-sm tpl_btn" fiy-title='删除' lay-event="del">
+    <button class="layui-btn layui-btn-danger layui-btn-sm tpl-btn" fiy-title='删除' lay-event="del">
       <i class="layui-icon layui-icon-delete"></i>
     </button>
   </div>
@@ -190,24 +190,72 @@
 </script>
 <script type="text/html" id="Tpl_menu_type">
   {{# if(d.menu_type == 0){ }}
-    <button class='layui-btn layui-btn-sm layui-btn-primary tpl_btn'>非菜单</button>
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>非菜单</button>
   {{# }else if(d.menu_type == 1) { }}
-    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>链接</button>
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>链接</button>
   {{# }else if(d.menu_type == 2) { }}
-    <button class='layui-btn layui-btn-sm tpl_btn'>图片</button>
+    <button class='layui-btn layui-btn-sm tpl-btn'>图片</button>
   {{# }else if(d.menu_type == 3) { }}
-    <button class='layui-btn layui-btn-sm tpl_btn'>文字</button>
+    <button class='layui-btn layui-btn-sm tpl-btn'>文字</button>
   {{# }else if(d.menu_type == 4) { }}
-    <button class='layui-btn layui-btn-sm layui-btn-warm tpl_btn'>图标</button>
+    <button class='layui-btn layui-btn-sm layui-btn-warm tpl-btn'>图标</button>
   {{# }else { }}
-    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>自定义</button>
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>自定义</button>
   {{# } }}
 </script>
 <script type="text/html" id="Tpl_config_type">
   {{# if(d.config_type == 0){ }}
-    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>站点</button>
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>站点</button>
   {{# }else { }}
-    <button class='layui-btn layui-btn-sm tpl_btn'>邮箱</button>
+    <button class='layui-btn layui-btn-sm tpl-btn'>邮箱</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_email_type">
+  {{# if(d.email_type == 0){ }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>HTML</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>TXT</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_is_success">
+  {{# if(d.is_success == 0){ }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>失败</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>成功</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_admin_log_type">
+  {{# if(d.admin_log_type == 0){ }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>增</button>
+  {{# }else if(d.admin_log_type == 1) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-danger tpl-btn'>删</button>
+  {{# }else if(d.admin_log_type == 2) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>改</button>
+  {{# }else if(d.admin_log_type == 3) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>查</button>
+  {{# }else if(d.admin_log_type == 4) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-warm tpl-btn'>登录</button>
+  {{# }else if(d.admin_log_type == 5) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-danger tpl-btn'>退出</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>其他</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_user_log_type">
+  {{# if(d.admin_log_type == 0){ }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>增</button>
+  {{# }else if(d.user_log_type == 1) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-danger tpl-btn'>删</button>
+  {{# }else if(d.user_log_type == 2) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>改</button>
+  {{# }else if(d.user_log_type == 3) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>查</button>
+  {{# }else if(d.user_log_type == 4) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-warm tpl-btn'>登录</button>
+  {{# }else if(d.user_log_type == 5) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-danger tpl-btn'>退出</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>其他</button>
   {{# } }}
 </script>
 <script type="text/html" id="Tpl_status">
@@ -215,10 +263,10 @@
 </script>
 <script type="text/html" id="Tpl_gender">
   {{# if(d.gender == 0){ }}
-    <button class='layui-btn layui-btn-sm layui-btn-normal tpl_btn'>保密男</button>
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>保密</button>
   {{# }else if(d.gender == 1) { }}
-    <button class='layui-btn layui-btn-sm layui-btn-warm tpl_btn'>女</button>
+    <button class='layui-btn layui-btn-sm layui-btn-warm tpl-btn'>女</button>
   {{# }else { }}
-    <button class='layui-btn layui-btn-sm tpl_btn'>男</button>
+    <button class='layui-btn layui-btn-sm tpl-btn'>男</button>
   {{# } }}
 </script>

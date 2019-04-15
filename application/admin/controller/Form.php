@@ -78,6 +78,8 @@ class Form extends BaseAdmin
     }
     $cols = $this->GetColumnInfo($post['table']);
     $pid_dom = '';
+    $user_id = '';
+    $admin_id = '';
     $data = [];
     $default = [];
     if($post['event'] == 'add'){
@@ -85,6 +87,12 @@ class Form extends BaseAdmin
         $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>')['dom'];
       }
       $default['weigh'] = $this->Retrieve($post['table'], '', 1, 0, 'id desc')['id'] + 1;
+      if($this->CheckTableField($post['table'], 'user_id')){
+        $user_id = $this->Retrieve('user', $this->where, 0);
+      }
+      if($this->CheckTableField($post['table'], 'admin_id')){
+        $admin_id = $this->Retrieve('admin', $this->where, 0);
+      }
     }else{
       $this->where = [
         'is_deleted'  => 0,
@@ -95,6 +103,12 @@ class Form extends BaseAdmin
         if($this->CheckTableField($post['table'], 'pid')){
           $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>', $data['pid'])['dom'];
         }
+        if($this->CheckTableField($post['table'], 'user_id')){
+          $user_id = $this->Retrieve('user', $this->where, 0);
+        }
+        if($this->CheckTableField($post['table'], 'admin_id')){
+          $admin_id = $this->Retrieve('admin', $this->where, 0);
+        }
       }
     }
     $this->assign([
@@ -103,6 +117,8 @@ class Form extends BaseAdmin
       'data'  =>  $data,
       'event' =>  $post['event'],
       'pid_dom'  =>  $pid_dom,
+      'user_id' =>  $user_id,
+      'admin_id'  =>  $admin_id,
       'default' =>  $default
     ]);
     return view();
@@ -116,6 +132,12 @@ class Form extends BaseAdmin
   /* 新增数据 */
   public function event_add(){
     $post = input('post.');
+    if($post['table'] == 'email'){
+      $data = $post['data'];
+      dump($this->sendMail($data['to'], $data['subject'], $data['content'], 'Hello World', $data['context'], $data['files'], $type = $data['email_type']));
+      die;
+    }
+
     if(isset($post['data']['regtime'])){
       $post['data']['regtime'] = strtotime($post['data']['regtime']);
     }
