@@ -1,0 +1,75 @@
+{if $flag == 0}
+<div class="modal-container">
+    
+    <div class="select-image-list">
+        <table class="layui-table" lay-size="sm">
+            <colgroup>
+                <col width="100"><col width="100"><col width="100">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>编号</th><th>图片</th><th>操作</th>
+                </tr> 
+            </thead>
+            <tbody class="select-image-list-tbody">
+                {volist name='data' id='vo'}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td><img src="{$vo.net_path}" width="50" height="50" alt="" fiy-photo></td>
+                    <td><button class="layui-btn layui-btn-sm" fiy-id="{$vo.id}" fiy-file-url="{$vo.net_path}" fiy-file-path="{$vo.path}" fiy-file-selected='file-net-path'>选择</button></td>
+                </tr>
+                {/volist}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="select-image-page" style="text-align:center;"></div>
+ 
+</div>
+
+
+<script>
+    layui.use(['laypage', 'layer'], function(){
+        let laypage = layui.laypage
+        let layer = layui.layer
+
+        laypage.render({
+            elem: 'select-image-page', 
+            count: {$total},
+            limit: {$limit},
+            jump: function(obj, first){
+                //首次不执行
+                if(!first){
+                    $.ajax({
+                        url: '{:request()->url()}',
+                        data: {page: obj.curr, first: 1},
+                        type: 'get',
+                        beforeSend: function(){
+                            //layer.load(2)
+                        },
+                        success: function(res){
+                            $('.select-image-list-tbody').html(res)
+                        },
+                        complete: function(){
+                            //layer.closeAll('loading')
+                        }
+                    })
+                }
+            }
+        })
+    })
+
+</script>
+
+{else /}
+
+
+{volist name='data' id='vo'}
+<tr>
+    <td>{$vo.id}</td>
+    <td><img src="{$vo.net_path}" width="50" height="50" alt="" fiy-photo></td>
+    <td><button class="layui-btn layui-btn-sm" fiy-id="{$vo.id}">选择</button></td>
+</tr>
+{/volist}
+
+{/if}

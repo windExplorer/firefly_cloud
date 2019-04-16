@@ -164,3 +164,15 @@ function getTableColumn($table){
 function checkFileExist($md5){
   return db('attachment')->where('md5', $md5)->find();
 }
+
+/* 获取数据库总数量 */
+function getDbCount($table, $where){
+  return db($table)->where($where)->count();
+}
+
+/* 删除单个文件 */
+function unlinkFile($path){
+  if(file_exists($path)){
+      unlink($path);
+  }
+}

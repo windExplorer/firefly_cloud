@@ -394,13 +394,40 @@ class BaseAdmin extends Controller
             'size'  =>  sysConf('upload_maxsize'),
             'ext'   =>  sysConf('upload_ext')
             ])->rule('date')->move($path);
+        //dump($info);die;
         if($info){
-            $ret['phy_url'] = str_replace("\\", "/", $path.$info->getSaveName());
-            $ret['url'] = str_replace('./', '/', $ret['phy_url']);
             $ret['code'] = 1;
             $ret['msg'] = '上传成功!';
             $ret['etime'] = date('Y-m-d H:i:s');
-            
+            $md5 = $info->md5();
+            $check = checkFileExist($md5);
+            $ret['phy_url'] = str_replace('//', '/', str_replace("\\", "/", $info->getPathName()));
+            $ret['url'] = str_replace('./', '/', $ret['phy_url']);
+            if(empty($check)){
+                //写图片数据
+                $sha1 = $info->sha1();
+                $imgData = [
+                    'admin_id'  =>  session('admin.id'),
+                    'name'      =>  $info->getInfo('name'),
+                    'save_name' =>  $info->getFileName(),
+                    'mime'      =>  $info->getInfo('type'),
+                    'ext'       =>  $info->getExtension(),
+                    'size'      =>  $info->getInfo('size'),
+                    'path'      =>  $ret['phy_url'],
+                    'net_path'  =>  $ret['url'],
+                    'md5'       =>  $md5,
+                    'sha1'      =>  $sha1,
+                    'status'    =>  1,
+                    'is_deleted'    =>  0,
+                    'regtime'   =>  time(),
+                    'uptime'    =>  time()
+                ];
+                $this->Create('attachment', $imgData);
+            }else{
+                unlinkFile($ret['phy_url']);
+                $ret['phy_url'] = $check['path'];
+                $ret['url'] = $check['net_path'];
+            }
         }else{
             // 上传失败获取错误信息
             $ret['msg'] = '上传失败'.$file->getError();
@@ -429,7 +456,7 @@ class BaseAdmin extends Controller
 
         try {
             //Server settings
-            $mail->SMTPDebug = 2;                                       // Enable verbose debug output  启用详细调试输出
+            $mail->SMTPDebug = 0;                                       // Enable verbose debug output  启用详细调试输出 2
             $mail->CharSet   = 'utf-8';                                 // 字符编码
             $mail->isSMTP();                                            // Set mailer to use SMTP  将Mailer设置为使用SMTP
             $mail->Host       = sysConf('email_smtp');                  // Specify main and backup SMTP servers  指定主服务器和备份SMTP服务器
@@ -465,9 +492,11 @@ class BaseAdmin extends Controller
             $mail->AltBody = $context;
 
             $mail->send();
-            return 'Message has been sent';
+            $this->Addlog('email', 'Message has been sent', 6);
+            return true;
         } catch (Exception $e) {
-            return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            $this->Addlog('email', `Message could not be sent. Mailer Error: {$mail->ErrorInfo}`, 6);
+            return false;
         }
 
     

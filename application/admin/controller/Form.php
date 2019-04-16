@@ -82,17 +82,19 @@ class Form extends BaseAdmin
     $admin_id = '';
     $data = [];
     $default = [];
+
+    if($this->CheckTableField($post['table'], 'user_id')){
+      $user_id = $this->Retrieve('user', $this->where, 0);
+    }
+    if($this->CheckTableField($post['table'], 'admin_id')){
+      $admin_id = $this->Retrieve('admin', $this->where, 0);
+    }
+
     if($post['event'] == 'add'){
       if($this->CheckTableField($post['table'], 'pid')){
         $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>')['dom'];
       }
       $default['weigh'] = $this->Retrieve($post['table'], '', 1, 0, 'id desc')['id'] + 1;
-      if($this->CheckTableField($post['table'], 'user_id')){
-        $user_id = $this->Retrieve('user', $this->where, 0);
-      }
-      if($this->CheckTableField($post['table'], 'admin_id')){
-        $admin_id = $this->Retrieve('admin', $this->where, 0);
-      }
     }else{
       $this->where = [
         'is_deleted'  => 0,
@@ -102,12 +104,6 @@ class Form extends BaseAdmin
       if($post['event'] == 'edit'){
         if($this->CheckTableField($post['table'], 'pid')){
           $pid_dom = $this->GetChildren($post['table'], '<option>', '</option>', $data['pid'])['dom'];
-        }
-        if($this->CheckTableField($post['table'], 'user_id')){
-          $user_id = $this->Retrieve('user', $this->where, 0);
-        }
-        if($this->CheckTableField($post['table'], 'admin_id')){
-          $admin_id = $this->Retrieve('admin', $this->where, 0);
         }
       }
     }
@@ -131,11 +127,20 @@ class Form extends BaseAdmin
 
   /* 新增数据 */
   public function event_add(){
+    $msg = '';
     $post = input('post.');
     if($post['table'] == 'email'){
       $data = $post['data'];
-      dump($this->sendMail($data['to'], $data['subject'], $data['content'], 'Hello World', $data['context'], $data['files'], $type = $data['email_type']));
-      die;
+      $user = $this->Retrieve('user', ['id' => $data['user_id']], 1);
+      $nick = $user['nickname'];
+      $send = $this->sendMail($data['to'], $data['subject'], $data['content'], $nick, $data['context'], $data['email_files'], $type = $data['email_type']);
+      if($send){
+        $data['is_success'] = 1;
+        $msg = '[邮件发送成功!]';
+      }else{
+        $data['is_success'] = 0;
+        $msg = "[邮件发送失败，请查看错误日志]";
+      }
     }
 
     if(isset($post['data']['regtime'])){
@@ -157,15 +162,16 @@ class Form extends BaseAdmin
     $ret = $this->Create($post['table'], $post['data']);
     if(empty($ret)){
       $this->Addlog($post['table'], '添加数据失败', 0);
-      return $this->Result($ret, 0, '添加数据失败');
+      return $this->Result($ret, 0, '添加数据失败'.$msg);
     }else{
       $this->Addlog($post['table'], '添加[id:'.$ret.']数据项成功', 0);
-      return $this->Result($ret, 1, '添加数据成功');
+      return $this->Result($ret, 1, '添加数据成功'.$msg);
     }
   }
 
   /* 编辑数据 */
   public function event_edit(){
+    $msg = '';
     $post = input('post.');
     unset($post['data']['regtime']); //不进行regtime写库
     $post['data']['uptime'] = time(); //进行uptime记录
@@ -184,6 +190,21 @@ class Form extends BaseAdmin
       return $this->Result(false, 0, '没有数据被修改');
     }
 
+    //重发
+    /* if($post['table'] == 'email'){
+      $data = $post['data'];
+      $user = $this->Retrieve('user', ['id' => $data['user_id']], 1);
+      $nick = $user['nickname'];
+      $send = $this->sendMail($data['to'], $data['subject'], $data['content'], $nick, $data['context'], $data['email_files'], $type = $data['email_type']);
+      if($send){
+        $data['is_success'] = 1;
+        $msg = '[邮件发送成功!]';
+      }else{
+        $data['is_success'] = 0;
+        $msg = "[邮件发送失败，请查看错误日志]";
+      }
+    } */
+
     //检测唯一性
     $check_unique = $this->SearchUnique($post['table'], $post['data'] , 0);
     if($check_unique['code'] == 0){
@@ -192,10 +213,10 @@ class Form extends BaseAdmin
     $ret = $this->Update($post['table'], $post['data']['id'], $post['data']);
     if(empty($ret)){
       $this->Addlog($post['table'], '修改[id:'.$post['data']['id'].']数据项失败', 2);
-      return $this->Result($ret, 0, '修改数据失败');
+      return $this->Result($ret, 0, '修改数据失败'.$msg);
     }else{
       $this->Addlog($post['table'], '修改[id:'.$post['data']['id'].']数据项成功', 2);
-      return $this->Result($ret, 1, '修改数据成功');
+      return $this->Result($ret, 1, '修改数据成功'.$msg);
     }
   }
 
@@ -210,7 +231,6 @@ class Form extends BaseAdmin
     }
   }
 
-
   /* 上传图片 */
   public function upload(){
     $file = request()->file('file');
@@ -219,6 +239,57 @@ class Form extends BaseAdmin
     //$this->Addlog($table, $ret['msg'], 0);
     return $ret;
   }
+
+  /* 选择图片 */
+  public function select_image()
+  {
+    $table = 'attachment';
+    if(input('?get.first')){
+      $page = input('get.page');
+      $flag = 1;
+    }else{
+      $page = 1;
+      $flag = 0;
+    }
+    $limit = 5;
+    $where = [['mime', 'like', 'image%']];
+    $data = $this->Retrieve($table, $where, $limit, $page, 'id desc');
+    $total = getDbCount($table, $where);
+
+    $this->assign([
+      'data'  =>  $data,
+      'flag'  =>  $flag,
+      'total' =>  $total,
+      'limit' =>  $limit,
+    ]);
+    return view();
+  }
+
+    /* 选择文件 */
+    public function select_file()
+    {
+      $table = 'attachment';
+      if(input('?get.first')){
+        $page = input('get.page');
+        $flag = 1;
+      }else{
+        $page = 1;
+        $flag = 0;
+      }
+      $limit = 5;
+      $where = '';
+      $data = $this->Retrieve($table, $where, $limit, $page, 'id desc');
+      $total = getDbCount($table, $where);
+  
+      $this->assign([
+        'data'  =>  $data,
+        'flag'  =>  $flag,
+        'total' =>  $total,
+        'limit' =>  $limit,
+      ]);
+      return view();
+    }
+
 
   /* 密码 */
   public function edit_password ()

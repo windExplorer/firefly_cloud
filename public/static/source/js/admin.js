@@ -16,6 +16,8 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   const table = layui.table
   const upload = layui.upload
   const laydate = layui.laydate
+  const E = window.wangEditor
+  let editor
   Render_Table()
   Render_Time()
   Render_Upload()
@@ -29,7 +31,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   /* window事件 ***************************************************************************************************************** */
   //监听窗口size改变
   $(window).resize(function () {
-    table.resize(DTB_ID)
+    //table.resize(DTB_ID)
   })
 
 
@@ -156,7 +158,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
 
   /* 弹出层-打开新页面 ******************************************************************************************************************* */
   /* modal open href url */
-  const modal = (url, title, content, area, data = '', type = 'get') => {
+  const modal = (url, title, content, area, data = '', type = 'get', is_upload = 0) => {
     if(area.indexOf(`,`) > -1) {
       area = area.split(',')
     }
@@ -188,7 +190,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
               Render_Time()
               element.render()
               Render_Viewer()
-              Render_Upload()
+              if(is_upload != 0){
+                Render_Upload()
+                Render_wangEditor()
+              }
+                
               // 监听表单提交 - 此监听将获取数据库表与数据，并且会关闭弹窗
               form.on('submit(event_form)', function(data){
                 let url = $(data.form).attr('fiy-url')
@@ -304,7 +310,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     let th = $(`#${DTB_ID}`)
     switch(obj.event){
       case 'add':
-        modal(th.attr('fiy-event-url'), `添加`, ``, `800px` , data, 'post')
+        modal(th.attr('fiy-event-url'), `添加`, ``, `800px` , data, 'post', 1)
       break
       case 'update':
         if(checkStatus.data.length > 1){
@@ -317,7 +323,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
         }
         data.id = checkStatus.data[0].id
         data.event = `edit`
-        modal(th.attr('fiy-event-url'), `编辑`, ``, `800px` , data, 'post')
+        modal(th.attr('fiy-event-url'), `编辑`, ``, `800px` , data, 'post', 1)
       break
       case 'delete':
         if(checkStatus.data.length == 0){
@@ -353,7 +359,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
         Request(th.parent().attr('fiy-url'), data, 'post', 3, obj)
       })
     } else if(layEvent === 'edit'){ //编辑
-      modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px` , data, 'post')
+      modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px` , data, 'post', 1)
       //同步更新缓存对应的值
       /* obj.update({
         username: '123'
@@ -504,28 +510,63 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
         table: Get_Dtb_Table()
       },
       field: 'file',
-      size: 10 * 1024 * 1024,
+      size: UPLOAD_MAXSIZE,
       accept: 'file',
       //acceptMime: 'image/*',
+      exts: UPLOAD_EXT,
       multiple: true,
       auto: false,
       choose: function(obj){
-        let that = this
-        //将每次选择的文件追加到文件队列
-        var files = obj.pushFile();
+        let th = this.item
+        let type = parseInt(th.attr('fiy-upload-type'))
         //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
-        console.log(obj.resetFile.length)
+        //console.log(obj.resetFile.length)
         obj.preview(function(index, file, result){
-          //console.log(index) //得到文件索引
-          //console.log(file) //得到文件对象
-          //console.log(result) //得到文件base64编码，比如图片
-          let img = `<div class="img-box"><img src='${result}' fiy-photo /><span class='img-title' fiy-photo-id='${index}'></span></div>`
-          that.item.nextAll('[fiy-photo-list]').append(img)
+          let mime = file.type
+          console.log(mime)
+          let img
+          if(mime.indexOf('image') > -1){
+            img = `<div class="img-box"><img src='${result}' fiy-photo /><span class='img-title' fiy-photo-id='${index}'></span></div>`
+          }else{
+            img = `<div class="img-box"><img src='/static/source/img/file.png' fiy-photo /><span class='img-title' fiy-photo-id='${index}'></span></div>`
+          }
+          
+          if(type == 1){
+            th.nextAll('[fiy-photo-list]').html(img)
+          }else if(type == 2){
+            th.nextAll('[fiy-photo-list]').append(img)
+          }else if(type == 3){
+            th.nextAll('[fiy-photo-list]').html(img)
+          }else if(type == 4){
+            th.nextAll('[fiy-photo-list]').append(img)
+          }
+          
           getFileMd5($(`[fiy-photo-id='${index}']`), file, res => {
-            console.log(index)
-            console.log(index +':' +res)
+            console.log('md5:' + res)
             $.get(Check_File_Exist, {md5: res}, function(res){
               console.log(res)
+              if(res.code == 0){
+                obj.upload(index, file)
+              }else{
+                layer.msg('上传成功')
+                let input = th.prev().find('input')
+                if(type == 1){
+                  input.val(res.data.net_path)
+                }else if(type == 2){
+                  if(input.val().length == 0)
+                    input.val(res.data.net_path)
+                  else
+                    input.val(input.val()+';'+res.data.net_path)
+                }else if(type == 3){
+                  input.val(res.data.path)
+                }else if(type == 4){
+                  if(input.val().length == 0)
+                    input.val(res.data.path)
+                  else
+                    input.val(input.val()+';'+res.data.path)
+                }
+                Render_Viewer()
+              }
             })
             
             //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
@@ -540,7 +581,6 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
           //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
           
           //这里还可以做一些 append 文件列表 DOM 的操作
-          
           
           //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
         })
@@ -557,12 +597,27 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       },
       done: function(res, index, upload){
         layer.closeAll('loading')
+        let th = this.item
+        let type = parseInt(th.attr('fiy-upload-type'))
+        let input = th.prev().find('input')
         layer.msg(res.msg)
         console.log(res)
         if(res.code == 1){
-          /* let img = `<img src='${res.url}' fiy-photo />`
-          this.item.nextAll('[fiy-photo-list]').append(img) */
-          this.item.prev().find('input').val(res.url)
+          if(type == 1){
+            input.val(res.data.net_path)
+          }else if(type == 2){
+            if(input.val().length == 0)
+              input.val(res.url)
+            else
+              input.val(input.val()+';'+res.url)
+          }else if(type == 3){
+            input.val(res.data.path)
+          }else if(type == 4){
+            if(input.val().length == 0)
+              input.val(res.phy_url)
+            else
+              input.val(input.val()+';'+res.phy_url)
+          }
           Render_Viewer()
         }
       },
@@ -593,9 +648,10 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
         if (currentChunk < chunks) {
             loadNext();
         } else {
-            //console.log('finished loading');
-            callback('1:' + spark.end());  // Compute hash
-            //return spark.end()
+          //console.log('finished loading');
+          ele.fadeOut(500)
+          callback(spark.end());  // Compute hash
+          //return spark.end()
         }
     };
 
@@ -638,6 +694,13 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     reader.readAsArrayBuffer(file);
   }
   
+  /* 富文本 */
+  function Render_wangEditor(){
+    editor = new E('.editor')
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor.create()
+  }
+
 
  
 
@@ -692,7 +755,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   // 打开modal
   $(document).on('click', '[fiy-modal]', function() {
     let th = $(this)
-    modal(th.attr('fiy-modal') || '', th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px`)
+    modal(th.attr('fiy-modal') || '', th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px`, th.attr('fiy-is-upload') || 0)
   })
   // 页面重载/表格重载
   $(document).on('click', 'a[fiy-reload]', function(e) {
@@ -759,7 +822,28 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   $(document).on('click', '.layui-logo', function() {
     location.reload()
   })
-
+  //选择图片
+  $(document).on('click', '[fiy-file-selected="image-net-path"]', function(){
+    let th = $(this)
+    $('input[file-select="image-net-path"]').val(th.attr('fiy-file-url'))
+    let img = `<div class="img-box"><img src='${th.attr('fiy-file-url')}' fiy-photo />`
+    $('[fiy-photo-list]').append(img)
+    layer.close(layer.index)
+    Render_Viewer()
+  })
+  //选择文件
+  $(document).on('click', '[fiy-file-selected="file-path"]', function(){
+    let th = $(this)
+    let img
+    $('input[file-select="file-path"]').val(th.attr('fiy-file-path'))
+    if(th.attr('fiy-mime').indexOf('image') > -1)
+      img = `<div class="img-box"><img src='${th.attr('fiy-file-url')}' fiy-photo />`
+    else
+      img = `<div class="img-box"><img src='/static/source/img/file.png' fiy-photo title='${th.attr('fiy-file-path')}' />`
+    $('[fiy-photo-list]').append(img)
+    layer.close(layer.index)
+    Render_Viewer()
+  })
 
 
 

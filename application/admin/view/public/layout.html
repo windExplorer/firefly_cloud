@@ -141,6 +141,8 @@
       const ICON_URL = `{:url('admin/form/icon')}` //图标库
       const UPLOAD_URL = `{:url('admin/form/upload')}` //上传图片
       const Check_File_Exist = `{:url('admin/form/check_file_exist')}` //文件存在性检测
+      const UPLOAD_EXT = `{:str_replace(",", "|", sysConf("upload_ext"))}` //允许上传的文件后缀
+      const UPLOAD_MAXSIZE = `{sysConf('upload_maxsize')}`
       const FLAG = {  //标志(配置)
         search_box: false, //是否自动收起搜索栏目 
       }
@@ -153,6 +155,7 @@
     <script src="__EXTEND__/plugins/jquery-viewer.min.js"></script>
     <script src="__EXTEND__/plugins/crypto-js.min.js"></script>
     <script src="__EXTEND__/plugins/spark-md5.min.js"></script>
+    <script src="__EXTEND__/wangeditor/wangEditor.min.js"></script>
     <script src="__SOURCE_JS__/admin.js"></script>
     {block name='js'}{/block}
 </body>
