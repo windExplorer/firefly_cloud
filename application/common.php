@@ -150,7 +150,7 @@ function sysConf($name){
   return db('system_config')->where('name', $name)->find()['value_context'];
 }
 
-/* 后去表字段 */
+/* 获取表字段 */
 function getTableColumn($table){
   $res = Db::query("select * from information_schema.columns where table_schema = ?  and table_name = ?", [config('database.database'), config('database.prefix').$table] );
   $ret = [];
@@ -158,4 +158,9 @@ function getTableColumn($table){
     $ret[] = $res[$i]['COLUMN_NAME'];
   }
   return $ret;
+}
+
+/* 检测上传的文件是否存在 */
+function checkFileExist($md5){
+  return db('attachment')->where('md5', $md5)->find();
 }

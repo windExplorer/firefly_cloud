@@ -199,12 +199,24 @@ class Form extends BaseAdmin
     }
   }
 
+  /* 检测文件是否已经存在 */
+  public function check_file_exist(){
+    $md5 = input('get.md5');
+    $ret = checkFileExist($md5);
+    if(!empty($ret)){
+      return $this->Result($ret, 1, '文件存在');
+    }else{
+      return $this->Result($ret, 0, '文件不存在');
+    }
+  }
+
+
   /* 上传图片 */
   public function upload(){
     $file = request()->file('file');
     $table = input('table');
     $ret = $this->upImage($file, $table);
-    $this->Addlog($table, $ret['msg'], 0);
+    //$this->Addlog($table, $ret['msg'], 0);
     return $ret;
   }
 

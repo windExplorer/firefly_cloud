@@ -174,8 +174,12 @@
               <button type="button" class="layui-btn layui-btn-normal" fiy-upload>
                 <i class="layui-icon">&#xe67c;</i>上传{$vo.title}
               </button>
+            <div class="layui-progress layui-progress-big" lay-showPercent="yes" lay-filter='event-file-progress' style="margin-top: 10px;">
+              <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+            </div>
+            
             <div class="event-image-container" fiy-photo-list>
-              <img src="{$data[$vo.name]}" alt="">
+              <div class="img-box"><img src="{$data[$vo.name]}" alt="" fiy-photo><span class='img-title'></span></div>
             </div>
             {elseif $vo.name=='pid' /}
             <select name="{$vo.name}">

@@ -16,8 +16,6 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   const table = layui.table
   const upload = layui.upload
   const laydate = layui.laydate
-  let viewer
-  let pjax_load
   Render_Table()
   Render_Time()
   Render_Upload()
@@ -485,11 +483,17 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
 
   /* 图片查看器初始化 */
   function Render_Viewer(){
-    if($('[fiy-photo-list]').length > 0)
-      viewer = new Viewer($('[fiy-photo-list]')[0], {
+    /* if($('[fiy-photo-list]').length > 0) */
+      /* viewer = new Viewer($('[fiy-photo-list]')[0], {
         zIndex: 19951020
+      }) */
+      $('[fiy-photo]').viewer({
+        zIndex : '19951020',
+        url:    'src'
       })
   }
+
+  
 
   /* 上传图片 */
   function Render_Upload(){
@@ -500,30 +504,66 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
         table: Get_Dtb_Table()
       },
       field: 'file',
-      size: 2 * 1024 * 1024,
-      accept: 'images',
-      acceptMime: 'image/*',
+      size: 10 * 1024 * 1024,
+      accept: 'file',
+      //acceptMime: 'image/*',
       multiple: true,
+      auto: false,
+      choose: function(obj){
+        let that = this
+        //将每次选择的文件追加到文件队列
+        var files = obj.pushFile();
+        //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+        console.log(obj.resetFile.length)
+        obj.preview(function(index, file, result){
+          //console.log(index) //得到文件索引
+          //console.log(file) //得到文件对象
+          //console.log(result) //得到文件base64编码，比如图片
+          let img = `<div class="img-box"><img src='${result}' fiy-photo /><span class='img-title' fiy-photo-id='${index}'></span></div>`
+          that.item.nextAll('[fiy-photo-list]').append(img)
+          getFileMd5($(`[fiy-photo-id='${index}']`), file, res => {
+            console.log(index)
+            console.log(index +':' +res)
+            $.get(Check_File_Exist, {md5: res}, function(res){
+              console.log(res)
+            })
+            
+            //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+          })
+          /* getFileMd5_2(file, res => {
+            console.log(res)
+          })
+          getFileSha1(file, res => {
+            console.log(res)
+          }) */
+          
+          //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+          
+          //这里还可以做一些 append 文件列表 DOM 的操作
+          
+          
+          //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+        })
+      },
       before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-        //layer.load() //上传loading
-        console.log(obj)
-        return
+        layer.load() //上传loading
       },
       allDone: function(obj){
         /* console.log(obj)
         console.log(obj.total)
         console.log(obj.successful)
         console.log(obj.aborted) */
+        Render_Viewer()
       },
       done: function(res, index, upload){
         layer.closeAll('loading')
         layer.msg(res.msg)
         console.log(res)
         if(res.code == 1){
-          let img = `<img src='${res.url}' />`
-          this.item.nextAll('[fiy-photo-list]').append(img)
+          /* let img = `<img src='${res.url}' fiy-photo />`
+          this.item.nextAll('[fiy-photo-list]').append(img) */
           this.item.prev().find('input').val(res.url)
-          viewer.update()
+          Render_Viewer()
         }
       },
       error: function(index, upload) {
@@ -531,7 +571,72 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       }
     })
   }
+  /* 文件md5操作 */
+  function getFileMd5(ele , file, callback){
+
+    var blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice,
+    //file = this.files[0],
+    chunkSize = 2 * 1024 * 1024,                             // Read in chunks of 2MB
+   // chunks = Math.ceil(file.size / chunkSize),
+    chunks = 100,
+    currentChunk = 0,
+    spark = new SparkMD5.ArrayBuffer(),
+    fileReader = new FileReader();
+
+    fileReader.onload =  (e) => {
+        //console.log('read chunk nr', currentChunk + 1, 'of', chunks);
+        spark.append(e.target.result);                   // Append array buffer
+        currentChunk++;
+        let percent = ((currentChunk/chunks)*100).toFixed(0) + '%'
+        //element.progress('event-file-progress', percent);
+        ele.text(percent)
+        if (currentChunk < chunks) {
+            loadNext();
+        } else {
+            //console.log('finished loading');
+            callback('1:' + spark.end());  // Compute hash
+            //return spark.end()
+        }
+    };
+
+    fileReader.onerror = function () {
+        console.warn('oops, something went wrong.');
+    };
+
+    function loadNext() {
+        var start = currentChunk * chunkSize,
+            end = ((start + chunkSize) >= file.size) ? file.size : start + chunkSize;
+
+        fileReader.readAsArrayBuffer(blobSlice.call(file, start, end));
+    }
+
+    loadNext();
+
+  }
+
+  /* 获取文件sha1  */
+  function getFileSha1(file, callback){
+    var reader = new FileReader();
+    reader.onload = (event) => {
+      var res = event.target.result;
+      res = CryptoJS.lib.WordArray.create(res);
+      var sha1 = CryptoJS.SHA1(res).toString();
+      callback('3:' + sha1);
+    };
+    reader.readAsArrayBuffer(file);
+  }
   
+  /* 获取文件md5_2 */
+  function getFileMd5_2(file, callback){
+    var reader = new FileReader();
+    reader.onload = (event) => {
+      var res = event.target.result;
+      res = CryptoJS.lib.WordArray.create(res);
+      var sha1 = CryptoJS.MD5(res).toString();
+      callback('2:' + sha1);
+    };
+    reader.readAsArrayBuffer(file);
+  }
   
 
  

@@ -271,11 +271,31 @@ body{
         cursor: pointer;
     }
     .event-image-container{
+        position: relative;
         margin-top: 10px;
+        .img-box{
+            position: relative;
+            display: inline-block;
+            margin-right: 5px;
+        }
         img{
             height: 40px;
             width: 40px;
             vertical-align: middle;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .img-title{
+            position: absolute;
+            height: 40px;
+            line-height: 40px;
+            background: rgba(0, 0, 0, .6);
+            color: #fff;
+            width: 40px;
+            z-index: 2;
+            margin-left: -40px;
+            font-size: 10px;
+            text-align: center;
             cursor: pointer;
         }
     }
