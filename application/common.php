@@ -183,5 +183,5 @@ function unlinkFile($path, $info = ''){
 /* 获取域名 */
 function getDomain()
 {
-  return request()->server('REQUEST_SCHEME').'//'.request()->url();
+  return request()->server('REQUEST_SCHEME').'://'.request()->host();
 }

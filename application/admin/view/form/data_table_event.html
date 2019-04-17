@@ -65,14 +65,14 @@
               <a class="layui-btn layui-btn-normal" fiy-id='select-icon'>选择图标</a>
             </div>
             {elseif $vo.name=='user_id' /}
-            <select name="{$vo.name}" lay-filter="{$vo.name}">
+            <select name="{$vo.name}" lay-filter="{$vo.name}" lay-search>
               <option value=""> - 请选择用户 - </option>
               {volist name='user_id' id='vo_user_id'}
               <option value="{$vo_user_id.id ?? ''}" fiy-email='{$vo_user_id.email ?? ""}'>{$vo_user_id.nickname ?? ''}</option>
               {/volist}
             </select>
             {elseif $vo.name=='admin_id' /}
-            <select name="{$vo.name}">
+            <select name="{$vo.name}" lay-search>
               <option value=""> - 请选择管理员 - </option>
               {volist name='admin_id' id='vo_admin_id'}
               <option value="{$vo_admin_id.id ?? ''}">{$vo_admin_id.nickname ?? ''}</option>
@@ -165,14 +165,14 @@
               <a class="layui-btn layui-btn-normal" fiy-id='select-icon'>选择图标</a>
             </div>
             {elseif $vo.name=='user_id' /}
-            <select name="{$vo.name}" lay-filter="{$vo.name}">
+            <select name="{$vo.name}" lay-filter="{$vo.name}" lay-search>
               <option value=""> - 请选择用户 - </option>
               {volist name='user_id' id='vo_user_id'}
               <option value="{$vo_user_id.id ?? ''}" fiy-email='{$vo_user_id.email ?? ""}' {if $data[$vo.name] == $vo_user_id.id}selected{/if}>{$vo_user_id.nickname ?? ''}</option>
               {/volist}
             </select>
             {elseif $vo.name=='admin_id' /}
-            <select name="{$vo.name}">
+            <select name="{$vo.name}" lay-search>
               <option value=""> - 请选择管理员 - </option>
               {volist name='admin_id' id='vo_admin_id'}
               <option value="{$vo_admin_id.id ?? ''}" {if $data[$vo.name] == $vo_admin_id.id}selected{/if}>{$vo_admin_id.nickname ?? ''}</option>

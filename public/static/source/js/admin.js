@@ -129,6 +129,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
               break
             case 5: //添加数据
               layer.close(ele)
+              //layer.close(layer.index)
               Table_Reload()
               break
             default:
@@ -892,9 +893,9 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     location.reload()
   })
   //选择图片
-  $(document).on('click', '[fiy-file-selected="image-net-path"]', function(){
+  $(document).on('click', '[fiy-file-selected="file-net-path"]', function(){
     let th = $(this)
-    $('input[file-select="image-net-path"]').val(th.attr('fiy-file-url'))
+    $('input[file-select="file-net-path"]').val(th.attr('fiy-file-url'))
     let img = `<div class="img-box"><img src='${th.attr('fiy-file-url')}' fiy-photo />`
     $('[fiy-photo-list]').append(img)
     layer.close(layer.index)

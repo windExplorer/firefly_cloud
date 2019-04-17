@@ -25,14 +25,14 @@ class Mail extends BaseAdmin
     return view();
   }
 
-  public function user()
+  public function site_mail()
   {
-    $table = 'user';
+    $table = 'site_mail';
     //固定参数
     $this->assign([
       'table'       =>  $table,
       'cols'        =>  $this->GetColumnInfo($table),
-      'menu_title'  =>  '普通用户',
+      'menu_title'  =>  '站内信箱',
       'menu_icon'   =>  'layui-icon layui-icon-layouts',
     ]);
     //附加参数
@@ -44,14 +44,14 @@ class Mail extends BaseAdmin
     return view();
   }
     
-  public function admin_log()
+  public function site_system_mail()
   {
-    $table = 'admin_log';
+    $table = 'site_system_mail';
     //固定参数
     $this->assign([
       'table'       =>  $table,
       'cols'        =>  $this->GetColumnInfo($table),
-      'menu_title'  =>  '管理员日志',
+      'menu_title'  =>  '系统邮件表',
       'menu_icon'   =>  'layui-icon layui-icon-layouts',
     ]);
     //附加参数
@@ -63,24 +63,7 @@ class Mail extends BaseAdmin
     return view();
   }
 
-  public function user_log()
-  {
-    $table = 'user_log';
-    //固定参数
-    $this->assign([
-      'table'       =>  $table,
-      'cols'        =>  $this->GetColumnInfo($table),
-      'menu_title'  =>  '用户日志',
-      'menu_icon'   =>  'layui-icon layui-icon-layouts',
-    ]);
-    //附加参数
-    $this->assign([
 
-      //'menu'        =>  $this->Retrieve($table, '', 0),
-      //'treedom'     =>  $this->GetChildren($table, '<option>', '</option>')['dom']
-    ]);
-    return view();
-  }
     
 
 

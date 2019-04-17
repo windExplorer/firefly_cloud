@@ -492,7 +492,10 @@ class BaseAdmin extends Controller
             // Content
             $mail->isHTML(!(bool)$type);                                  // Set email format to HTML
             $mail->Subject = $subject;
-            $mail->Body    = $content;
+            if($type == 0)
+                $mail->Body    = $content;
+            else
+                $mail->Body    = $context;
             $mail->AltBody = $context;
 
             $mail->send();

@@ -232,6 +232,20 @@
     <button class='layui-btn layui-btn-sm tpl-btn'>成功</button>
   {{# } }}
 </script>
+<script type="text/html" id="Tpl_is_system">
+  {{# if(d.is_system == 0){ }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>普通消息</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>系统消息</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_is_read">
+  {{# if(d.is_read == 0){ }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>未读</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>已读</button>
+  {{# } }}
+</script>
 <script type="text/html" id="Tpl_admin_log_type">
   {{# if(d.admin_log_type == 0){ }}
     <button class='layui-btn layui-btn-sm tpl-btn'>增</button>
