@@ -133,6 +133,7 @@ class Form extends BaseAdmin
       $data = $post['data'];
       $user = $this->Retrieve('user', ['id' => $data['user_id']], 1);
       $nick = $user['nickname'];
+      $data['content'] = str_replace('src="/uploads', 'src="'.getDomain().'/uploads', $data['content']);
       $send = $this->sendMail($data['to'], $data['subject'], $data['content'], $nick, $data['context'], $data['email_files'], $type = $data['email_type']);
       if($send){
         $data['is_success'] = 1;
@@ -236,7 +237,7 @@ class Form extends BaseAdmin
     $file = request()->file('file');
     $table = input('table');
     $ret = $this->upImage($file, $table);
-    //$this->Addlog($table, $ret['msg'], 0);
+    $this->Addlog($table, $ret['msg'], 7);
     return $ret;
   }
 
@@ -265,30 +266,43 @@ class Form extends BaseAdmin
     return view();
   }
 
-    /* 选择文件 */
-    public function select_file()
-    {
-      $table = 'attachment';
-      if(input('?get.first')){
-        $page = input('get.page');
-        $flag = 1;
-      }else{
-        $page = 1;
-        $flag = 0;
-      }
-      $limit = 5;
-      $where = '';
-      $data = $this->Retrieve($table, $where, $limit, $page, 'id desc');
-      $total = getDbCount($table, $where);
-  
-      $this->assign([
-        'data'  =>  $data,
-        'flag'  =>  $flag,
-        'total' =>  $total,
-        'limit' =>  $limit,
-      ]);
-      return view();
+  /* 选择文件 */
+  public function select_file()
+  {
+    $table = 'attachment';
+    if(input('?get.first')){
+      $page = input('get.page');
+      $flag = 1;
+    }else{
+      $page = 1;
+      $flag = 0;
     }
+    $limit = 5;
+    $where = '';
+    $data = $this->Retrieve($table, $where, $limit, $page, 'id desc');
+    $total = getDbCount($table, $where);
+
+    $this->assign([
+      'data'  =>  $data,
+      'flag'  =>  $flag,
+      'total' =>  $total,
+      'limit' =>  $limit,
+    ]);
+    return view();
+  }
+
+  /* wangEditor上传图片 */
+  public function wangeditor_image(){
+    $files = request()->file('file');
+    $table = input('table');
+    $ret['errno'] = 0;
+    foreach($files as $file){
+      $res = $this->upImage($file, $table);
+      $ret['data'][] = $res['url'];
+      $this->Addlog($table, $res['msg'], 7);
+    }
+    return json($ret);
+  }
 
 
   /* 密码 */

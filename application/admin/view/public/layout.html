@@ -142,7 +142,8 @@
       const UPLOAD_URL = `{:url('admin/form/upload')}` //上传图片
       const Check_File_Exist = `{:url('admin/form/check_file_exist')}` //文件存在性检测
       const UPLOAD_EXT = `{:str_replace(",", "|", sysConf("upload_ext"))}` //允许上传的文件后缀
-      const UPLOAD_MAXSIZE = `{sysConf('upload_maxsize')}`
+      const UPLOAD_MAXSIZE = `{sysConf('upload_maxsize')}`  //上传图片最大size
+      const UPLOAD_IMG_WANGEDITOR = `{:url('admin/form/wangeditor_image')}`  //wangEditor上传图片url
       const FLAG = {  //标志(配置)
         search_box: false, //是否自动收起搜索栏目 
       }

@@ -171,8 +171,17 @@ function getDbCount($table, $where){
 }
 
 /* 删除单个文件 */
-function unlinkFile($path){
+function unlinkFile($path, $info = ''){
   if(file_exists($path)){
-      unlink($path);
+    if(!empty($info)){
+      unset($info);
+    }
+    unlink($path);
   }
+}
+
+/* 获取域名 */
+function getDomain()
+{
+  return request()->server('REQUEST_SCHEME').'//'.request()->url();
 }

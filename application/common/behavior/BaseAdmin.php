@@ -424,9 +424,13 @@ class BaseAdmin extends Controller
                 ];
                 $this->Create('attachment', $imgData);
             }else{
-                unlinkFile($ret['phy_url']);
+                if(file_exists($ret['phy_url'])){
+                    unset($info);
+                    unlink($ret['phy_url']);
+                }
                 $ret['phy_url'] = $check['path'];
                 $ret['url'] = $check['net_path'];
+
             }
         }else{
             // 上传失败获取错误信息

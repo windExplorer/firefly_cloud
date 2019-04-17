@@ -81,7 +81,7 @@
             {elseif stripos($vo.name, 'context') !== false /}
             <textarea name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} placeholder="请输入{$vo.title}" class="layui-textarea"></textarea>
             {elseif stripos($vo.name, 'content') !== false /}
-            <div class="editor"></div>
+            <div class="editor" name="{$vo.name}" fiy-event='{$event}'></div>
             {elseif stripos($vo.name, 'image') !== false || stripos($vo.name, 'avatar') !== false /}
             <div class="layui-input-inline">
               <input type="text" name="{$vo.name}" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" file-select="file-net-path" >  
@@ -180,6 +180,8 @@
             </select>
             {elseif stripos($vo.name, 'context') !== false /}
             <textarea name="{$vo.name}" {in name='$vo.allow_null' value='NO'} required lay-verify="required" {/in} placeholder="请输入{$vo.title}" class="layui-textarea">{$data[$vo.name]}</textarea>
+            {elseif stripos($vo.name, 'content') !== false /}
+            <div class="editor" name="{$vo.name}" fiy-event='{$event}'><div class="content layui-hide">{$data[$vo.name]|raw}</div></div>
             {elseif stripos($vo.name, 'image') !== false || stripos($vo.name, 'avatar') !== false /}
             <div class="layui-input-inline">
               <input type="text" value="{$data[$vo.name]}" name="{$vo.name}" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" file-select="file-net-path" >  

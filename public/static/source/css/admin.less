@@ -173,7 +173,9 @@ body{
         width: 95%;
         margin: 20px auto;
     }
-
+    .layui-layer-content{
+        max-height: 90vh;
+    }
     
 
     /* icon */
@@ -314,5 +316,13 @@ body{
         .w-e-toolbar{
             flex-wrap: wrap;
         }
+        img{
+            max-width: 30% !important;
+        }
+        .w-e-menu:hover{
+            z-index: 10002 !important; //解决 .w-e-droplist 被遮挡
+        }
+        
     }
+
 }

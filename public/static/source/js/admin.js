@@ -182,6 +182,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
             title: title,
             skin: 'fiy-layer',
             area: area,
+            maxHeight: '90vh',
             content: html,
             maxmin: true,
             shade: 0,
@@ -197,13 +198,21 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
                 
               // 监听表单提交 - 此监听将获取数据库表与数据，并且会关闭弹窗
               form.on('submit(event_form)', function(data){
+                console.log(data)
                 let url = $(data.form).attr('fiy-url')
                 let type = $(data.form).attr('method')
                 console.log(data.field)
+                console.log($(data.form).find('.editor').length)
+                if($(data.form).find('.editor').length > 0){
+                  let ele = $(data.form).find('.editor').eq(0)
+                  data.field[ele.attr('name')] = editor.txt.html()
+                }
                 let formData = {
                     table: $(data.form).attr('fiy-table'),
                     data: data.field
                 }
+                console.log(formData)
+                //return
                 Request(url, formData, type, 5, index)
                 return false
               })
@@ -310,7 +319,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     let th = $(`#${DTB_ID}`)
     switch(obj.event){
       case 'add':
-        modal(th.attr('fiy-event-url'), `添加`, ``, `800px` , data, 'post', 1)
+        modal(th.attr('fiy-event-url'), `添加`, ``, `800px,auto`, data, 'post', 1)
       break
       case 'update':
         if(checkStatus.data.length > 1){
@@ -323,7 +332,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
         }
         data.id = checkStatus.data[0].id
         data.event = `edit`
-        modal(th.attr('fiy-event-url'), `编辑`, ``, `800px` , data, 'post', 1)
+        modal(th.attr('fiy-event-url'), `编辑`, ``, `800px,auto`, data, 'post', 1)
       break
       case 'delete':
         if(checkStatus.data.length == 0){
@@ -352,14 +361,14 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       event: layEvent
     }
     if(layEvent === 'view'){ //查看      
-      modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px` , data, 'post')
+      modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px,auto` , data, 'post')
     } else if(layEvent === 'del'){ //删除
       layer.confirm('真的删除此项么', {icon: 3, title:'删除提示'}, function(index){
         layer.close(index)
         Request(th.parent().attr('fiy-url'), data, 'post', 3, obj)
       })
     } else if(layEvent === 'edit'){ //编辑
-      modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px` , data, 'post', 1)
+      modal(th.parent().attr('fiy-url'), th.attr('fiy-title') || `信息`, th.attr('fiy-content') || ``, th.attr('fiy-area') || `800px,auto` , data, 'post', 1)
       //同步更新缓存对应的值
       /* obj.update({
         username: '123'
@@ -696,9 +705,69 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
   
   /* 富文本 */
   function Render_wangEditor(){
-    editor = new E('.editor')
-    // 或者 var editor = new E( document.getElementById('editor') )
-    editor.create()
+    if($('body').find('.editor').length > 0){
+      let html = ``
+      if($('.editor').attr('fiy-event') == 'edit'){
+        html = $('.editor').find('.content').html()
+      }
+      editor = new E('.editor')
+      editor.customConfig.debug = true
+      // 或者 var editor = new E( document.getElementById('editor') )
+      //editor.customConfig.zIndex = 1
+      editor.customConfig.uploadImgServer = UPLOAD_IMG_WANGEDITOR
+      editor.customConfig.uploadImgMaxSize = UPLOAD_MAXSIZE
+      editor.customConfig.uploadFileName = 'file[]'
+      editor.customConfig.uploadImgParams = {
+        table: Get_Dtb_Table()
+      }
+      /* editor.customConfig.uploadImgHooks = {
+        before: function (xhr, editor, files) {
+            // 图片上传之前触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
+            
+            // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
+            // return {
+            //     prevent: true,
+            //     msg: '放弃上传'
+            // }
+        },
+        success: function (xhr, editor, result) {
+            // 图片上传并返回结果，图片插入成功之后触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+        },
+        fail: function (xhr, editor, result) {
+            // 图片上传并返回结果，但图片插入错误时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+        },
+        error: function (xhr, editor) {
+            // 图片上传出错时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+        },
+        timeout: function (xhr, editor) {
+            // 图片上传超时时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+        },
+    
+        // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+        // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+        customInsert: function (insertImg, result, editor) {
+            // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+            // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+    
+            // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+            var url = result.url
+            insertImg(url)
+    
+            // result 必须是一个 JSON 格式字符串！！！否则报错
+        }
+      } */
+    
+      
+
+      editor.create()
+      editor.txt.html(html)
+    }
+
   }
 
 

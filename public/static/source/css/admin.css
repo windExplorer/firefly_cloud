@@ -163,6 +163,9 @@ body .modal-container {
   width: 95%;
   margin: 20px auto;
 }
+body .layui-layer-content {
+  max-height: 90vh;
+}
 body .icon-ku ::-webkit-input-placeholder {
   color: #aaa;
 }
@@ -280,4 +283,10 @@ body img {
 }
 body .editor .w-e-toolbar {
   flex-wrap: wrap;
+}
+body .editor img {
+  max-width: 30% !important;
+}
+body .editor .w-e-menu:hover {
+  z-index: 10002 !important;
 }

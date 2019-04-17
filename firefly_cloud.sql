@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 16/04/2019 17:54:48
+ Date: 17/04/2019 08:27:33
 */
 
 SET NAMES utf8mb4;
@@ -64,13 +64,13 @@ CREATE TABLE `admin_log`  (
   `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
   `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地理位置',
   `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户来源信息',
-  `admin_log_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '日志类型[0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮件]',
+  `admin_log_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '日志类型[0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮件,7:图片]',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 159 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 189 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_log
@@ -232,6 +232,36 @@ INSERT INTO `admin_log` VALUES (155, 3, 'http://www.firefly.test:81/admin/mail/e
 INSERT INTO `admin_log` VALUES (156, 3, 'http://www.firefly.test:81/admin/mail/email.html', 'http://www.firefly.test:81/admin/form/event_add.html', 'email', '添加[id:1]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555405186, 1555405186);
 INSERT INTO `admin_log` VALUES (157, 3, 'http://www.firefly.test:81/admin/mail/email.html', 'http://www.firefly.test:81/admin/form/event_add.html', 'email', 'Message has been sent', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 6, 1, 0, 1555405210, 1555405210);
 INSERT INTO `admin_log` VALUES (158, 3, 'http://www.firefly.test:81/admin/mail/email.html', 'http://www.firefly.test:81/admin/form/event_add.html', 'email', '添加[id:2]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555405210, 1555405210);
+INSERT INTO `admin_log` VALUES (159, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1555414237, 1555414237);
+INSERT INTO `admin_log` VALUES (160, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555419936, 1555419936);
+INSERT INTO `admin_log` VALUES (161, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555419948, 1555419948);
+INSERT INTO `admin_log` VALUES (162, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555419948, 1555419948);
+INSERT INTO `admin_log` VALUES (163, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420272, 1555420272);
+INSERT INTO `admin_log` VALUES (164, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420272, 1555420272);
+INSERT INTO `admin_log` VALUES (165, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420272, 1555420272);
+INSERT INTO `admin_log` VALUES (166, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420432, 1555420432);
+INSERT INTO `admin_log` VALUES (167, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420432, 1555420432);
+INSERT INTO `admin_log` VALUES (168, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420432, 1555420432);
+INSERT INTO `admin_log` VALUES (169, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420579, 1555420579);
+INSERT INTO `admin_log` VALUES (170, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420587, 1555420587);
+INSERT INTO `admin_log` VALUES (171, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420625, 1555420625);
+INSERT INTO `admin_log` VALUES (172, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420641, 1555420641);
+INSERT INTO `admin_log` VALUES (173, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420650, 1555420650);
+INSERT INTO `admin_log` VALUES (174, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420707, 1555420707);
+INSERT INTO `admin_log` VALUES (175, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420707, 1555420707);
+INSERT INTO `admin_log` VALUES (176, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420707, 1555420707);
+INSERT INTO `admin_log` VALUES (177, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420726, 1555420726);
+INSERT INTO `admin_log` VALUES (178, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420726, 1555420726);
+INSERT INTO `admin_log` VALUES (179, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420726, 1555420726);
+INSERT INTO `admin_log` VALUES (180, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420752, 1555420752);
+INSERT INTO `admin_log` VALUES (181, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555420811, 1555420811);
+INSERT INTO `admin_log` VALUES (182, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/event_add.html', 'email', 'Message has been sent', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 6, 1, 0, 1555425411, 1555425411);
+INSERT INTO `admin_log` VALUES (183, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/event_add.html', 'email', '添加[id:3]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555425411, 1555425411);
+INSERT INTO `admin_log` VALUES (184, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555425507, 1555425507);
+INSERT INTO `admin_log` VALUES (185, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/event_edit.html', 'email', '修改[id:3]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555425515, 1555425515);
+INSERT INTO `admin_log` VALUES (186, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555425535, 1555425535);
+INSERT INTO `admin_log` VALUES (187, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/event_add.html', 'email', 'Message has been sent', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 6, 1, 0, 1555425539, 1555425539);
+INSERT INTO `admin_log` VALUES (188, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/event_add.html', 'email', '添加[id:4]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555425539, 1555425539);
 
 -- ----------------------------
 -- Table structure for attachment
@@ -254,7 +284,14 @@ CREATE TABLE `attachment`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of attachment
+-- ----------------------------
+INSERT INTO `attachment` VALUES (10, 3, '30ced021cd5346d5b1393e4cb4bf4252!400x400.jpeg', 'ecc8aa28bffc44a22b844950e72cfbb7.jpeg', 'image/jpeg', 'jpeg', '27349', './uploads/email/20190416/ecc8aa28bffc44a22b844950e72cfbb7.jpeg', '/uploads/email/20190416/ecc8aa28bffc44a22b844950e72cfbb7.jpeg', 'f260487a5d9f9f8fd03e5e0121bf4495', '820e408abe7093ffcfcbd0ff8a54d91d686e8c6c', 1, 0, 1555420706, 1555420706);
+INSERT INTO `attachment` VALUES (11, 3, 'c21bf361d8e54242a01c666008c77eeb!400x400.jpeg', '478a3607465f69d7b7369eb5dd4055a2.jpeg', 'image/jpeg', 'jpeg', '45044', './uploads/email/20190416/478a3607465f69d7b7369eb5dd4055a2.jpeg', '/uploads/email/20190416/478a3607465f69d7b7369eb5dd4055a2.jpeg', 'f4ca9eb9d4f7f22f2c5783d2133ec5ec', '3c70c61e601b0d253b97b0ddedd1c0617ba99655', 1, 0, 1555420707, 1555420707);
+INSERT INTO `attachment` VALUES (12, 3, 'f5e951fe320e46009afe136c2955015f!400x400.jpeg', 'cde05b8cce88a039043731ee19ae15fb.jpeg', 'image/jpeg', 'jpeg', '24669', './uploads/email/20190416/cde05b8cce88a039043731ee19ae15fb.jpeg', '/uploads/email/20190416/cde05b8cce88a039043731ee19ae15fb.jpeg', 'bf75ccd7246c5127a73b93e71b234eaa', 'deda70e44fe362b3914a539af73446aaf24dc9cc', 1, 0, 1555420707, 1555420707);
 
 -- ----------------------------
 -- Table structure for email
@@ -262,28 +299,30 @@ CREATE TABLE `attachment`  (
 DROP TABLE IF EXISTS `email`;
 CREATE TABLE `email`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
-  `admin_id` bigint(20) NULL DEFAULT NULL COMMENT '管理员id',
-  `to` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '收信人',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `admin_id` bigint(20) NOT NULL COMMENT '管理员id',
+  `to` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收信人',
   `from` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '寄信人',
-  `subject` varchar(140) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主题',
+  `subject` varchar(140) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主题',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '内容',
   `context` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '纯文本',
   `email_files` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '附件',
   `email_type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '邮件类型[0:HTML,1:TXT]',
-  `is_success` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否发送成功[0:失败,1:成功]',
+  `is_success` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否成功[0:失败,1:成功]',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of email
 -- ----------------------------
 INSERT INTO `email` VALUES (1, 1, 3, 'snoopyshenlu@163.com', NULL, '你好-测试邮件', '测试邮件，主页内容', '纯文本消息', './uploads/email/20190416/8d1a330f8993b140a9614d9d9daa82c1.jpeg', 0, 1, 1, 0, 1555405177, 1555405177);
 INSERT INTO `email` VALUES (2, 1, 3, 'snoopyshenlu@163.com', NULL, '你好-测试邮件', '测试邮件，主页内容', '纯文本消息', './uploads/email/20190416/8d1a330f8993b140a9614d9d9daa82c1.jpeg', 0, 1, 1, 0, 1555405177, 1555405177);
+INSERT INTO `email` VALUES (3, 1, 4, 'snoopyshenlu@163.com', NULL, '富文本测试', '<h1>富文本测试</h1><p><span style=\"font-weight: bold;\">富文本测试</span><br></p><blockquote>富文本测试</blockquote><p><span style=\"color: rgb(70, 172, 200);\">富文本测试</span></p><p><img src=\"/uploads/email/20190416/ecc8aa28bffc44a22b844950e72cfbb7.jpeg\" style=\"max-width:30%;\"><span style=\"color: rgb(70, 172, 200);\"><br></span></p>', '', '', 0, 1, 1, 0, 1555425344, 1555425515);
+INSERT INTO `email` VALUES (4, 1, 3, 'snoopyshenlu@163.com', NULL, '富文本图片测试', '<p><img src=\"/uploads/email/20190416/ecc8aa28bffc44a22b844950e72cfbb7.jpeg\" style=\"max-width:100%;\"><br></p>', '', '', 0, 1, 1, 0, 1555425519, 1555425519);
 
 -- ----------------------------
 -- Table structure for file
