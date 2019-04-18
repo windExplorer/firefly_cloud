@@ -464,6 +464,16 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
       type: 'date',
       range: false,
     })
+    laydate.render({
+      elem: '#add_time',
+      type: 'datetime',
+      range: false,
+    })
+    laydate.render({
+      elem: '#edit_time',
+      type: 'datetime',
+      range: false,
+    })
   }
   // 重置数据表格
   function Render_Table(where = '', id = '#'+DTB_ID){

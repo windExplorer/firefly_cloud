@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 17/04/2019 18:09:53
+ Date: 18/04/2019 21:23:55
 */
 
 SET NAMES utf8mb4;
@@ -70,7 +70,7 @@ CREATE TABLE `admin_log`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 213 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 225 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_log
@@ -286,6 +286,18 @@ INSERT INTO `admin_log` VALUES (209, 3, 'http://www.firefly.test:81/admin/mail/e
 INSERT INTO `admin_log` VALUES (210, 3, 'http://www.firefly.test:81/admin/mail/email.html', 'http://www.firefly.test:81/admin/form/event_add.html', 'email', '添加[id:8]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555471295, 1555471295);
 INSERT INTO `admin_log` VALUES (211, 3, 'http://www.firefly.test:81/admin/system/menu.html', 'http://www.firefly.test:81/admin/form/event_add.html', 'menu', '添加[id:30]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555494463, 1555494463);
 INSERT INTO `admin_log` VALUES (212, 3, 'http://www.firefly.test:81/admin/system/menu.html', 'http://www.firefly.test:81/admin/form/event_add.html', 'menu', '添加[id:31]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555495763, 1555495763);
+INSERT INTO `admin_log` VALUES (213, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1555506472, 1555506472);
+INSERT INTO `admin_log` VALUES (214, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_edit.html', 'menu', '修改[id:28]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555506903, 1555506903);
+INSERT INTO `admin_log` VALUES (215, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:32]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555509944, 1555509944);
+INSERT INTO `admin_log` VALUES (216, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:33]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555510071, 1555510071);
+INSERT INTO `admin_log` VALUES (217, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_edit.html', 'menu', '修改[id:33]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555510091, 1555510091);
+INSERT INTO `admin_log` VALUES (218, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:34]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555511265, 1555511265);
+INSERT INTO `admin_log` VALUES (219, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:35]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555511359, 1555511359);
+INSERT INTO `admin_log` VALUES (220, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:36]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555512849, 1555512849);
+INSERT INTO `admin_log` VALUES (221, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:37]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555513140, 1555513140);
+INSERT INTO `admin_log` VALUES (222, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:38]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555513182, 1555513182);
+INSERT INTO `admin_log` VALUES (223, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:39]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555513221, 1555513221);
+INSERT INTO `admin_log` VALUES (224, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_edit.html', 'menu', '修改[id:39]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555545176, 1555545176);
 
 -- ----------------------------
 -- Table structure for attachment
@@ -366,22 +378,22 @@ CREATE TABLE `file`  (
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户编号',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '原文件名',
   `save_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '新文件名',
-  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件类型(mime)',
+  `mime` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件类型(mime)',
   `ext` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件后缀',
   `size` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件大小(Byte)',
   `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '物理存储路径',
   `net_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '网络路径',
   `user_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户路径(关联folder表)',
   `old_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '上一次路径(关联folder表)',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件描述',
-  `is_encrypt` tinyint(1) NULL DEFAULT NULL COMMENT '是否加密[0:没加密,1:加密]',
+  `description_context` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件描述',
+  `is_encrypt` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否加密[0:没加密,1:加密]',
   `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件md5',
   `sha1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件sha1',
   `share_frequency` int(11) NULL DEFAULT NULL COMMENT '分享次数',
-  `status` tinyint(1) NULL DEFAULT NULL COMMENT '状态[0:隐藏,1:显示]',
-  `is_deleted` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除[0:未删除,1:已删除]',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
-  `uptime` int(10) NULL DEFAULT NULL COMMENT '最后一次更新时间',
+  `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -394,12 +406,12 @@ CREATE TABLE `folder`  (
   `pid` bigint(20) NULL DEFAULT NULL COMMENT '父编号',
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户编号',
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '目录名称',
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '路径(/开头)',
-  `remark` varchar(140) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `status` tinyint(1) NULL DEFAULT NULL COMMENT '状态[0:隐藏,1:显示]',
-  `is_deleted` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除[0:未删除,1:已删除]',
+  `path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '路径(/开头)',
+  `remark_context` varchar(140) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
-  `uptime` int(10) NULL DEFAULT NULL COMMENT '最后一次更新时间',
+  `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -421,7 +433,7 @@ CREATE TABLE `menu`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -453,10 +465,18 @@ INSERT INTO `menu` VALUES (24, 23, 'layui-icon layui-icon-username', '管理员�
 INSERT INTO `menu` VALUES (25, 23, 'fa fa-user-o', '普通用户管理', 'admin/user/user', '', 1, 25, 1, 0, 1555250859, 1555250859);
 INSERT INTO `menu` VALUES (26, 23, 'fa fa-file-text-o', '管理员日志', 'admin/user/admin_log', '', 1, 26, 1, 0, 1555293496, 1555293496);
 INSERT INTO `menu` VALUES (27, 23, 'layui-icon layui-icon-file-b', '用户日志', 'admin/user/user_log', '', 1, 27, 1, 0, 1555295117, 1555295117);
-INSERT INTO `menu` VALUES (28, 1, 'fa fa-envelope-o', '信箱管理', '', '', 1, 28, 1, 0, 1555296110, 1555296326);
+INSERT INTO `menu` VALUES (28, 1, 'fa fa-envelope-o', '信箱管理', '', '', 0, 28, 1, 0, 1555296110, 1555506903);
 INSERT INTO `menu` VALUES (29, 28, 'fa fa-envelope-square', '电子邮箱', 'admin/mail/email', '', 1, 29, 1, 0, 1555296445, 1555296533);
 INSERT INTO `menu` VALUES (30, 28, 'fa fa-envelope-open-o', '站内信箱', 'admin/mail/site_mail', '', 1, 30, 1, 0, 1555494420, 1555494420);
 INSERT INTO `menu` VALUES (31, 28, 'fa fa-envelope', '系统信件', 'admin/mail/site_system_mail', '', 1, 31, 1, 0, 1555495719, 1555495719);
+INSERT INTO `menu` VALUES (32, 1, 'fa fa-file-o', '文件管理', '', '', 0, 32, 1, 0, 1555509869, 1555509869);
+INSERT INTO `menu` VALUES (33, 32, 'layui-icon layui-icon-find-fill', '后台文件', 'admin/file/attachment', '', 1, 33, 1, 0, 1555509966, 1555510090);
+INSERT INTO `menu` VALUES (34, 32, 'fa fa-folder-o', '目录管理', 'admin/file/folder', '', 1, 34, 1, 0, 1555511232, 1555511232);
+INSERT INTO `menu` VALUES (35, 32, 'layui-icon layui-icon-file-b', '用户文件', 'admin/file/file', '', 1, 35, 1, 0, 1555511340, 1555511340);
+INSERT INTO `menu` VALUES (36, 32, 'layui-icon layui-icon-download-circle', '上传下载', 'admin/file/up_down', '', 1, 36, 1, 0, 1555512827, 1555512827);
+INSERT INTO `menu` VALUES (37, 1, 'fa fa-book', '分享管理', '', '', 1, 37, 1, 0, 1555513009, 1555513009);
+INSERT INTO `menu` VALUES (38, 37, 'layui-icon layui-icon-share', '用户分享', 'admin/share/share', '', 1, 38, 1, 0, 1555513152, 1555513152);
+INSERT INTO `menu` VALUES (39, 37, 'fa fa-commenting', '分享评论', 'admin/share/share_comment', '', 1, 39, 1, 0, 1555513185, 1555545176);
 
 -- ----------------------------
 -- Table structure for share
@@ -468,19 +488,19 @@ CREATE TABLE `share`  (
   `file_ids` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '文件id集合',
   `subject` varchar(140) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主题',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '内容',
-  `share_type` tinyint(1) NULL DEFAULT NULL COMMENT '分享类型[0:完全公开,1:公开有密码,2:限期分享,3:次数分享]',
+  `share_type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '分享类型[0:完全公开,1:加密公开,2:期限公开,3:期限加密公开,4:次数公开,5:次数加密公开,6:有期限次数公开,7:有期限次数加密公开]',
   `share_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分享密码',
   `expire_time` int(10) NULL DEFAULT NULL COMMENT '到期时间',
   `frquency` int(11) NULL DEFAULT NULL COMMENT '使用次数',
   `use_frequency` int(11) NULL DEFAULT NULL COMMENT '已使用次数',
-  `allow_comment` tinyint(1) NULL DEFAULT NULL COMMENT '是否允许评论[0:不允许,1:允许]',
+  `allow_comment` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否允许评论[0:不允许,1:允许]',
   `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
   `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '实际地理位置',
-  `show_location` tinyint(1) NULL DEFAULT NULL COMMENT '是否显示地点[0:不显示,1:显示]',
+  `show_location` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否显示地点[0:不显示,1:显示]',
   `custom_location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户自定义地理位置',
   `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '代理信息',
-  `status` tinyint(1) NULL DEFAULT NULL COMMENT '状态[0:隐藏,1:显示]',
-  `is_deleted` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除[0:未删除,1:已删除]',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -498,11 +518,11 @@ CREATE TABLE `share_comment`  (
   `context` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论内容',
   `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
   `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '实际地理位置',
-  `show_location` tinyint(1) NULL DEFAULT NULL COMMENT '是否显示地点[0:不显示,1:显示]',
+  `show_location` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否显示地点[0:不显示,1:显示]',
   `custom_location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户自定义地理位置',
-  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '代理信息',
-  `status` tinyint(1) NULL DEFAULT NULL COMMENT '状态[0:隐藏,1:显示]',
-  `is_deleted` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除[0:未删除,1:已删除]',
+  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户端信息',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -598,11 +618,11 @@ CREATE TABLE `up_down`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户编号',
   `file_id` bigint(20) NULL DEFAULT NULL COMMENT '文件编号',
-  `up_type` tinyint(1) NULL DEFAULT NULL COMMENT '类型[0:上传,1:下载]',
-  `status` tinyint(1) NULL DEFAULT NULL COMMENT '状态[0:隐藏,1:显示]',
-  `is_deleted` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除[0:未删除,1:已删除]',
+  `up_type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '类型[0:上传,1:下载]',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
+  `is_deleted` tinyint(1) NOT NULL COMMENT '是否删除[0:未删除,1:已删除]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
-  `uptime` int(10) NULL DEFAULT NULL COMMENT '最后一次更新时间',
+  `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 

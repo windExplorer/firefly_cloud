@@ -52,8 +52,12 @@
           {if empty($vo.child) /}
             {if $vo.name=='weigh'}
             <input type="text" name="{$vo.name}" required lay-verify="required|number" lay-verType='tips' placeholder="请输入{$vo.title}" value="{$default.weigh ?? $vo.default}" autocomplete="off" class="layui-input">  
-            {elseif $vo.name=='regtime' || $vo.name=='uptime'/}
-            <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}">
+            {elseif stripos($vo.name, 'time') !== false /}
+              {if $vo.name=='regtime' || $vo.name=='uptime'/}
+              <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}">
+              {else /}
+              <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="{$event}_time">
+              {/if}
             {elseif $vo.name=='born' /}
             <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}">
             {elseif $vo.name=='icon' /}
@@ -152,8 +156,12 @@
             <input type="text" name="{$vo.name}" value="{$data[$vo.name]}" class="layui-input" disabled>  
             {elseif $vo.name=='weigh'/}
             <input type="text" name="{$vo.name}" required lay-verify="required|number" lay-verType='tips' placeholder="请输入{$vo.title}" value="{$data[$vo.name]}" autocomplete="off" class="layui-input">  
-            {elseif $vo.name=='regtime' || $vo.name=='uptime'/}
-            <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" value="{$data[$vo.name]|date='Y-m-d H:i:s'}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}" disabled>
+            {elseif stripos($vo.name, 'time') !== false /}
+              {if $vo.name=='regtime' || $vo.name=='uptime'/}
+              <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" value="{$data[$vo.name]|date='Y-m-d H:i:s'}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}" disabled>
+              {else /}
+              <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" autocomplete="off" class="layui-input" id="{$event}_time">
+              {/if}
             {elseif $vo.name=='born' /}
             <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}" value="{$data[$vo.name]}" autocomplete="off" class="layui-input" id="{$event}_{$vo.name}">
             {elseif $vo.name=='icon' /}

@@ -150,12 +150,13 @@
     </script>
     <script src="__EXTEND__/layui/layui.js"></script>
     <script src="__EXTEND__/plugins/jquery.min.js"></script>
-    <script src="__EXTEND__/plugins/pjax.js"></script>
+    <script src="__EXTEND__/plugins/pjax.min.js"></script>
     <script src="__EXTEND__/plugins/nprogress.min.js"></script>
     <script src="__EXTEND__/plugins/viewer.min.js"></script>
     <script src="__EXTEND__/plugins/jquery-viewer.min.js"></script>
     <script src="__EXTEND__/plugins/crypto-js.min.js"></script>
     <script src="__EXTEND__/plugins/spark-md5.min.js"></script>
+    <script src="__EXTEND__/plugins/echarts.js"></script>
     <script src="__EXTEND__/wangeditor/wangEditor.min.js"></script>
     <script src="__SOURCE_JS__/admin.js"></script>
     {block name='js'}{/block}
@@ -246,6 +247,27 @@
     <button class='layui-btn layui-btn-sm tpl-btn'>已读</button>
   {{# } }}
 </script>
+<script type="text/html" id="Tpl_is_encrypt">
+  {{# if(d.is_encrypt == 0){ }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>未加密</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>已读</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_up_type">
+  {{# if(d.is_up_type == 0){ }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>上传</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>下载</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_net_path">
+  {{# if(d.mime.indexOf('image') > -1){ }}
+    <img src="{{d.net_path || ''}}" class="dtb-image" fiy-photo />
+  {{# }else { }}
+    <img src="__SOURCE_IMG__/file.png" class="dtb-image" fiy-photo />
+  {{# } }}
+</script>
 <script type="text/html" id="Tpl_admin_log_type">
   {{# if(d.admin_log_type == 0){ }}
     <button class='layui-btn layui-btn-sm tpl-btn'>增</button>
@@ -276,6 +298,27 @@
     <button class='layui-btn layui-btn-sm layui-btn-warm tpl-btn'>登录</button>
   {{# }else if(d.user_log_type == 5) { }}
     <button class='layui-btn layui-btn-sm layui-btn-danger tpl-btn'>退出</button>
+  {{# }else { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>其他</button>
+  {{# } }}
+</script>
+<script type="text/html" id="Tpl_share_type">
+  {{# if(d.share_type == 0){ }}
+    <button class='layui-btn layui-btn-sm tpl-btn'>完全公开</button>
+  {{# }else if(d.share_type == 1) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-danger tpl-btn'>加密公开</button>
+  {{# }else if(d.share_type == 2) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>有期限公开</button>
+  {{# }else if(d.share_type == 3) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>有期限加密公开</button>
+  {{# }else if(d.share_type == 4) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>次数公开</button>
+  {{# }else if(d.share_type == 5) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>次数加密公开</button>
+  {{# }else if(d.share_type == 6) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>有期限次数公开</button>
+  {{# }else if(d.share_type == 7) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-primary tpl-btn'>有期限次数加密公开</button>
   {{# }else { }}
     <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>其他</button>
   {{# } }}

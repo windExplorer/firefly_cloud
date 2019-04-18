@@ -1,0 +1,76 @@
+{extend name='public/layout' /}
+
+{block name='buttons'}
+  
+{/block}
+
+{block name='content'}
+
+<fieldset class="layui-elem-field">
+  <legend fiy-id='search-box-tag' class="search-box-tag" fiy-tips='点击伸缩' fiy-tips-area='1'>条件查询</legend>
+  <div class="layui-field-box" fiy-id='search-box'>
+    <form class="layui-form layui-form-pane" action="javascript:;" method="POST" fiy-url="{:request()->url()}">
+      <div class="layui-row layui-col-space10">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item" pane>
+              <label class="layui-form-label">模糊搜索</label>
+              <div class="layui-input-block">
+                  <input type="checkbox" name="blur" lay-skin="switch" lay-text="开启|关闭" value="1">
+              </div>
+            </div>
+        </div>
+        {volist name='cols' id='vo'}
+          {notin name='vo.name' value='is_deleted'}
+          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="layui-form-item">
+              <label class="layui-form-label">{$vo.title}</label>
+              <div class="layui-input-block">
+                
+                  {if empty($vo.child)}
+                    {if stripos($vo.name, 'time') !== false}
+                    <input type="text" name="{$vo.name}" placeholder="选择{$vo.title}范围" autocomplete="off" class="layui-input" id="search_{$vo.name}">
+                    {else /}
+                      <input type="text" name="{$vo.name}" placeholder="输入{$vo.title}" autocomplete="off" class="layui-input" >
+                    {/if}
+                  {else /}
+                    <select name="{$vo.name}" lay-search>
+                        <option value=""> - 选择{$vo.title} - </option>
+                        {volist name='$vo.child' id='vo1'}
+                        <option value="{$i-1}">{$vo1}</option>
+                        {/volist}
+                    </select>
+                  {/if}
+                
+              </div>
+            </div>
+          </div>
+          {/notin}
+        {/volist}
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+          <div class="layui-form-item">
+            <div class="layui-input-block form-btn form-btn-left layui-btn-container">
+              <button class="layui-btn" type="button" lay-submit lay-filter="form_search">提交</button>
+              <button class="layui-btn layui-btn-primary" type="reset" lay>重置</button>
+            </div>
+          </div>
+        </div>    
+      </div>
+    </form>
+  </div>
+</fieldset>
+
+
+<table id="data_table" lay-filter="dtb" fiy-url='{:url("admin/form/data_table")}' fiy-event-url="{:url('admin/form/data_table_event')}" fiy-table='{$table}' class="layui-hide">
+  <th>{"type": "checkbox", "fixed": "left"}</th>
+  <th>{"field": "id", "title": "编号", "align": "center", "sort": "true", "fixed": "left"}</th>
+  <th>{"field": "user_id", "title": "用户id", "align": "center"}</th>
+  <th>{"field": "file_ids", "title": "文件ids", "align": "center"}</th>
+  <th>{"field": "subject", "title": "主题", "align": "center"}</th>
+  <th>{"field": "ip", "title": "ip", "align": "center"}</th>
+  <th>{"field": "share_type", "title": "分享类型", "templet": "#Tpl_share_type", "align": "center", "sort": "true"}</th>
+  <th>{"field": "status", "title": "状态", "align": "center", "sort": "true", "templet": "#Tpl_status"}</th>
+  <th>{"templet": "#Tpl_tool", "title": "操作", "align": "center", "fixed": "right", "minWidth": "150"}</th>
+</table>
+
+
+{/block}
