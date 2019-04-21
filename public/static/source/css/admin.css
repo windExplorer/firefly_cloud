@@ -61,6 +61,7 @@
   left: 60px;
 }
 body {
+  background: #f1f1f1;
   /* layer */
   /* form */
   /* placehoder */
@@ -73,6 +74,24 @@ body {
   /* dtb */
   /* 表格 */
   /* 编辑器-wangeditor */
+}
+body .index-body .layui-card .layui-card-header {
+  background: #FF6F61;
+  color: #fff;
+}
+body .index-body .layui-card .layui-card-body {
+  border-color: #FF6F61;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+body .index-body .layui-card .layui-carousel-ind {
+  position: absolute;
+  top: -41px;
+  text-align: right;
+}
+body .index-body .layui-card .layui-carousel,
+body .index-body .layui-card .layui-carousel > [carousel-item] > * {
+  background: #fff;
 }
 body .fiy-layer .layui-layer-title {
   background: #FF6F61;
@@ -289,4 +308,7 @@ body .editor img {
 }
 body .editor .w-e-menu:hover {
   z-index: 10002 !important;
+}
+body .layui-elem-field {
+  background: #fff;
 }

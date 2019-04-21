@@ -67,6 +67,30 @@
 
 
 body{
+    background: #f1f1f1;
+    .index-body{
+        .layui-card{
+            .layui-card-header{
+                background: @color_1;
+                color: #fff;
+            }
+            .layui-card-body{
+                border-color: @color_1;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
+            .layui-carousel-ind{
+                position: absolute;
+                top: -41px;
+                text-align: right;
+            }
+            .layui-carousel,
+            .layui-carousel>[carousel-item]>*{
+                background: #fff;
+            }
+        }
+        
+    }
     /* layer */
     .fiy-layer{
         .layui-layer-title{
@@ -323,6 +347,10 @@ body{
             z-index: 10002 !important; //解决 .w-e-droplist 被遮挡
         }
         
+    }
+
+    .layui-elem-field{
+        background: #fff;
     }
 
 }

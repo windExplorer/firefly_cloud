@@ -9,19 +9,21 @@ layui.config({
 
 
 /* LAYUI-USE *START* */
-layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function() {
+layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate', 'carousel'], function() {
   const layer = layui.layer
   const form = layui.form
   const element = layui.element
   const table = layui.table
   const upload = layui.upload
   const laydate = layui.laydate
+  const carousel = layui.carousel
   const E = window.wangEditor
   let editor
   Render_Table()
   Render_Time()
   Render_Upload()
   Render_Viewer()
+  Render_Carousel()
   
   //标记事件
   if(FLAG.search_box){
@@ -66,6 +68,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
     element.render()
     Render_Table()
     Render_Time()
+    Render_Carousel()
     close_loop_anim()
   }
   // 设置数据表格状态
@@ -781,6 +784,30 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate'], function()
 
   }
 
+  /* 轮播图 */
+  function Render_Carousel(ele = $('[fiy-id=carousel]')){
+    layui.each(ele, function(index, elem){
+      let th = $(elem)
+      let width = th.attr('fiy-width') || '100%'
+      let height = th.attr('fiy-height') || '140px'
+      let trigger = th.attr('fiy-tigger') || 'hover'
+      let autoplay = th.attr('fiy-autoplay') || false
+      let arrow = th.attr('fiy-arrow') || 'none'
+  
+      carousel.render({
+        elem: th,
+        width: width,
+        arrow: arrow,
+        autoplay: autoplay,
+        trigger: trigger,
+        height: height,
+        //anim: anim
+      })
+
+    })
+    
+  }
+  
 
  
 
