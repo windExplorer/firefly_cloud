@@ -134,6 +134,20 @@ body .index-body .layui-card .index-user p cite {
   font-size: 30px;
   color: #FF6D70;
 }
+body .index2-body .layui-card-body {
+  height: 100px;
+  overflow: hidden;
+}
+body .index2-body .env-text {
+  font-weight: normal;
+  font-size: 20px;
+  color: #009688;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  line-height: 100px;
+  text-align: center;
+}
 body .fiy-layer .layui-layer-title {
   background: #FF6F61;
   color: #fff;

@@ -2,7 +2,186 @@
 
 
 {block name='content'}
+  <div class="index-body index2-body">
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">程序名称</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:sysConf('program_name')}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">程序版本</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:sysConf('program_version')}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">PHP版本</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:phpversion()}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">进程用户</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:Get_Current_User()}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">操作系统</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:php_uname('s')} {:php_uname('r')}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">运行方式</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:php_sapi_name()}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">服务器IP地址</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:GetHostByName($_SERVER['SERVER_NAME'])}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">当前语言</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {$_SERVER['HTTP_ACCEPT_LANGUAGE']}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">编译引擎</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {$_SERVER['SERVER_SOFTWARE']}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">服务器域名</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {$_SERVER["HTTP_HOST"]}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">mysql版本</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {$mysql_version}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">上传大小</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:ini_get('upload_max_filesize')}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">POST大小</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:ini_get('post_max_size')}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">程序安装时间</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:sysConf('website_createtime')}
+                  </span>
+                </div>
+              </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">ThinkPHP版本</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:app()->version()}
+                  </span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">一次性上传文件数量</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:ini_get('max_file_uploads')}
+                  </span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">磁盘空间/剩余空间</div>
+                <div class="layui-card-body">
+                  <span class="env-text">
+                    {:round(disk_total_space('/')/1024/1024/1024, 2)} GB / {:round(disk_free_space('/')/1024/1024/1024, 2)} GB
+                  </span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
     
+      
+
+
+  </div>
     
 
 {/block}

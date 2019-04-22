@@ -61,6 +61,12 @@ class Index extends BaseAdmin
         // 
 
 
+        //dump(ini_get_all());die;
+        //dump(phpinfo('System'));
+        //dump(php_uname());
+        //phpinfo(INFO_GENERAL);die;
+        //$this->test();die;
+
         //固定参数
         $this->assign([
             'menu_title'  =>  '系统环境',
@@ -69,7 +75,7 @@ class Index extends BaseAdmin
 
         //附加参数
         $this->assign([
-
+            'mysql_version' =>  \Db::query("select version()")[0]['version()']
         ]);
 
         // 环境信息

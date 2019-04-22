@@ -256,12 +256,14 @@ class BaseAdmin extends Controller
      */
     public function Addlog($table, $info, $admin_log_type)
     {
+        //nginx 无 $_SERVER['REQUEST_SCHEME']
+        $protocol = stripos(strtolower($_SERVER['SERVER_PROTOCOL']),'https')  === false ? 'http' : 'https';
         $header = \Request::header();
         $admin = session('admin');
         $data = [
             'admin_id'          =>  $admin['id'],
             'ref'               =>  empty($header['referer']) ? ' ' : $header['referer'],
-            'url'               =>  $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],
+            'url'               =>  $protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],
             'table'             =>  $table,
             'info'              =>  $info,
             'ip'                =>  getIP(),
@@ -541,6 +543,10 @@ class BaseAdmin extends Controller
         dump(app()->version());
         dump(app()->config());
         dump(env());
+        $a = Db::query("select version()");
+        dump($a[0]['version()']);
+        dump(disk_total_space('/')/1024/1024/1024);     #获取总大小
+        dump(disk_free_space('/')/1024/1024/1024);     #获取可用空间
 
         return config();
     }
