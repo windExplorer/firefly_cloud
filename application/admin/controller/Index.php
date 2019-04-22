@@ -10,6 +10,7 @@ class Index extends BaseAdmin
     {
         // 快捷方式 8个
         // 用户统计
+        // 管理员统计
         // 分享统计
         // 文件统计
         // 邮件统计
@@ -24,9 +25,22 @@ class Index extends BaseAdmin
             'menu_title'  =>  '数据整理',
             //'menu_icon'   =>  'layui-icon layui-icon-layouts',
         ]);
+
+
         //附加参数
         $this->assign([
-            
+            'user_total'    =>  [
+                'count' =>  db('user')->count(),
+                'forbidden' =>  db('user')->where('status', 0)->count(),
+                'login'     =>  count(db('user_log')->distinct(true)->field('user_id')->where('user_log_type', 4)->whereTime('regtime', date('Y-m-d'))->select()),
+                'register'  =>  count(db('user_log')->distinct(true)->field('user_id')->where('user_log_type', 5)->whereTime('regtime', date('Y-m-d'))->select())
+            ],
+            'admin_total'   =>  [
+                'count'     =>  db('admin')->count(),
+                'login'     =>  count(db('admin_log')->distinct(true)->field('admin_id')->where('admin_log_type', 4)->whereTime('regtime', date('Y-m-d'))->select()),
+                'today'     =>  db('admin_log')->whereTime('regtime', date('Y-m-d'))->count(),
+                'all'       =>  db('admin_log')->count(),
+            ],
 
         ]);
         
@@ -35,6 +49,28 @@ class Index extends BaseAdmin
 
     public function index2()
     {
+        // php版本
+        // 服务器版本(apahce/nginx)
+        // thinkphp版本
+        // 服务器操作系统
+        // 后台系统版本
+        // mysql版本
+        // 上传限制大小
+        // POST大小
+        // 系统磁盘总空间/剩余空间
+        // 
+
+
+        //固定参数
+        $this->assign([
+            'menu_title'  =>  '系统环境',
+            //'menu_icon'   =>  'layui-icon layui-icon-layouts',
+        ]);
+
+        //附加参数
+        $this->assign([
+
+        ]);
 
         // 环境信息
         return view();

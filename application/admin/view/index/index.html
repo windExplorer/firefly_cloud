@@ -8,7 +8,155 @@
             <div class="layui-card">
                 <div class="layui-card-header">快捷方式</div>
                 <div class="layui-card-body">
-                    <div class="layui-carousel" fiy-id='carousel'>
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
+                        <div carousel-item>
+                            <div class="index-shortcut">
+                                <ul class="layui-row layui-col-space10">
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/index/index')}">
+                                            <i class="layui-icon layui-icon-console"></i>
+                                            <cite>主页一</cite>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/index/index2')}">
+                                            <i class="layui-icon layui-icon-chart"></i>
+                                            <cite>主页二</cite>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/system/menu')}">
+                                            <i class="layui-icon layui-icon-template-1"></i>
+                                            <cite>菜单配置</cite>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/system/system_config')}">
+                                            <i class="layui-icon layui-icon-chat"></i>
+                                            <cite>系统参数</cite>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/system/userinfo')}">
+                                            <i class="layui-icon layui-icon-find-fill"></i>
+                                            <cite>个人资料</cite>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/user/user')}">
+                                            <i class="layui-icon layui-icon-survey"></i>
+                                            <cite>用户管理</cite>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/user/user_log')}">
+                                            <i class="layui-icon layui-icon-user"></i>
+                                            <cite>用户日志</cite>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a data-pjax href="{:url('admin/file/attachment')}">
+                                            <i class="layui-icon layui-icon-set"></i>
+                                            <cite>文件管理</cite>
+                                        </a>
+                                    </li>
+                                  </ul>
+                            </div>
+                            <div>条目2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">用户统计</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
+                        <div carousel-item>
+                            <div class="index-user">
+                                <ul class="layui-row layui-col-space10">
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>总用户数</h3>
+                                            <p><cite>{$user_total.count}</cite></p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>被禁用户</h3>
+                                            <p><cite>{$user_total.forbidden}</cite></p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>今日登陆</h3>
+                                            <p><cite>{$user_total.login}</cite></p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>今日注册</h3>
+                                            <p><cite>{$user_total.register}</cite></p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>条目2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">管理员统计</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
+                        <div carousel-item>
+                            <div class="index-user">
+                                <ul class="layui-row layui-col-space10">
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>总管理员数</h3>
+                                            <p><cite>{$admin_total.count}</cite></p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>今日操作记录数</h3>
+                                            <p><cite>{$admin_total.today}</cite></p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>今日登陆</h3>
+                                            <p><cite>{$admin_total.login}</cite></p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs6">
+                                        <a lay-href="app/content/comment" class="layadmin-backlog-body">
+                                            <h3>总操作记录数</h3>
+                                            <p><cite>{$admin_total.all}</cite></p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>条目2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md8">
+            <div class="layui-card">
+                <div class="layui-card-header">待建</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="443px">
                         <div carousel-item>
                             <div>条目1</div>
                             <div>条目2</div>
@@ -20,9 +168,9 @@
 
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
             <div class="layui-card">
-                <div class="layui-card-header">快捷方式</div>
+                <div class="layui-card-header">待建</div>
                 <div class="layui-card-body">
-                    <div class="layui-carousel" fiy-id='carousel'>
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
                         <div carousel-item>
                             <div>条目1</div>
                             <div>条目2</div>
@@ -34,9 +182,51 @@
 
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
             <div class="layui-card">
-                <div class="layui-card-header">快捷方式</div>
+                <div class="layui-card-header">待建</div>
                 <div class="layui-card-body">
-                    <div class="layui-carousel" fiy-id='carousel'>
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
+                        <div carousel-item>
+                            <div>条目1</div>
+                            <div>条目2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">待建</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
+                        <div carousel-item>
+                            <div>条目1</div>
+                            <div>条目2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">待建</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
+                        <div carousel-item>
+                            <div>条目1</div>
+                            <div>条目2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">待建</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel" fiy-id='carousel' fiy-height="185px">
                         <div carousel-item>
                             <div>条目1</div>
                             <div>条目2</div>
