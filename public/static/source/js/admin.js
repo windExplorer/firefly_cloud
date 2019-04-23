@@ -929,20 +929,23 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate', 'carousel']
   $(document).on('click', '.layui-logo', function() {
     location.reload()
   })
-  //选择图片
+  //选择图片 - 暂时只能单选，会被替换
   $(document).on('click', '[fiy-file-selected="file-net-path"]', function(){
     let th = $(this)
     $('input[file-select="file-net-path"]').val(th.attr('fiy-file-url'))
     let img = `<div class="img-box"><img src='${th.attr('fiy-file-url')}' fiy-photo />`
-    $('[fiy-photo-list]').append(img)
+    $('[fiy-photo-list]').html(img)
     layer.close(layer.index)
     Render_Viewer()
   })
-  //选择文件
+  //选择文件 - 暂时只能单选，不会被替换
   $(document).on('click', '[fiy-file-selected="file-path"]', function(){
     let th = $(this)
     let img
-    $('input[file-select="file-path"]').val(th.attr('fiy-file-path'))
+    if( $('input[file-select="file-path"]').val().length == 0)
+      $('input[file-select="file-path"]').val(th.attr('fiy-file-path'))
+    else
+      $('input[file-select="file-path"]').val($('input[file-select="file-path"]').val() + `;` + th.attr('fiy-file-path'))
     if(th.attr('fiy-mime').indexOf('image') > -1)
       img = `<div class="img-box"><img src='${th.attr('fiy-file-url')}' fiy-photo />`
     else
