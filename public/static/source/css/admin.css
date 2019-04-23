@@ -367,3 +367,6 @@ body .editor .w-e-menu:hover {
 body .layui-elem-field {
   background: #fff;
 }
+body .layui-form.layui-border-box.layui-table-view {
+  background: #fff;
+}
