@@ -75,7 +75,9 @@ class Index extends BaseAdmin
 
         //附加参数
         $this->assign([
-            'mysql_version' =>  \Db::query("select version()")[0]['version()']
+            'mysql_version'     =>  \Db::query("select version()")[0]['version()'],
+            'disk_user_total'   =>  db('user')->sum('total_size'),
+            'disk_user_free'    =>  db('user')->sum('use_size'),
         ]);
 
         // 环境信息

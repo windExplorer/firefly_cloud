@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 23/04/2019 09:27:27
+ Date: 23/04/2019 10:38:17
 */
 
 SET NAMES utf8mb4;
@@ -70,7 +70,7 @@ CREATE TABLE `admin_log`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 239 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 248 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_log
@@ -312,6 +312,15 @@ INSERT INTO `admin_log` VALUES (235, 3, 'http://www.firefly.test:81/admin/system
 INSERT INTO `admin_log` VALUES (236, 3, 'http://www.firefly.test:81/admin/system/menu.html', 'http://www.firefly.test:81/admin/form/event_edit.html', 'menu', '修改[id:5]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555927911, 1555927911);
 INSERT INTO `admin_log` VALUES (237, 3, 'http://www.firefly.test:81/admin/system/menu.html', 'http://www.firefly.test:81/admin/form/event_edit.html', 'menu', '修改[id:6]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555927921, 1555927921);
 INSERT INTO `admin_log` VALUES (238, 3, 'http://www.firefly.test:81/admin/system/menu.html', 'http://www.firefly.test:81/admin/form/event_edit.html', 'menu', '修改[id:5]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555927927, 1555927927);
+INSERT INTO `admin_log` VALUES (239, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1555983749, 1555983749);
+INSERT INTO `admin_log` VALUES (240, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/wangeditor_image.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555983861, 1555983861);
+INSERT INTO `admin_log` VALUES (241, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/event_add.html', 'email', 'Message has been sent', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 6, 1, 0, 1555983899, 1555983899);
+INSERT INTO `admin_log` VALUES (242, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/event_add.html', 'email', '添加[id:9]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1555983899, 1555983899);
+INSERT INTO `admin_log` VALUES (243, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/upload.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555984243, 1555984243);
+INSERT INTO `admin_log` VALUES (244, 3, 'http://www.firefly.test/admin/mail/email.html', 'http://www.firefly.test/admin/form/upload.html', 'email', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 7, 1, 0, 1555984570, 1555984570);
+INSERT INTO `admin_log` VALUES (245, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:2]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555986285, 1555986285);
+INSERT INTO `admin_log` VALUES (246, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:1]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555986296, 1555986296);
+INSERT INTO `admin_log` VALUES (247, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:16]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555986999, 1555986999);
 
 -- ----------------------------
 -- Table structure for attachment
@@ -334,7 +343,7 @@ CREATE TABLE `attachment`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of attachment
@@ -346,6 +355,9 @@ INSERT INTO `attachment` VALUES (13, 3, '0ab1bb678e5544b6965d329a30d606c0!400x40
 INSERT INTO `attachment` VALUES (14, 3, '1 - 副本.jpeg', 'dc5536ec6630065ab55b23ddd8612c45.jpeg', 'image/jpeg', 'jpeg', '33809', './uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 'db4471ff0201f51aed09529a4ec57f19', 'f66fedac728398e68c16a0a540c5e5f3b1363791', 1, 0, 1555467480, 1555467480);
 INSERT INTO `attachment` VALUES (15, 3, '3b57dae5eb664c94bfc579076b7106e8!400x400.jpeg', '585465febe6a8be1378c958cadc0a1d7.jpeg', 'image/jpeg', 'jpeg', '34032', './uploads/email/20190417/585465febe6a8be1378c958cadc0a1d7.jpeg', '/uploads/email/20190417/585465febe6a8be1378c958cadc0a1d7.jpeg', 'bee842d692718bb4abffcf2bf9a29796', '786e79e67b17ac345e5c31ff1cf43c01561a89f3', 1, 0, 1555470386, 1555470386);
 INSERT INTO `attachment` VALUES (16, 3, '4ed8396a1ffe4576aabde08cdabd3abb!400x400.jpeg', 'ea46d65dba63b85037587d09ffbe343f.jpeg', 'image/jpeg', 'jpeg', '33315', './uploads/email/20190417/ea46d65dba63b85037587d09ffbe343f.jpeg', '/uploads/email/20190417/ea46d65dba63b85037587d09ffbe343f.jpeg', 'a22a6b8f4ba841317df7fdbe275951ae', 'a2e2df7e0e7be3a6d064416da9a5cffe76632e90', 1, 0, 1555471290, 1555471290);
+INSERT INTO `attachment` VALUES (17, 3, '581daf14fee449e1b240ccd40509ec4a!400x400.jpeg', 'ae1375515ae4deeeeb33b6c377e2eb58.jpeg', 'image/jpeg', 'jpeg', '22138', './uploads/email/20190423/ae1375515ae4deeeeb33b6c377e2eb58.jpeg', '/uploads/email/20190423/ae1375515ae4deeeeb33b6c377e2eb58.jpeg', '14242c68b0afe0cb5e25559081ff560e', '37baf846749c609d29e51df28409370478512173', 1, 0, 1555983861, 1555983861);
+INSERT INTO `attachment` VALUES (18, 3, '2b914489f2534aefbcc9c6d04a5bccc5!400x400.jpeg', '5fa7130b38df7b18fd2fe5c092003bff.jpeg', 'image/jpeg', 'jpeg', '39234', './uploads/email/20190423/5fa7130b38df7b18fd2fe5c092003bff.jpeg', '/uploads/email/20190423/5fa7130b38df7b18fd2fe5c092003bff.jpeg', '6caf061a9928f57168c996aa924b8242', '979c99d111d329609c33bf2688a44b4cadd9f823', 1, 0, 1555984243, 1555984243);
+INSERT INTO `attachment` VALUES (19, 3, '2759ee5b67074f8ea6dd412ff7e1a068!400x400.jpeg', 'f0eb6c1857fef3c3cab692eacd2af687.jpeg', 'image/jpeg', 'jpeg', '55010', './uploads/email/20190423/f0eb6c1857fef3c3cab692eacd2af687.jpeg', '/uploads/email/20190423/f0eb6c1857fef3c3cab692eacd2af687.jpeg', '2f8f6ec44ba851288f33a736f7ff312c', 'df0f8ff7255a5ceddeb295b635ef003f01441ba0', 1, 0, 1555984570, 1555984570);
 
 -- ----------------------------
 -- Table structure for email
@@ -368,7 +380,7 @@ CREATE TABLE `email`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of email
@@ -381,6 +393,7 @@ INSERT INTO `email` VALUES (5, 2, 3, '1445154365@qq.com', NULL, 'Test Email', '<
 INSERT INTO `email` VALUES (6, 1, 3, 'snoopyshenlu@163.com', NULL, '阿里云邮箱测试', '<p><img src=\"/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg\" style=\"max-width:100%;\">111<br></p>', '', './uploads/email/20190417/585465febe6a8be1378c958cadc0a1d7.jpeg', 0, 1, 1, 0, 1555470358, 1555470358);
 INSERT INTO `email` VALUES (7, 1, 3, 'snoopyshenlu@163.com', NULL, '嘿嘿', '<p><img src=\"/uploads/email/20190417/585465febe6a8be1378c958cadc0a1d7.jpeg\" style=\"max-width:100%;\"><br></p>', '', '', 0, 1, 1, 0, 1555470954, 1555470954);
 INSERT INTO `email` VALUES (8, 1, 3, 'snoopyshenlu@163.com', NULL, '阿里云，本地图片测试', '<h1>你好，hello ！</h1><p><img src=\"/uploads/email/20190417/ea46d65dba63b85037587d09ffbe343f.jpeg\" style=\"max-width:100%;\"><br></p>', '', '', 0, 1, 1, 0, 1555471215, 1555471215);
+INSERT INTO `email` VALUES (9, 1, 3, 'snoopyshenlu@163.com', NULL, '2019-04-23', '<p><img src=\"/uploads/email/20190423/ae1375515ae4deeeeb33b6c377e2eb58.jpeg\" style=\"max-width:100%;\">aaa<br></p><blockquote>HEllo World!</blockquote>', '', './uploads/email/20190417/585465febe6a8be1378c958cadc0a1d7.jpeg', 0, 1, 1, 0, 1555983894, 1555983894);
 
 -- ----------------------------
 -- Table structure for file
@@ -615,7 +628,7 @@ INSERT INTO `system_config` VALUES (12, '站点描述', 'website_description', '
 INSERT INTO `system_config` VALUES (13, '站点关键字', 'website_keywords', 'cms|tp5.1|thinkphp5.1|后台管理系统|firefly|萤火虫|萤火云', '', 0, '站点关键字', 1, 0, 13, 1555165192, 1555165280);
 INSERT INTO `system_config` VALUES (14, '文件上传大小', 'upload_maxsize', '10485760', '', 0, '单位B(byte):[1T=1024G,1G=1025M,1M=1024B]', 1, 0, 14, 1555165300, 1555165300);
 INSERT INTO `system_config` VALUES (15, '文件上传后缀', 'upload_ext', 'jpeg,jpg,png,gif,bmp,ico,txt,rar,doc,docx,ppt,pptx,xls,xlsx,zip,pdf,sql', '', 0, '允许上传的文件后缀', 1, 0, 15, 1555165461, 1555401972);
-INSERT INTO `system_config` VALUES (16, '站点安装时间', 'website_createtime', '', '', 0, '此后台管理系统安装完毕后生成，同时会在应用更目录生成install.lock文件与超级管理员用户。', 1, 0, 16, 1555165572, 1555165572);
+INSERT INTO `system_config` VALUES (16, '站点安装时间', 'website_createtime', '2019-04-01 09:40:28', '', 0, '此后台管理系统安装完毕后生成，同时会在应用更目录生成install.lock文件与超级管理员用户。', 1, 0, 16, 1555165572, 1555986999);
 INSERT INTO `system_config` VALUES (17, 'smtp服务器', 'email_smtp', 'smtp.aliyun.com', '', 1, '例如smtp.163.com', 1, 0, 17, 1555165640, 1555470510);
 INSERT INTO `system_config` VALUES (18, 'smtp端口号', 'email_port', '465', '', 1, '常用端口为465和25，目前一般为465。', 1, 0, 18, 1555165685, 1555165685);
 INSERT INTO `system_config` VALUES (19, '发件人邮箱', 'email_username', 'aroad.xyz@aliyun.com', '', 1, '发件人邮箱地址，例如 xxxxx@qq.com 或者去掉@qq.com', 1, 0, 19, 1555165735, 1555470668);
@@ -659,13 +672,13 @@ CREATE TABLE `user`  (
   `qq` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'qq',
   `born` date NULL DEFAULT NULL COMMENT '出生年月',
   `sign_context` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '签名',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `description_context` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
   `score` int(10) NOT NULL DEFAULT 0 COMMENT '积分',
   `level` tinyint(4) NOT NULL DEFAULT 0 COMMENT '等级',
   `decorate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '装饰',
   `file_password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件密码',
-  `total_size` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '盘空间(单位Byte)',
-  `use_size` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '已使用盘空间(单位Byte)',
+  `total_size` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1073741824' COMMENT '盘空间(单位Byte)',
+  `use_size` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '已使用盘空间(单位Byte)',
   `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '令牌',
   `login_fail` tinyint(2) NOT NULL DEFAULT 0 COMMENT '登录失败次数',
   `login_day` int(10) NOT NULL DEFAULT 0 COMMENT '连续登录天数',
@@ -688,8 +701,8 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'user1', '测试用户1', '92e18489e5b8cd01abd29771d3d05f513b8ce7e8', '6pXv/', '/uploads/user/20190415/13e091e0bcbc0aabb49c2b42efbf13b8.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2019-04-15', '', '', 0, 0, '', '', '', '', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 1, 1555309968, 1555310083, 0, 0, 0);
-INSERT INTO `user` VALUES (2, 'yl-198', '199-8', 'cd4b7d5602a57e8f89df6a13f2c2dd98b92cbf4f', 'R^zOK', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 2, '1445154365@qq.com', '', 0, '1445154365', '2019-04-17', '', '', 0, 0, '', '', '', '', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 2, 1555467681, 1555467681, 0, 0, 0);
+INSERT INTO `user` VALUES (1, 'user1', '测试用户1', '92e18489e5b8cd01abd29771d3d05f513b8ce7e8', '6pXv/', '/uploads/user/20190415/13e091e0bcbc0aabb49c2b42efbf13b8.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2019-04-15', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 1, 1555309968, 1555986296, 0, 0, 0);
+INSERT INTO `user` VALUES (2, 'yl-198', '199-8', 'cd4b7d5602a57e8f89df6a13f2c2dd98b92cbf4f', 'R^zOK', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 2, '1445154365@qq.com', '', 0, '1445154365', '2019-04-17', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 2, 1555467681, 1555986285, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for user_log
