@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 23/04/2019 10:38:17
+ Date: 24/04/2019 18:12:47
 */
 
 SET NAMES utf8mb4;
@@ -70,7 +70,7 @@ CREATE TABLE `admin_log`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 248 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 253 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_log
@@ -321,6 +321,11 @@ INSERT INTO `admin_log` VALUES (244, 3, 'http://www.firefly.test/admin/mail/emai
 INSERT INTO `admin_log` VALUES (245, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:2]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555986285, 1555986285);
 INSERT INTO `admin_log` VALUES (246, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:1]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555986296, 1555986296);
 INSERT INTO `admin_log` VALUES (247, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:16]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1555986999, 1555986999);
+INSERT INTO `admin_log` VALUES (248, NULL, 'http://127.0.0.1:8081/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556100018, 1556100018);
+INSERT INTO `admin_log` VALUES (249, NULL, 'http://127.0.0.1:8081/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556100072, 1556100072);
+INSERT INTO `admin_log` VALUES (250, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1556100527, 1556100527);
+INSERT INTO `admin_log` VALUES (251, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:1]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556100544, 1556100544);
+INSERT INTO `admin_log` VALUES (252, NULL, 'http://127.0.0.1:8081/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556100739, 1556100739);
 
 -- ----------------------------
 -- Table structure for attachment
@@ -701,7 +706,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'user1', '测试用户1', '92e18489e5b8cd01abd29771d3d05f513b8ce7e8', '6pXv/', '/uploads/user/20190415/13e091e0bcbc0aabb49c2b42efbf13b8.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2019-04-15', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 1, 1555309968, 1555986296, 0, 0, 0);
+INSERT INTO `user` VALUES (1, 'user1', '测试用户1', '0624ca98d744799dbda16cd76d76fc3f272366ef', 'Ch.gd', '/uploads/user/20190415/13e091e0bcbc0aabb49c2b42efbf13b8.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2019-04-15', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 1, 1555309968, 1556100544, 0, 0, 0);
 INSERT INTO `user` VALUES (2, 'yl-198', '199-8', 'cd4b7d5602a57e8f89df6a13f2c2dd98b92cbf4f', 'R^zOK', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 2, '1445154365@qq.com', '', 0, '1445154365', '2019-04-17', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 2, 1555467681, 1555986285, 0, 0, 0);
 
 -- ----------------------------
@@ -720,7 +725,7 @@ CREATE TABLE `user_log`  (
   `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户端信息',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
-  `user_log_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '日志类型[0:增,1:删,2:改,3:查,4:登录,5:退出]',
+  `user_log_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '日志类型[-1:注册,0:增,1:删,2:改,3:查,4:登录,5:退出]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
