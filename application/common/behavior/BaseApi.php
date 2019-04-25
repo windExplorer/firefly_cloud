@@ -11,10 +11,12 @@ class BaseApi extends Controller
     public $Token = '';
     public $Header = '';
     public $User = '';
+    public $Username = '';
 
     public function initialize(){
         $this->Header = request()->header();
         $this->Token = $this->Header['token'];
+        $this->Username = $this->Header['username'];
     }
 
     public function Restful($data = '', $code = 1, $msg = '请求成功'){
@@ -29,14 +31,10 @@ class BaseApi extends Controller
     }
 
     /* 检测token */
-    public function checkToken($token, $username){
-        $data = '';
-        if(!empty($token) && !empty($username))
-            $data = db('user')->where(['token' => $token, 'username' => $username])->find();
-        if(empty($data))
-            return false;
-        else
-            return true;
+    public function checkToken(){
+        $data = db('user')->where(['token' => $this->Token, 'username' => $this->Username])->find();
+        $this->User = $data;
+        return $data;
     }
 
     /**
@@ -111,4 +109,18 @@ class BaseApi extends Controller
         ];
         return $this->Create('admin_log', $data);
     }
+
+    /**
+     * 更新数据 
+     * 
+      */
+      public function Update($table, $id, $data)
+      {
+          $id = (array)$id;
+          foreach($id as $k => $v){
+            $row = db($table)->where('id', $v)->strict(false)->update($data);
+          }
+          return $row;
+  
+      }
 }

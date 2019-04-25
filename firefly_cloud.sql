@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 24/04/2019 18:12:47
+ Date: 25/04/2019 08:29:17
 */
 
 SET NAMES utf8mb4;
@@ -70,7 +70,7 @@ CREATE TABLE `admin_log`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 253 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 296 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_log
@@ -326,6 +326,49 @@ INSERT INTO `admin_log` VALUES (249, NULL, 'http://127.0.0.1:8081/login', 'http:
 INSERT INTO `admin_log` VALUES (250, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1556100527, 1556100527);
 INSERT INTO `admin_log` VALUES (251, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:1]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556100544, 1556100544);
 INSERT INTO `admin_log` VALUES (252, NULL, 'http://127.0.0.1:8081/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556100739, 1556100739);
+INSERT INTO `admin_log` VALUES (253, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556102816, 1556102816);
+INSERT INTO `admin_log` VALUES (254, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556103304, 1556103304);
+INSERT INTO `admin_log` VALUES (255, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556103607, 1556103607);
+INSERT INTO `admin_log` VALUES (256, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556103704, 1556103704);
+INSERT INTO `admin_log` VALUES (257, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104208, 1556104208);
+INSERT INTO `admin_log` VALUES (258, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104240, 1556104240);
+INSERT INTO `admin_log` VALUES (259, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104289, 1556104289);
+INSERT INTO `admin_log` VALUES (260, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104523, 1556104523);
+INSERT INTO `admin_log` VALUES (261, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104556, 1556104556);
+INSERT INTO `admin_log` VALUES (262, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104620, 1556104620);
+INSERT INTO `admin_log` VALUES (263, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104723, 1556104723);
+INSERT INTO `admin_log` VALUES (264, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104932, 1556104932);
+INSERT INTO `admin_log` VALUES (265, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556104995, 1556104995);
+INSERT INTO `admin_log` VALUES (266, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556105119, 1556105119);
+INSERT INTO `admin_log` VALUES (267, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556105901, 1556105901);
+INSERT INTO `admin_log` VALUES (268, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556105920, 1556105920);
+INSERT INTO `admin_log` VALUES (269, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556106097, 1556106097);
+INSERT INTO `admin_log` VALUES (270, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556106365, 1556106365);
+INSERT INTO `admin_log` VALUES (271, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556106390, 1556106390);
+INSERT INTO `admin_log` VALUES (272, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556106471, 1556106471);
+INSERT INTO `admin_log` VALUES (273, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556106500, 1556106500);
+INSERT INTO `admin_log` VALUES (274, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556106975, 1556106975);
+INSERT INTO `admin_log` VALUES (275, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556107069, 1556107069);
+INSERT INTO `admin_log` VALUES (276, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556107087, 1556107087);
+INSERT INTO `admin_log` VALUES (277, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556107144, 1556107144);
+INSERT INTO `admin_log` VALUES (278, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556107292, 1556107292);
+INSERT INTO `admin_log` VALUES (279, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556108585, 1556108585);
+INSERT INTO `admin_log` VALUES (280, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556108679, 1556108679);
+INSERT INTO `admin_log` VALUES (281, NULL, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556108723, 1556108723);
+INSERT INTO `admin_log` VALUES (282, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1556115096, 1556115096);
+INSERT INTO `admin_log` VALUES (283, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_add.html', 'system_config', '添加[id:25]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556115230, 1556115230);
+INSERT INTO `admin_log` VALUES (284, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:1]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556117209, 1556117209);
+INSERT INTO `admin_log` VALUES (285, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:2]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556117223, 1556117223);
+INSERT INTO `admin_log` VALUES (286, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:25]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556117566, 1556117566);
+INSERT INTO `admin_log` VALUES (287, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_add.html', 'system_config', '添加[id:26]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556117658, 1556117658);
+INSERT INTO `admin_log` VALUES (288, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:26]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556117663, 1556117663);
+INSERT INTO `admin_log` VALUES (289, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_add.html', 'system_config', '添加[id:27]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556117756, 1556117756);
+INSERT INTO `admin_log` VALUES (290, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_add.html', 'system_config', '添加[id:28]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556117818, 1556117818);
+INSERT INTO `admin_log` VALUES (291, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:27]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556117898, 1556117898);
+INSERT INTO `admin_log` VALUES (292, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:25]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556118555, 1556118555);
+INSERT INTO `admin_log` VALUES (293, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:28]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556118818, 1556118818);
+INSERT INTO `admin_log` VALUES (294, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:28]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556119229, 1556119229);
+INSERT INTO `admin_log` VALUES (295, 3, 'http://www.firefly.test/admin/system/system_config.html', 'http://www.firefly.test/admin/form/event_edit.html', 'system_config', '修改[id:28]数据项成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556119242, 1556119242);
 
 -- ----------------------------
 -- Table structure for attachment
@@ -608,7 +651,7 @@ CREATE TABLE `system_config`  (
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
   `value_context` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '值',
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图片',
-  `config_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '类型[0:站点,1:邮箱]',
+  `config_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '类型[0:站点,1:邮箱,3:用户]',
   `remark_context` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
@@ -616,7 +659,7 @@ CREATE TABLE `system_config`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of system_config
@@ -642,6 +685,10 @@ INSERT INTO `system_config` VALUES (21, '邮箱密码', 'email_password', 'Shenl
 INSERT INTO `system_config` VALUES (22, 'smtp安全类型', 'email_secure', 'ssl', '', 1, 'smtp安全类型,一般有tls和ssl', 1, 0, 22, 1555307218, 1555307218);
 INSERT INTO `system_config` VALUES (23, '邮箱加密', 'email_auth', 'true', '', 1, '邮箱加密，填写true或false，或1或0', 1, 0, 23, 1555307396, 1555307396);
 INSERT INTO `system_config` VALUES (24, '邮箱地址', 'email_url', 'aroad.xyz@aliyun.com', '', 1, '邮箱地址', 1, 0, 24, 1555307893, 1555470351);
+INSERT INTO `system_config` VALUES (25, '默认邀请码', 'user_first_invite_code', '20190331,20190401', '', 2, '安装程序时候自动生成，也可以自定义，可以是4-10个字符，自动生成是默认6位。多个就用逗号隔开。', 1, 0, 25, 1556115117, 1556118555);
+INSERT INTO `system_config` VALUES (26, '默认空间', 'user_default_space', '1073741824', '', 2, '用户默认分配额度，默认1GB', 1, 0, 26, 1556117573, 1556117662);
+INSERT INTO `system_config` VALUES (27, '生成邀请码', 'create_invite_code', 'true', '', 2, '是否能够继续进行注册。', 1, 0, 27, 1556117666, 1556117886);
+INSERT INTO `system_config` VALUES (28, '开放注册', 'open_register', '1', '', 2, '是否能够进行注册。', 1, 0, 28, 1556117796, 1556119242);
 
 -- ----------------------------
 -- Table structure for up_down
@@ -706,8 +753,8 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'user1', '测试用户1', '0624ca98d744799dbda16cd76d76fc3f272366ef', 'Ch.gd', '/uploads/user/20190415/13e091e0bcbc0aabb49c2b42efbf13b8.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2019-04-15', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 1, 1555309968, 1556100544, 0, 0, 0);
-INSERT INTO `user` VALUES (2, 'yl-198', '199-8', 'cd4b7d5602a57e8f89df6a13f2c2dd98b92cbf4f', 'R^zOK', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 2, '1445154365@qq.com', '', 0, '1445154365', '2019-04-17', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '', '', 1, 0, 2, 1555467681, 1555986285, 0, 0, 0);
+INSERT INTO `user` VALUES (1, 'user1', '测试用户1', '0624ca98d744799dbda16cd76d76fc3f272366ef', 'Ch.gd', '/uploads/user/20190415/13e091e0bcbc0aabb49c2b42efbf13b8.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2019-04-15', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '20190402', '20190401', 1, 0, 1, 1555309968, 1556117209, 0, 0, 0);
+INSERT INTO `user` VALUES (2, 'yl-198', '199-8', 'cd4b7d5602a57e8f89df6a13f2c2dd98b92cbf4f', 'R^zOK', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 2, '1445154365@qq.com', '', 0, '1445154365', '2019-04-17', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '20190403', '20190402', 1, 0, 2, 1555467681, 1556117222, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for user_log

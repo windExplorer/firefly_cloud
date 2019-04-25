@@ -150,6 +150,13 @@ function sysConf($name){
   return db('system_config')->where('name', $name)->find()['value_context'];
 }
 
+/**
+ * 修改system_config配置
+  */
+function set_sysConf($name, $value){
+  return db('system_config')->where('name', $name)->update(['value_context' => $value]);
+}
+
 /* 获取表字段 */
 function getTableColumn($table){
   $res = Db::query("select * from information_schema.columns where table_schema = ?  and table_name = ?", [config('database.database'), config('database.prefix').$table] );
