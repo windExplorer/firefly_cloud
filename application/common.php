@@ -190,5 +190,7 @@ function unlinkFile($path, $info = ''){
 /* 获取域名 */
 function getDomain()
 {
-  return request()->server('REQUEST_SCHEME').'://'.request()->host();
+  //nginx 无 $_SERVER['REQUEST_SCHEME']
+  $protocol = stripos(strtolower($_SERVER['SERVER_PROTOCOL']),'https')  === false ? 'http' : 'https';
+  return $protocol.'://'.$_SERVER['HTTP_HOST'];
 }

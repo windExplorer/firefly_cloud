@@ -24,9 +24,13 @@
             $res['password'] = sha1($res['password'].$info['salt']); 
             $res = $this->Retrieve($table, $res);
             if(!empty($res)){
+                $this->Token = sha1($res['username'].time());
+                $now = time();
+                $this->Update($table, $res['id'], ['token' => $this->Token, 'uptime' => $now]);
+                $res['token'] = $this->Token;
+                $res['uptime'] = $now;
                 $this->User = $res;
                 $this->Addlog($table, '登录成功', 4);
-                $this->Token = sha1($res['username'].time());
                 return $this->Restful($res, 1,'登录成功');
             }else{
                 return $this->Restful($res, 0,'登录失败');
@@ -128,7 +132,7 @@
             $free = disk_free_space('/') + db('user')->sum('use_size') - db('user')->sum('total_size');
             if($free < (int)sysConf('user_default_space')){
                 set_sysConf('open_register', 'false');
-                return $this->Restful(false, 0, '注册已强制关闭，请与站长联系!');
+                return $this->Restful(false, 0, '注册通道已被强制关闭，请与站长联系!');
             }
             ## 6.
             if($free < (int)sysConf('user_default_space') * 2){
@@ -136,20 +140,193 @@
             }
             ## 7.
             $salt = getLenRand(5);
-            $pwd = sha1($pwd.$salt);
+            $pwd = sha1($res['password'].$salt);
             $sql = [
-                'username' => $res['username'],
-                'password' => $pwd,
-                
+                'username'          =>  $res['username'],
+                'password'          =>  $pwd,
+                'salt'              =>  $salt,
+                'email'             =>  $res['email'],
+                'reg_invite_code'   =>  $res['reg_invite_code'],
+                'nickname'          =>  $res['username'],
+                'avatar'            =>  '/static/source/img/userHead.jpeg',
+                'total_size'        =>  sysConf('user_default_space'),
+                'born'              =>  date('Y-m-d'),
+                'regtime'           =>  time(),
+                'uptime'            =>  time()
             ];
             ## 8.
             if(sysConf('create_invite_code') == 'true' || (int)sysConf('create_invite_code') == 1){
                 $sql['invite_code'] = getLenRand(8);
             }
 
-            
-            
+            ## 9.创建
+            $userId = $this->Create($table, $sql);
+            if(empty($userId)){
+                return $this->Restful(false, 0, '注册失败，原因未知，请尝试与站长联系!');
+            }
 
+            ## 10.写权限
+            $weigh = $this->Update($table, $userId, ['weigh' => $userId, 'uptime' => time()]);
+            
+            ## 11.写注册日志
+            $this->User = [
+                'id'    =>  $userId
+            ];
+            $this->Addlog($table, '('.$res['username'].')注册成功', -1);
+            
+            ## 12.给注册邮箱发送欢迎消息
+            $subject = '【'.sysConf('website_group_name').'】注册成功!';
+            $content = '<div style="width:500px;height:500px;background:lightcoral;margin:auto;padding: 30px;text-align: center;margin-top: 50px;margin-bottom:150px;border-radius:4px;">
+            <style>a{color: lightskyblue;transition: .5s;opacity: 1;margin-right: 20px;}a:hover{opacity: .7;}</style>
+            <h1 style="font-size: 28px;margin-top: 150px;">
+                <p style="font-weight: normal;font-size: 18px;color:#333;">亲爱的 <i style="color:lightskyblue;">'.$res['username'].'</i> , 您已于 '.date('Y年m月d日 H时i分s秒').' 正式成为本站会员。</p>
+                <a href="'.request()->header()['origin'].'" target="_blank" style="text-decoration: none;font-style: italic;font-size: 40px;">'.sysConf('website_group_name').'</a>热烈欢迎您的加入!
+            </h1></div>';
+            $this->sendMail($res['email'], $subject, $content, $res['username'], '欢迎加入'.sysConf('website_group_name'), $text = '发送注册欢迎消息');
+
+            ## 13.返回注册成功消息
+            return $this->Restful(true, 1, '注册成功,将跳转至登录页面!');
             
         }
+
+        /* 重置密码 */
+        public function resetpwd()
+        {
+            $table = 'user';
+            $res = input('post.');
+
+            ## 1.
+            if(!empty($res['username'])){
+                $check = $this->Retrieve($table, ['username' => $res['username']]);
+                if(empty($check)){
+                    return $this->Restful(false, 0, '用户名不存在!');
+                }
+            }else{
+                return $this->Restful(false, 0, '请输入用户名!');
+            }
+            ## 2.
+            if(!empty($res['password'])){
+                if(mb_strlen($res['password']) < 5 || mb_strlen($res['password']) > 16){
+                    return $this->Restful(false, 0, '密码字符数在5-16之间,且不能有空格!');
+                }
+            }else{
+                return $this->Restful(false, 0, '请输入密码!');
+            }
+            ## 3.
+            if(!empty($res['password2'])){
+                if($res['password'] !== $res['password2']){
+                    return $this->Restful(false, 0, '两次密码不一致!');
+                }
+            }else{
+                return $this->Restful(false, 0, '请输入密码(再一次)!');
+            }
+            ## 4.
+            if(!empty($res['vcode'])){
+                if($res['vcode'] !== $check['vcode']){
+                    return $this->Restful(false, 0, '验证码错误!');
+                }
+            }else{
+                return $this->Restful(false, 0, '请输入验证码!');
+            }
+            ## 5.
+            $salt = getLenRand(5);
+            $pwd = sha1($res['password'].$salt);
+            $this->User = $check;
+            $flag = $this->Update($table, $check['id'], ['password' => $pwd, 'salt' => $salt, 'vcode' => '', 'uptime' => time()]);
+            if($flag){
+                $this->Addlog($table, '('.$res['username'].')修改密码成功', 2);
+                return $this->Restful(true, 1, '修改密码成功!');
+            }else{
+                return $this->Restful(false, 0, '修改密码失败, 请与站长联系!');
+            }
+
+        }
+
+        /* 获取验证码 */
+        public function getvcode()
+        {
+            $table = 'user';
+            $res = input('post.');
+            if(!empty($res['email'])){
+                if(!filter_var($res['email'], FILTER_VALIDATE_EMAIL)){
+                    return $this->Restful(false, 0, '不是一个合法的邮箱地址!');
+                }
+                $check = $this->Retrieve($table, ['email' => $res['email']]);
+                if(empty($check)){
+                    return $this->Restful(false, 0, '邮箱不存在!');
+                }
+            }else{
+                return $this->Restful(false, 0, '请输入邮箱!');
+            }
+            $res = $check;
+            $this->User = $check;
+
+            # 发送邮件
+            $vcode = getLenRand(6);
+            $subject = '【'.sysConf('website_group_name').'】找回密码!';;
+            $content = '<style>
+            .content {
+                width: 500px;
+                height: 500px;
+                background: lightcoral;
+                margin: auto;
+                padding: 30px;
+                text-align: left;
+                line-height: 40px;
+                margin-top: 50px;
+                margin-bottom: 150px;
+                border-radius: 4px;
+                font-weight: bold;
+                letter-spacing: 2px;
+                font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                color: #2c3e50;
+            }
+            .box{
+                margin-top: 100px;
+            }
+        
+            a {
+                transition: .5s;
+                opacity: 1;
+                margin-right: 20px;
+                text-decoration: none;
+                font-style: italic;
+            }
+        
+            a:hover {
+                opacity: .7;
+            }
+            .important{
+                font-weight: bolder;
+                color: lightblue;
+                font-size: 30px;
+                margin-left: 10px;
+            }
+            .important-1{
+                font-size: 20px;
+            }
+        </style>
+        <div class="content">
+            <div class="box">
+                <p><a href="'.request()->header()['origin'].'/resetpwd" target="_blank" class="important important-1">重置密码链接</a></p>
+                <p> (该验证码为一次性，无时间限制，但重复获取将被替代)!</p>
+                <p>亲爱的 <i class="important">'.$check['username'].'</i> </p>
+                <p>验证码为: <i class="important">'.$vcode.'</i> </p>
+            </div>
+        </div>';
+            $context = '用户名：'.$check['username']. '   验证码：'.$vcode.'   (验证码一次性且长期有效，但重复获取将被替代!)';
+            $send_flag = $this->sendMail($res['email'], $subject, $content, $check['username'], $context, $text = '发送找回密码验证码');
+            if(!$send_flag){
+                return $this->Restful(false, 0, '验证码发送失败，请联系站长！');
+            }
+
+            #将验证码写入表中
+            $this->Update($table, $check['id'], ['vcode' => $vcode, 'uptime' => time()]);
+
+            return $this->Restful(true, 1, '验证码已发送至您的邮箱，请注意查收，也请注意查看垃圾箱!');
+
+        }
+
     }

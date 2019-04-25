@@ -130,8 +130,9 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate', 'carousel']
             case 4: //更新表格
               Table_Reload()
               break
-            case 5: //添加数据
-              layer.close(ele)
+            case 5: //添加数据-修改数据
+              //console.log(ele)
+              layer.closeAll('page')
               //layer.close(layer.index)
               Table_Reload()
               break

@@ -257,13 +257,13 @@ class BaseAdmin extends Controller
     public function Addlog($table, $info, $admin_log_type)
     {
         //nginx 无 $_SERVER['REQUEST_SCHEME']
-        $protocol = stripos(strtolower($_SERVER['SERVER_PROTOCOL']),'https')  === false ? 'http' : 'https';
+        //$protocol = stripos(strtolower($_SERVER['SERVER_PROTOCOL']),'https')  === false ? 'http' : 'https';
         $header = \Request::header();
         $admin = session('admin');
         $data = [
             'admin_id'          =>  $admin['id'],
             'ref'               =>  empty($header['referer']) ? ' ' : $header['referer'],
-            'url'               =>  $protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],
+            'url'               =>  getDomain().$_SERVER['REQUEST_URI'],
             'table'             =>  $table,
             'info'              =>  $info,
             'ip'                =>  getIP(),
