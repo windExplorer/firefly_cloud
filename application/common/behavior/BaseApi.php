@@ -84,7 +84,7 @@ class BaseApi extends Controller
 
     /**
      * 写用户日志表
-     * user_log_type 日志类型[-1:注册,0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮箱]
+     * user_log_type 日志类型[-1:注册,0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮箱,7:上传]
      */
     public function Addlog($table, $info, $user_log_type)
     {
@@ -203,5 +203,84 @@ class BaseApi extends Controller
         }
 
     
+    }
+
+
+
+    /**
+     * @param array $files 准备上传的文件
+     * @param string $dir 上传的目标目录
+     * @param array 
+     */
+    public function upImage($file, $dir = 'noname', $size = '', $ext = ''){
+        if(empty($size))
+            $size = sysConf('upload_maxsize');
+        if(empty($ext))
+            $ext = sysConf('upload_ext');
+        $header = $this->Header;
+        $user = $this->User;
+        $ret = [
+            'code'      =>  0,
+            'phy_url'   =>  '',
+            'url'       =>  '',
+            'msg'       =>  '',
+            'stime'     =>  date('Y-m-d H:i:s'),
+            'etime'     =>  ''
+        ];
+        $path = './uploads/'.$dir.'/';
+        //检测目录是否存在
+        if(!adddir($path)){
+            $ret['msg'] = '创建目录失败，请检测权限后重试!';
+            $ret['etime'] = date('Y-m-d H:i:s');
+            return $ret;
+        }
+        $info = $file->validate([
+            'size'  => $size,
+            'ext'   => $ext
+            ])->rule('date')->move($path);
+        //dump($info);die;
+        if($info){
+            $ret['code'] = 1;
+            $ret['msg'] = '上传成功!';
+            $ret['etime'] = date('Y-m-d H:i:s');
+            $md5 = $info->md5();
+            $check = checkFileExist($md5, $dir);
+            $ret['phy_url'] = str_replace('//', '/', str_replace("\\", "/", $info->getPathName()));
+            $ret['url'] = str_replace('./', '/', $ret['phy_url']);
+            if(empty($check)){
+                //写图片数据
+                $sha1 = $info->sha1();
+                $imgData = [
+                    'user_id'   =>  $user['id'],
+                    'name'      =>  $info->getInfo('name'),
+                    'save_name' =>  $info->getFileName(),
+                    'mime'      =>  $info->getInfo('type'),
+                    'ext'       =>  $info->getExtension(),
+                    'size'      =>  $info->getInfo('size'),
+                    'path'      =>  $ret['phy_url'],
+                    'net_path'  =>  $ret['url'],
+                    'md5'       =>  $md5,
+                    'sha1'      =>  $sha1,
+                    'status'    =>  1,
+                    'is_deleted'    =>  0,
+                    'regtime'   =>  time(),
+                    'uptime'    =>  time()
+                ];
+                $this->Create($dir, $imgData);
+            }else{
+                if(file_exists($ret['phy_url'])){
+                    unset($info);
+                    unlink($ret['phy_url']);
+                }
+                $ret['phy_url'] = $check['path'];
+                $ret['url'] = $check['net_path'];
+
+            }
+        }else{
+            // 上传失败获取错误信息
+            $ret['msg'] = '上传失败'.$file->getError();
+            $ret['etime'] = date('Y-m-d H:i:s');
+        }    
+        return $ret;
     }
 }

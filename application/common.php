@@ -168,8 +168,8 @@ function getTableColumn($table){
 }
 
 /* 检测上传的文件是否存在 */
-function checkFileExist($md5){
-  return db('attachment')->where('md5', $md5)->find();
+function checkFileExist($md5, $table='attachment'){
+  return db($table)->where('md5', $md5)->find();
 }
 
 /* 获取数据库总数量 */

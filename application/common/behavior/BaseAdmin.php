@@ -376,7 +376,12 @@ class BaseAdmin extends Controller
      * @param string $dir 上传的目标目录
      * @param array 
      */
-    public function upImage($file, $dir = 'noname'){
+    public function upImage($file, $dir = 'noname', $size = '', $ext = ''){
+        if(empty($size))
+            $size = sysConf('upload_maxsize');
+        if(empty($ext))
+            $ext = sysConf('upload_ext');
+
         $ret = [
             'code'      =>  0,
             'phy_url'   =>  '',
@@ -393,8 +398,8 @@ class BaseAdmin extends Controller
             return $ret;
         }
         $info = $file->validate([
-            'size'  =>  sysConf('upload_maxsize'),
-            'ext'   =>  sysConf('upload_ext')
+            'size'  =>  $size,
+            'ext'   =>  $ext
             ])->rule('date')->move($path);
         //dump($info);die;
         if($info){
@@ -402,7 +407,7 @@ class BaseAdmin extends Controller
             $ret['msg'] = '上传成功!';
             $ret['etime'] = date('Y-m-d H:i:s');
             $md5 = $info->md5();
-            $check = checkFileExist($md5);
+            $check = checkFileExist($md5, 'attachment');
             $ret['phy_url'] = str_replace('//', '/', str_replace("\\", "/", $info->getPathName()));
             $ret['url'] = str_replace('./', '/', $ret['phy_url']);
             if(empty($check)){

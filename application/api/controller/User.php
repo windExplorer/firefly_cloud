@@ -82,8 +82,8 @@
                 if(!empty($check)){
                     return $this->Restful(false, 0, '用户名已存在!');
                 }
-                if(mb_strlen($res['username']) < 4 || mb_strlen($res['username']) > 12){
-                    return $this->Restful(false, 0, '用户名字符数在4-12之间,且不能有空格!');
+                if(strlen($res['username']) < 1 || strlen($res['username']) > 24){
+                    return $this->Restful(false, 0, '用户名字符数在1-24之间(中文等占3个，字母数字等占1个),且不能有空格!');
                 }
                 if(!preg_match("/^[A-Za-z0-9]+$/", $res['username'])){
                     // return $this->Restful(false, 0, '用户名不能是特殊字符!');
@@ -189,7 +189,7 @@
             
         }
 
-        /* 重置密码 */
+        /* 找回密码 */
         public function resetpwd()
         {
             $table = 'user';
@@ -353,6 +353,9 @@
             if(empty($user)){
                 return $this->Restful(false, 0, '令牌错误，请重新登录');
             }
+            if($res['password1'] == $res['password2']){
+                return $this->Restful(false, 0, '新密码没有改动'); 
+            }
             if(sha1($res['password1'].$user['salt']) !== $user['password']){
                 return $this->Restful(false, 0, '原密码不正确');                
             }
@@ -385,6 +388,9 @@
             }
             $user = $this->checkToken();
 
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
             if(!empty($res['vcode'])){
                 if($res['vcode'] !== $user['vcode']){
                     return $this->Restful(false, 0, '验证码错误!');
@@ -418,6 +424,77 @@
                 return $this->Restful(false, 0, '修改邮箱失败, 请与站长联系!');
             }
 
+        }
+
+        public function changebase()
+        {
+            $table = 'user';
+            $res = input('post.');
+            $res = $this->removeXSS($res);
+            foreach($res as $k => $v){
+                $res[$k] = str_replace(' ','',$res[$k]);
+            }
+            $user = $this->checkToken();
+
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            # 1.判断昵称是否为空
+            if(empty($res['nickname'])){
+                return $this->Restful(false, 0, '请输入昵称');
+            }
+            if(strlen($res['nickname']) < 1 || strlen($res['nickname']) > 24){
+                return $this->Restful(false, 0, '昵称字符数在1-24之间(中文等占3个，字母数字等占1个),且不能有空格!');
+            }
+
+            if($res['nickname'] == $user['nickname'] && 
+                $res['born'] == $user['born'] && 
+                $res['gender'] == $user['gender'] && 
+                $res['sign_context'] == $user['sign_context'] && 
+                $res['description_context'] == $user['description_context']
+            ){
+                return $this->Restful(false, 0, '没有改动!');
+            }
+
+            # 2.其他暂时不需要判断
+            $sql = [
+                'nickname'              =>  $res['nickname'],
+                'born'                  =>  $res['born'],
+                'gender'                =>  $res['gender'],
+                'sign_context'          =>  $res['sign_context'],
+                'description_context'   =>  $res['description_context'],
+                'uptime'                =>  time()
+            ];
+            $flag = $this->Update($table, $user['id'], $sql);
+            if($flag){
+                $this->Addlog($table, '('.$user['username'].')修改基本资料成功', 2);
+                return $this->Restful(true, 1, '修改基本资料成功!');
+            }else{
+                return $this->Restful(false, 0, '修改基本资料失败!');
+            }
+        }
+
+        /* 上传头像 */
+        public function upavatar(){
+            $table = 'user_attachment';
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            $file = request()->file('file');
+            $res = input('post.');
+            switch($res['type']){
+                case 1: $table = 'user_attachment'; break;
+                case 2: $table = 'file'; break;
+            }
+            $size = 1 * 1024 * 1024;
+            $ext = 'jpg,png,gif,jpeg,bmp';
+            $ret = $this->upImage($file, $table, $size, $ext);
+            $this->Addlog($table, $ret['msg'], 7);
+            if($ret['code'] == 0){
+                return $this->Restful(false, 0, $ret['msg']);
+            }
+            return $this->Restful($ret, 1, '上传成功');
         }
 
     }

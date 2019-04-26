@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 26/04/2019 08:33:13
+ Date: 26/04/2019 18:22:52
 */
 
 SET NAMES utf8mb4;
@@ -70,7 +70,7 @@ CREATE TABLE `admin_log`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 312 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 315 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_log
@@ -385,6 +385,9 @@ INSERT INTO `admin_log` VALUES (308, NULL, 'http://127.0.0.1:8082/register', 'ht
 INSERT INTO `admin_log` VALUES (309, NULL, 'http://127.0.0.1:8082/register', 'http://www.firefly.test/api/user/register', 'email', 'Message has been sent', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556169317, 1556169317);
 INSERT INTO `admin_log` VALUES (310, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1556194154, 1556194154);
 INSERT INTO `admin_log` VALUES (311, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:1]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556195414, 1556195414);
+INSERT INTO `admin_log` VALUES (312, 3, 'http://www.firefly.test/login.html', 'http://www.firefly.test/admin/login/check.html', 'admin', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 4, 1, 0, 1556242395, 1556242395);
+INSERT INTO `admin_log` VALUES (313, 3, 'http://www.firefly.test/admin/user/user.html', 'http://www.firefly.test/admin/form/event_edit.html', 'user', '修改[id:1]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 2, 1, 0, 1556242420, 1556242420);
+INSERT INTO `admin_log` VALUES (314, 3, 'http://www.firefly.test/admin/system/menu.html', 'http://www.firefly.test/admin/form/event_add.html', 'menu', '添加[id:40]数据项成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 0, 1, 0, 1556266627, 1556266627);
 
 -- ----------------------------
 -- Table structure for attachment
@@ -534,7 +537,7 @@ CREATE TABLE `menu`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -578,6 +581,7 @@ INSERT INTO `menu` VALUES (36, 32, 'layui-icon layui-icon-download-circle', '上
 INSERT INTO `menu` VALUES (37, 1, 'fa fa-book', '分享管理', '', '', 1, 37, 1, 0, 1555513009, 1555513009);
 INSERT INTO `menu` VALUES (38, 37, 'layui-icon layui-icon-share', '用户分享', 'admin/share/share', '', 1, 38, 1, 0, 1555513152, 1555513152);
 INSERT INTO `menu` VALUES (39, 37, 'fa fa-commenting', '分享评论', 'admin/share/share_comment', '', 1, 39, 1, 0, 1555513185, 1555545176);
+INSERT INTO `menu` VALUES (40, 32, 'fa fa-file-image-o', '用户普通附件', 'admin/file/user_attachment', '', 1, 40, 1, 0, 1556266569, 1556266569);
 
 -- ----------------------------
 -- Table structure for share
@@ -739,7 +743,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
-  `nickname` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '昵称',
+  `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '昵称',
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
   `salt` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码盐',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '/static/source/img/userHead.jpeg' COMMENT '头像',
@@ -779,10 +783,40 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'user1', '测试用户1', '87f84815c3ea50677ff0e7a1ae49dfde98816230', '3ro#0', '/uploads/email/20190416/478a3607465f69d7b7369eb5dd4055a2.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2019-04-15', '', '', 0, 0, '', '', '1073741824', '0', '177030abdcf51c471832f86dd9ddc9ae0a2bf0b9', 0, 0, 0, 0, '', '20190402', '20190401', 1, 0, 1, 1555309968, 1556238252, 0, 0, 0);
+INSERT INTO `user` VALUES (1, 'user1', '雾城风雨寻花', 'af92923cc2f5d5a1d5d179c726b971a2d797ed72', 'cZeb-', '/uploads/email/20190417/ea46d65dba63b85037587d09ffbe343f.jpeg', 1, 'snoopyshenlu@163.com', '', 0, '1479221500', '2011-11-10', '本来无一物，何处惹尘埃。', '此人很懒，没有留下什么~', 0, 0, '', '', '1073741824', '0', 'b7d2f49e93c00d259a6d95e20064b3053441c279', 0, 0, 0, 0, '', '20190402', '20190401', 1, 0, 1, 1555309968, 1556271441, 0, 0, 0);
 INSERT INTO `user` VALUES (2, 'yl-198', '199-8', 'cd4b7d5602a57e8f89df6a13f2c2dd98b92cbf4f', 'R^zOK', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 2, '1445154365@qq.com', '', 0, '1445154365', '2019-04-17', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '20190403', '20190402', 1, 0, 2, 1555467681, 1556117222, 0, 0, 0);
-INSERT INTO `user` VALUES (8, 'user2', 'user2', 'e717b2df934cce565678fe4580a6691626ec174a', 'uyeD5', '/static/source/img/userHead.jpeg', 0, '1479221500@qq.com', NULL, 0, NULL, '2019-04-25', NULL, NULL, 0, 0, NULL, NULL, '1073741824', '0', '', 0, 0, 0, 0, 'H9W!*0', 'fPG1taJo', '20190331', 1, 0, 8, 1556170311, 1556204668, 0, 0, 0);
+INSERT INTO `user` VALUES (8, 'user2', '寻觅2', 'e717b2df934cce565678fe4580a6691626ec174a', 'uyeD5', '/static/source/img/userHead.jpeg', 0, '1479221500@qq.com', NULL, 0, NULL, '2019-04-26', '', '', 0, 0, NULL, NULL, '1073741824', '0', '', 0, 0, 0, 0, 'H9W!*0', 'fPG1taJo', '20190331', 1, 0, 8, 1556170311, 1556260988, 0, 0, 0);
 INSERT INTO `user` VALUES (9, 'user3', 'user3', '135895ff7b2c95d9223fff39cfdd481b2289d3ab', '$g%.b', '/static/source/img/userHead.jpeg', 0, '1845535061@qq.com', NULL, 0, NULL, '2019-04-25', NULL, NULL, 0, 0, NULL, NULL, '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '%*Y9dqLz', 'fPG1taJo', 1, 0, 9, 1556170994, 1556170994, 0, 0, 0);
+
+-- ----------------------------
+-- Table structure for user_attachment
+-- ----------------------------
+DROP TABLE IF EXISTS `user_attachment`;
+CREATE TABLE `user_attachment`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户编号',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '原文件名',
+  `save_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '新文件名',
+  `mime` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件类型(mime)',
+  `ext` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件后缀',
+  `size` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件大小(Byte)',
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '物理存储路径',
+  `net_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '网络路径',
+  `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件md5',
+  `sha1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件sha1',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
+  `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
+  `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_attachment
+-- ----------------------------
+INSERT INTO `user_attachment` VALUES (20, 1, '0ab1bb678e5544b6965d329a30d606c0!400x400.jpeg', 'd6b53799e828ffb1ef413bf1ca2b9444.jpeg', 'image/jpeg', 'jpeg', '38357', './uploads/user_attachment/20190426/d6b53799e828ffb1ef413bf1ca2b9444.jpeg', '/uploads/user_attachment/20190426/d6b53799e828ffb1ef413bf1ca2b9444.jpeg', '1a459f4b176c0f8664621b265faf428e', 'f1cb4330a72fc177158491a79c8e9ce77a6b3246', 1, 0, 1556270715, 1556270715);
+INSERT INTO `user_attachment` VALUES (21, 1, '1.jpeg', '5a961e5e8149fe29d6647b0e6fef3eda.jpeg', 'image/jpeg', 'jpeg', '33809', './uploads/user_attachment/20190426/5a961e5e8149fe29d6647b0e6fef3eda.jpeg', '/uploads/user_attachment/20190426/5a961e5e8149fe29d6647b0e6fef3eda.jpeg', 'db4471ff0201f51aed09529a4ec57f19', 'f66fedac728398e68c16a0a540c5e5f3b1363791', 1, 0, 1556271273, 1556271273);
+INSERT INTO `user_attachment` VALUES (22, 1, '265c5e40875342adb5814409fce838f7!400x400.jpeg', 'a475e7f75a034d1ea3d140882a188221.jpeg', 'image/jpeg', 'jpeg', '29426', './uploads/user_attachment/20190426/a475e7f75a034d1ea3d140882a188221.jpeg', '/uploads/user_attachment/20190426/a475e7f75a034d1ea3d140882a188221.jpeg', '93da778b224c866115dcb58057712c1c', 'baa55935f413784a5035c3c500ca54d6c39bb29b', 1, 0, 1556271357, 1556271357);
 
 -- ----------------------------
 -- Table structure for user_log
@@ -800,11 +834,11 @@ CREATE TABLE `user_log`  (
   `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户端信息',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态[0:隐藏,1:显示]',
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除[0:未删除,1:已删除]',
-  `user_log_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '日志类型[-1:注册,0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮箱]',
+  `user_log_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '日志类型[-1:注册,0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮箱,7:上传]',
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_log
@@ -864,5 +898,47 @@ INSERT INTO `user_log` VALUES (58, 8, 'http://127.0.0.1:8082/home', 'http://www.
 INSERT INTO `user_log` VALUES (59, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556204715, 1556204715);
 INSERT INTO `user_log` VALUES (60, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556238240, 1556238240);
 INSERT INTO `user_log` VALUES (61, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556238253, 1556238253);
+INSERT INTO `user_log` VALUES (62, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556242427, 1556242427);
+INSERT INTO `user_log` VALUES (63, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/changepwd', 'user', '(user1)修改密码成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556242445, 1556242445);
+INSERT INTO `user_log` VALUES (64, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556242460, 1556242460);
+INSERT INTO `user_log` VALUES (65, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556244374, 1556244374);
+INSERT INTO `user_log` VALUES (66, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556244389, 1556244389);
+INSERT INTO `user_log` VALUES (67, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556244410, 1556244410);
+INSERT INTO `user_log` VALUES (68, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556244424, 1556244424);
+INSERT INTO `user_log` VALUES (69, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258632, 1556258632);
+INSERT INTO `user_log` VALUES (70, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258673, 1556258673);
+INSERT INTO `user_log` VALUES (71, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258705, 1556258705);
+INSERT INTO `user_log` VALUES (72, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258733, 1556258733);
+INSERT INTO `user_log` VALUES (73, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258755, 1556258755);
+INSERT INTO `user_log` VALUES (74, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258768, 1556258768);
+INSERT INTO `user_log` VALUES (75, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258777, 1556258777);
+INSERT INTO `user_log` VALUES (76, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258822, 1556258822);
+INSERT INTO `user_log` VALUES (77, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258971, 1556258971);
+INSERT INTO `user_log` VALUES (78, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556258998, 1556258998);
+INSERT INTO `user_log` VALUES (79, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556259127, 1556259127);
+INSERT INTO `user_log` VALUES (80, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556259132, 1556259132);
+INSERT INTO `user_log` VALUES (81, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556259197, 1556259197);
+INSERT INTO `user_log` VALUES (82, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556259290, 1556259290);
+INSERT INTO `user_log` VALUES (83, 8, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556259303, 1556259303);
+INSERT INTO `user_log` VALUES (84, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556259582, 1556259582);
+INSERT INTO `user_log` VALUES (85, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556259600, 1556259600);
+INSERT INTO `user_log` VALUES (86, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260266, 1556260266);
+INSERT INTO `user_log` VALUES (87, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260276, 1556260276);
+INSERT INTO `user_log` VALUES (88, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260292, 1556260292);
+INSERT INTO `user_log` VALUES (89, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260505, 1556260505);
+INSERT INTO `user_log` VALUES (90, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260523, 1556260523);
+INSERT INTO `user_log` VALUES (91, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260540, 1556260540);
+INSERT INTO `user_log` VALUES (92, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260668, 1556260668);
+INSERT INTO `user_log` VALUES (93, 8, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user2)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556260684, 1556260684);
+INSERT INTO `user_log` VALUES (94, 8, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556260988, 1556260988);
+INSERT INTO `user_log` VALUES (95, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556261113, 1556261113);
+INSERT INTO `user_log` VALUES (96, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556261124, 1556261124);
+INSERT INTO `user_log` VALUES (97, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556261138, 1556261138);
+INSERT INTO `user_log` VALUES (98, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/upavatar', 'user_attachment', '上传失败上传文件后缀不允许', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556270591, 1556270591);
+INSERT INTO `user_log` VALUES (99, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/upavatar', 'user_attachment', '上传失败上传文件后缀不允许', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556270697, 1556270697);
+INSERT INTO `user_log` VALUES (100, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/upavatar', 'user_attachment', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556270715, 1556270715);
+INSERT INTO `user_log` VALUES (101, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/upavatar', 'user_attachment', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556271273, 1556271273);
+INSERT INTO `user_log` VALUES (102, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/upavatar', 'user_attachment', '上传成功!', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556271357, 1556271357);
+INSERT INTO `user_log` VALUES (103, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/changebase', 'user', '(user1)修改基本资料成功', '127.0.0.1', '中国--湖北省-武汉市-电信', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556271441, 1556271441);
 
 SET FOREIGN_KEY_CHECKS = 1;

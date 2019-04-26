@@ -25,6 +25,25 @@ class File extends BaseAdmin
     return view();
   }
 
+  public function user_attachment()
+  {
+    $table = 'user_attachment';
+    //固定参数
+    $this->assign([
+      'table'       =>  $table,
+      'cols'        =>  $this->GetColumnInfo($table),
+      'menu_title'  =>  '用户普通附件',
+      'menu_icon'   =>  'layui-icon layui-icon-layouts',
+    ]);
+    //附加参数
+    $this->assign([
+
+      //'menu'        =>  $this->Retrieve($table, '', 0),
+      //'treedom'     =>  $this->GetChildren($table, '<option>', '</option>')['dom']
+    ]);
+    return view();
+  }
+
   public function folder()
   {
     $table = 'folder';
