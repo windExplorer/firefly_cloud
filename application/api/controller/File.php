@@ -156,9 +156,11 @@
                 $this->Addlog('user', '('.$user['username'].')上传文件失败', 2);
             }
             $this->Addlog('user', '('.$user['username'].')上传文件成功', 2);
+            $this->AddUpDown($user, $ret['file_id'], 0);
             return $this->Restful($ret, 1, '上传文件成功!');
         }
 
+        /* 保存文件 */
         public function saveFile($user, $res, $file){
             $folder = api_parent_folder($res['folder_id'], $user);
             if(empty($folder)){
@@ -196,6 +198,8 @@
                 $this->Addlog('user', '('.$user['username'].')上传文件失败', 2);
             }
             $this->Addlog('user', '('.$user['username'].')上传文件成功', 2);
+            /* 写上传下载日志 */
+            $this->AddUpDown($user, $step2, 0);
             return $this->Restful(true, 1, '上传文件成功!');
 
 

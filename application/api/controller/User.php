@@ -24,49 +24,7 @@
             $res['password'] = sha1($res['password'].$info['salt']); 
             $res = $this->Retrieve($table, $res);
             if(!empty($res)){
-                $this->Token = sha1($res['username'].time());
-                $now = time();
-                //当前连续登录天数-最多连续登录天数-总登录天数
-                # 1.查询今日有没有登录，若登陆了就不用进行其他操作
-                $today = db('user_log')->whereTime('regtime', 'today')->where('user_log_type', 4)->where('user_id', $res['id'])->find();
-                if(!empty($today)){
-                    $data = [
-                        'token' => $this->Token,
-                        'uptime' => $now
-                    ];
-                }else{
-                    $login_total_day = $res['login_total_day'] + 1;
-                    # 2.查询昨日有没有登录，如果登陆了，就在login_day+1 ,如果没有就重置登录天数=1
-                    $yesterday = db('user_log')->whereTime('regtime', 'yesterday')->where('user_log_type', 4)->where('user_id', $res['id'])->find();
-                    if(!empty($yesterday)){
-                        $login_day = $res['login_day'] + 1;
-                    }else{
-                        $login_day = 1;
-                    }
-                    # 3.判断$login_day是否比login_max_day大
-                    if($login_day > $res['login_max_day']){
-                        $login_max_day = $login_day;
-                    }else{
-                        $login_max_day = $res['login_max_day'];
-                    }
-                    $data = [
-                        'login_day' => $login_day,
-                        'login_max_day' =>  $login_max_day,
-                        'login_total_day'   =>  $login_total_day,
-                        'token' => $this->Token,
-                        'uptime' => $now
-                    ];
-                    $res['login_day'] = $login_day;
-                    $res['login_max_day'] = $login_max_day;
-                    $res['login_total_day'] = $login_total_day;
-
-                }                
-                $this->Update($table, $res['id'], $data);
-                $res['token'] = $this->Token;
-                $res['uptime'] = $now;
-                $this->User = $res;
-                $this->Addlog($table, '登录成功', 4);
-                return $this->Restful($res, 1,'登录成功');
+                return $this->login_control($res);
             }else{
                 return $this->Restful($res, 0,'登录失败');
             }
@@ -475,6 +433,7 @@
 
         }
 
+        /* 修改基本数据 */
         public function changebase()
         {
             $table = 'user';
@@ -547,6 +506,69 @@
             }
             $this->Addlog('user', '('.$user['username'].')修改头像成功', 2);
             return $this->Restful($ret, 1, '更新头像成功!');
+        }
+
+        /* 登录检测-用于新的一天无注销登录 */
+        public function check_login()
+        {
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌失效，请重新登录');
+            }
+            return $this->login_control($user);
+            
+            
+
+        }
+
+
+        /* 登录 */
+        public function login_control($res)
+        {
+            $table = 'user';
+            $this->Token = sha1($res['username'].time());
+            $now = time();
+            //当前连续登录天数-最多连续登录天数-总登录天数
+            # 1.查询今日有没有登录，若登陆了就不用进行其他操作
+            $today = db('user_log')->whereTime('regtime', 'today')->where('user_log_type', 4)->where('user_id', $res['id'])->find();
+            if(!empty($today)){
+                $data = [
+                    'token' => $this->Token,
+                    'uptime' => $now
+                ];
+            }else{
+                $login_total_day = $res['login_total_day'] + 1;
+                # 2.查询昨日有没有登录，如果登陆了，就在login_day+1 ,如果没有就重置登录天数=1
+                $yesterday = db('user_log')->whereTime('regtime', 'yesterday')->where('user_log_type', 4)->where('user_id', $res['id'])->find();
+                if(!empty($yesterday)){
+                    $login_day = $res['login_day'] + 1;
+                }else{
+                    $login_day = 1;
+                }
+                # 3.判断$login_day是否比login_max_day大
+                if($login_day > $res['login_max_day']){
+                    $login_max_day = $login_day;
+                }else{
+                    $login_max_day = $res['login_max_day'];
+                }
+                $data = [
+                    'login_day' => $login_day,
+                    'login_max_day' =>  $login_max_day,
+                    'login_total_day'   =>  $login_total_day,
+                    'token' => $this->Token,
+                    'uptime' => $now
+                ];
+                $res['login_day'] = $login_day;
+                $res['login_max_day'] = $login_max_day;
+                $res['login_total_day'] = $login_total_day;
+
+            }                
+            $this->Update($table, $res['id'], $data);
+            $res['token'] = $this->Token;
+            $res['uptime'] = $now;
+            $this->User = $res;
+            $this->Addlog($table, '登录成功', 4);
+            return $this->Restful($res, 1,'登录成功');
         }
 
     }

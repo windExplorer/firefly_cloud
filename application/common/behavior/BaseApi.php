@@ -253,6 +253,7 @@ class BaseApi extends Controller
             $ret['phy_url'] = str_replace('//', '/', str_replace("\\", "/", $info->getPathName()));
             $ret['url'] = str_replace('./', '/', $ret['phy_url']);
             $ret['size'] = $info->getInfo('size');
+            $ret['file_id'] = 0;
             if(empty($check)){
                 //写文件数据
                 $sha1 = $info->sha1();
@@ -277,7 +278,7 @@ class BaseApi extends Controller
                     $imgData['user_path'] = $extend['folder']['pid_path'].$extend['folder']['id'].'/';
                     $imgData['old_path'] = $imgData['user_path'];
                 }
-                $this->Create($table, $imgData);
+                $ret['file_id'] = $this->Create($table, $imgData);
             }else{
                 if(file_exists($ret['phy_url'])){
                     unset($info);
@@ -291,7 +292,20 @@ class BaseApi extends Controller
             // 上传失败获取错误信息
             $ret['msg'] = '上传失败'.$file->getError();
             $ret['etime'] = date('Y-m-d H:i:s');
-        }    
+        }
         return $ret;
+    }
+
+    /* 写上传下载记录表 */
+    public function AddUpDown($user, $fileId, $type = 0)
+    {
+        $sql = [
+            'user_id'   =>  $user['id'],
+            'file_id'   =>  $fileId,
+            'up_type'   =>  $type,
+            'regtime'   =>  time(),
+            'uptime'    =>  time()
+        ];
+        $this->Create('up_down', $sql);
     }
 }

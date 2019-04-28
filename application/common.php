@@ -75,7 +75,7 @@ function getGeo($ip='171.43.239.104'){
  * 第二种获取未知信息方法
   */
   function getGeo2($ip = '171.43.239.104'){
-    return '';
+    //return '';
     $ip = getIP();
     ini_set('user_agent', \Request::header('user_agent'));
     header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
