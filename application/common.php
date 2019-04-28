@@ -75,7 +75,8 @@ function getGeo($ip='171.43.239.104'){
  * 第二种获取未知信息方法
   */
   function getGeo2($ip = '171.43.239.104'){
-    //$ip = getIP();
+    return '';
+    $ip = getIP();
     ini_set('user_agent', \Request::header('user_agent'));
     header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
     $url = 'http://whois.pconline.com.cn/ipJson.jsp?ip='.$ip;
@@ -193,4 +194,38 @@ function getDomain()
   //nginx 无 $_SERVER['REQUEST_SCHEME']
   $protocol = stripos(strtolower($_SERVER['SERVER_PROTOCOL']),'https')  === false ? 'http' : 'https';
   return $protocol.'://'.$_SERVER['HTTP_HOST'];
+}
+
+/* 检测是否含有特殊字符 */
+function hasSpecial($str){
+  //$regex = "/\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/";
+  //return preg_replace($regex, "", $str);
+  
+  if(preg_match("/[ '.,:;*?~`!@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/", $str)){ 
+    return false;
+  }else{
+    return true;
+  }
+
+}
+
+/* api上传文件类型 */
+function api_upload_type($type)
+{
+  switch($type){
+    case 1: $table = 'user_attachment'; break;
+    case 2: $table = 'file'; break;
+    default: $table = 'user_attachment'; break;
+  }
+  return $table;
+}
+
+/* api获取父文件夹 */
+function api_parent_folder($id, $user){
+  if($id == 0){
+    $folder = db('folder')->where(['pid' => 0, 'user_id' => $user['id']])->find();
+  }else{
+      $folder = db('folder')->where(['id' => $id, 'user_id' => $user['id']])->find();
+  }
+  return $folder;
 }

@@ -26,7 +26,42 @@
             if(!empty($res)){
                 $this->Token = sha1($res['username'].time());
                 $now = time();
-                $this->Update($table, $res['id'], ['token' => $this->Token, 'uptime' => $now]);
+                //当前连续登录天数-最多连续登录天数-总登录天数
+                # 1.查询今日有没有登录，若登陆了就不用进行其他操作
+                $today = db('user_log')->whereTime('regtime', 'today')->where('user_log_type', 4)->where('user_id', $res['id'])->find();
+                if(!empty($today)){
+                    $data = [
+                        'token' => $this->Token,
+                        'uptime' => $now
+                    ];
+                }else{
+                    $login_total_day = $res['login_total_day'] + 1;
+                    # 2.查询昨日有没有登录，如果登陆了，就在login_day+1 ,如果没有就重置登录天数=1
+                    $yesterday = db('user_log')->whereTime('regtime', 'yesterday')->where('user_log_type', 4)->where('user_id', $res['id'])->find();
+                    if(!empty($yesterday)){
+                        $login_day = $res['login_day'] + 1;
+                    }else{
+                        $login_day = 1;
+                    }
+                    # 3.判断$login_day是否比login_max_day大
+                    if($login_day > $res['login_max_day']){
+                        $login_max_day = $login_day;
+                    }else{
+                        $login_max_day = $res['login_max_day'];
+                    }
+                    $data = [
+                        'login_day' => $login_day,
+                        'login_max_day' =>  $login_max_day,
+                        'login_total_day'   =>  $login_total_day,
+                        'token' => $this->Token,
+                        'uptime' => $now
+                    ];
+                    $res['login_day'] = $login_day;
+                    $res['login_max_day'] = $login_max_day;
+                    $res['login_total_day'] = $login_total_day;
+
+                }                
+                $this->Update($table, $res['id'], $data);
                 $res['token'] = $this->Token;
                 $res['uptime'] = $now;
                 $this->User = $res;
@@ -70,6 +105,8 @@
             # 6.分配完成后判断系统是否能够进行下一个用户注册，如果不足默认分配的空间，就修改系统参数表，停止注册 open_register,停止邀请码发放 create_invite_code
             # 7.数据组装
             # 8.判断是否能够发放邀请码
+
+            # 为用户增加一个根目录文件夹
 
             ## 0.
 
@@ -165,16 +202,28 @@
                 return $this->Restful(false, 0, '注册失败，原因未知，请尝试与站长联系!');
             }
 
-            ## 10.写权限
+            ## 10.写权重
             $weigh = $this->Update($table, $userId, ['weigh' => $userId, 'uptime' => time()]);
+
+            ## 11.为用户增加一条根目录
+            $this->Create('folder', [
+                'pid'               =>  0,
+                'user_id'           =>  $userId,
+                'name'              =>  '首页',
+                'path'              =>  '',
+                'pid_path'          =>  '',
+                'remark_context'    =>  '注册时系统为用户创建的根目录，无法删除',
+                'regtime'           =>  time(),
+                'uptime'            =>  time()
+            ]);
             
-            ## 11.写注册日志
+            ## 12.写注册日志
             $this->User = [
                 'id'    =>  $userId
             ];
             $this->Addlog($table, '('.$res['username'].')注册成功', -1);
             
-            ## 12.给注册邮箱发送欢迎消息
+            ## 13.给注册邮箱发送欢迎消息
             $subject = '【'.sysConf('website_group_name').'】注册成功!';
             $content = '<div style="width:500px;height:500px;background:lightcoral;margin:auto;padding: 30px;text-align: center;margin-top: 50px;margin-bottom:150px;border-radius:4px;">
             <style>a{color: lightskyblue;transition: .5s;opacity: 1;margin-right: 20px;}a:hover{opacity: .7;}</style>
@@ -184,7 +233,7 @@
             </h1></div>';
             $this->sendMail($res['email'], $subject, $content, $res['username'], '欢迎加入'.sysConf('website_group_name'), $text = '发送注册欢迎消息');
 
-            ## 13.返回注册成功消息
+            ## 14.返回注册成功消息
             return $this->Restful(true, 1, '注册成功,将跳转至登录页面!');
             
         }
@@ -476,25 +525,28 @@
 
         /* 上传头像 */
         public function upavatar(){
-            $table = 'user_attachment';
             $user = $this->checkToken();
             if(empty($user)){
                 return $this->Restful(false, 0, '令牌错误，请重新登录');
             }
             $file = request()->file('file');
             $res = input('post.');
-            switch($res['type']){
-                case 1: $table = 'user_attachment'; break;
-                case 2: $table = 'file'; break;
-            }
+            $table = api_upload_type($res['type']);
             $size = 1 * 1024 * 1024;
             $ext = 'jpg,png,gif,jpeg,bmp';
-            $ret = $this->upImage($file, $table, $size, $ext);
+            $ret = $this->upFile($file, $table,  $res['type'], '', $size, $ext);
             $this->Addlog($table, $ret['msg'], 7);
             if($ret['code'] == 0){
                 return $this->Restful(false, 0, $ret['msg']);
             }
-            return $this->Restful($ret, 1, '上传成功');
+            # 写更新数据库
+            $flag = $this->Update('user', $user['id'],['avatar' => $ret['url'], 'uptime' => time()]);
+            if(empty($flag)){
+                return $this->Restful(false, 0, '更新头像失败!');
+                $this->Addlog('user', '('.$user['username'].')修改头像失败', 2);
+            }
+            $this->Addlog('user', '('.$user['username'].')修改头像成功', 2);
+            return $this->Restful($ret, 1, '更新头像成功!');
         }
 
     }

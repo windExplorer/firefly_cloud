@@ -143,6 +143,7 @@ class Form extends BaseAdmin
         $msg = "[邮件发送失败，请查看错误日志]";
       }
     }
+    
 
     if(isset($post['data']['regtime'])){
       $post['data']['regtime'] = strtotime($post['data']['regtime']);
@@ -166,6 +167,20 @@ class Form extends BaseAdmin
       return $this->Result($ret, 0, '添加数据失败'.$msg);
     }else{
       $this->Addlog($post['table'], '添加[id:'.$ret.']数据项成功', 0);
+
+      // 如果检测是用户表的新增，就得创建一条folder记录
+      if($post['table'] == 'user'){
+        $this->Create('folder', [
+          'pid'               =>  0,
+          'user_id'           =>  $ret,
+          'name'              =>  '首页',
+          'path'              =>  '',
+          'pid_path'          =>  '',
+          'remark_context'    =>  '注册时系统为用户创建的根目录，无法删除',
+          'regtime'           =>  time(),
+          'uptime'            =>  time()
+        ]);
+      }
       return $this->Result($ret, 1, '添加数据成功'.$msg);
     }
   }
@@ -205,7 +220,7 @@ class Form extends BaseAdmin
         $msg = "[邮件发送失败，请查看错误日志]";
       }
     } */
-
+    
     //检测唯一性
     $check_unique = $this->SearchUnique($post['table'], $post['data'] , 0);
     if($check_unique['code'] == 0){

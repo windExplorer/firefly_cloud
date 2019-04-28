@@ -212,13 +212,18 @@ class BaseApi extends Controller
      * @param string $dir 上传的目标目录
      * @param array 
      */
-    public function upImage($file, $dir = 'noname', $size = '', $ext = ''){
+    public function upFile($file, $table, $type = 1, $extend = '', $size = '', $ext = ''){
+        $header = $this->Header;
+        $user = $this->User;
         if(empty($size))
             $size = sysConf('upload_maxsize');
         if(empty($ext))
             $ext = sysConf('upload_ext');
-        $header = $this->Header;
-        $user = $this->User;
+        if($type == 1)
+            $dir = $table;
+        else
+            $dir = $table.'/'.$user['id'];
+        
         $ret = [
             'code'      =>  0,
             'phy_url'   =>  '',
@@ -244,11 +249,12 @@ class BaseApi extends Controller
             $ret['msg'] = '上传成功!';
             $ret['etime'] = date('Y-m-d H:i:s');
             $md5 = $info->md5();
-            $check = checkFileExist($md5, $dir);
+            $check = checkFileExist($md5, $table);
             $ret['phy_url'] = str_replace('//', '/', str_replace("\\", "/", $info->getPathName()));
             $ret['url'] = str_replace('./', '/', $ret['phy_url']);
+            $ret['size'] = $info->getInfo('size');
             if(empty($check)){
-                //写图片数据
+                //写文件数据
                 $sha1 = $info->sha1();
                 $imgData = [
                     'user_id'   =>  $user['id'],
@@ -266,7 +272,12 @@ class BaseApi extends Controller
                     'regtime'   =>  time(),
                     'uptime'    =>  time()
                 ];
-                $this->Create($dir, $imgData);
+                if($type == 2){
+                    $imgData['folder_id'] = $extend['folder']['id'];
+                    $imgData['user_path'] = $extend['folder']['pid_path'].$extend['folder']['id'].'/';
+                    $imgData['old_path'] = $imgData['user_path'];
+                }
+                $this->Create($table, $imgData);
             }else{
                 if(file_exists($ret['phy_url'])){
                     unset($info);

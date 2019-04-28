@@ -677,11 +677,11 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate', 'carousel']
           callback(spark.end());  // Compute hash
           //return spark.end()
         }
-    };
+    }
 
     fileReader.onerror = function () {
         console.warn('oops, something went wrong.');
-    };
+    }
 
     function loadNext() {
         var start = currentChunk * chunkSize,
