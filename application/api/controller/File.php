@@ -19,7 +19,7 @@
                 return $this->Restful(true, -1, '查无此文件，可以进行上传');
             }else{
                 if($res['type'] == 1)
-                    return $this->Restful($flag, 1, '有文件，可以秒传');
+                    return $this->saveAvatar($user, $flag);
                 else if($res['type'] == 2){
                     return $this->saveFile($user, $res, $flag);
                 }
@@ -57,6 +57,12 @@
                 'status'    =>  1,
                 'is_deleted'    =>  0
             ])->order('id desc')->select();
+
+            // 去除文件的真实链接
+            foreach($list['file'] as $k => $v){
+                $list['file'][$k]['path'] = '';
+                $list['file'][$k]['net_path'] = '';
+            }
 
             return $this->Restful(['th' => $folder, 'list' => $list], 1, $folder['name'].' 目录的文件与子目录列表');
         }
@@ -156,6 +162,7 @@
                 $this->Addlog('user', '('.$user['username'].')上传文件失败', 2);
             }
             $this->Addlog('user', '('.$user['username'].')上传文件成功', 2);
+            //写上传日志
             $this->AddUpDown($user, $ret['file_id'], 0);
             return $this->Restful($ret, 1, '上传文件成功!');
         }
@@ -201,9 +208,19 @@
             /* 写上传下载日志 */
             $this->AddUpDown($user, $step2, 0);
             return $this->Restful(true, 1, '上传文件成功!');
-
-
             
+        }
+
+        /* 写秒传头像数据 */
+        public function saveAvatar($user, $file)
+        {
+            $flag = $this->Update('user', $user['id'],['avatar' => $file['net_path'], 'uptime' => time()]);
+            if(empty($flag)){
+                return $this->Restful(false, 0, '更新头像失败!');
+                $this->Addlog('user', '('.$user['username'].')修改头像失败', 2);
+            }
+            $this->Addlog('user', '('.$user['username'].')修改头像成功', 2);
+            return $this->Restful($file, 1, '更新头像成功!');
         }
 
 

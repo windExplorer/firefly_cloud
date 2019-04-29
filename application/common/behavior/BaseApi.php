@@ -239,10 +239,17 @@ class BaseApi extends Controller
             $ret['etime'] = date('Y-m-d H:i:s');
             return $ret;
         }
-        $info = $file->validate([
-            'size'  => $size,
-            'ext'   => $ext
-            ])->rule('date')->move($path);
+        if($ext == '*'){
+            $info = $file->validate([
+                'size'  => $size
+                ])->rule('date')->move($path);
+        }else{
+            $info = $file->validate([
+                'size'  => $size,
+                'ext'   => $ext
+                ])->rule('date')->move($path);
+        }
+        
         //dump($info);die;
         if($info){
             $ret['code'] = 1;
