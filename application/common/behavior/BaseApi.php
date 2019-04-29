@@ -32,7 +32,8 @@ class BaseApi extends Controller
 
     /* 检测token */
     public function checkToken(){
-        $data = db('user')->where(['token' => $this->Token, 'username' => $this->Username])->find();
+        // 由于header不能用中文，不得不把username换成id
+        $data = db('user')->where(['token' => $this->Token, 'id' => $this->Username])->find();
         $this->User = $data;
         return $data;
     }

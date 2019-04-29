@@ -60,7 +60,7 @@
             # 3.检测邮箱是否存在 
             # 4.检测邀请码是否存在或已被使用(第一个用户的邀请码请在配置表中设置(user_first_invite_code))
             # 5.根据用户默认分配值检测系统磁盘空间是否能够分配给该用户 (user_default_space)
-            # 6.分配完成后判断系统是否能够进行下一个用户注册，如果不足默认分配的空间，就修改系统参数表，停止注册 open_register,停止邀请码发放 create_invite_code
+            # 6.分配完成后判断系统是否能够进行下一个用户注册，(系统会有一个默认空余空间，一般是10Gb)如果不足默认分配的空间，就修改系统参数表，停止注册 open_register,停止邀请码发放 create_invite_code
             # 7.数据组装
             # 8.判断是否能够发放邀请码
 
@@ -124,7 +124,7 @@
             }
 
             ## 5. 剩余空间 = 磁盘空闲空间+用户已使用空间-用户已分配空间 
-            $free = disk_free_space('/') + db('user')->sum('use_size') - db('user')->sum('total_size');
+            $free = disk_free_space('/') + db('user')->sum('use_size') - (int)sysConf('more_space') - db('user')->sum('total_size');
             if($free < (int)sysConf('user_default_space')){
                 set_sysConf('open_register', 'false');
                 return $this->Restful(false, 0, '注册通道已被强制关闭，请与站长联系!');

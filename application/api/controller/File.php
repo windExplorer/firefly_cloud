@@ -158,12 +158,21 @@
             # 写更新数据库
             $flag = $this->Update('user', $user['id'], ['use_size' => $user['use_size'] + $ret['size'], 'uptime' => time()]);
             if(empty($flag)){
+                $this->Addlog('file', '('.$user['username'].')上传文件失败', 7);
                 return $this->Restful(false, 0, '上传文件失败!');
-                $this->Addlog('user', '('.$user['username'].')上传文件失败', 2);
             }
-            $this->Addlog('user', '('.$user['username'].')上传文件成功', 2);
+            $this->Addlog('file', '('.$user['username'].')上传文件成功,文件id为'.$ret['file_id'], 7);
             //写上传日志
             $this->AddUpDown($user, $ret['file_id'], 0);
+            //获取该文件夹中的文件信息
+            $ret['extend'] = [
+                'th' => $folder,
+                'list' => [
+                    'folder' => db('folder')->where(['user_id'  =>  $user['id'], 'pid' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
+                    'file' => db('file')->where(['user_id'  =>  $user['id'], 'folder_id' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
+                ],
+                'my_up' =>  $this->get_myup_list($user, 'month'),
+            ];
             return $this->Restful($ret, 1, '上传文件成功!');
         }
 
@@ -196,18 +205,27 @@
                 'old_path'  =>  $folder['pid_path'].$folder['id'].'/',
                 'status'    =>  1,
                 'is_deleted'    =>  0,
+                'is_deleted'    =>  1, //是否秒传
                 'regtime'   =>  time(),
                 'uptime'    =>  time()
             ];
             $step2 = $this->Create('file', $data);
             if(empty($step2)){
                 return $this->Restful(false, 0, '上传文件失败!');
-                $this->Addlog('user', '('.$user['username'].')上传文件失败', 2);
+                $this->Addlog('file', '('.$user['username'].')上传文件失败', 7);
             }
-            $this->Addlog('user', '('.$user['username'].')上传文件成功', 2);
-            /* 写上传下载日志 */
+            $this->Addlog('file', '('.$user['username'].')上传文件成功,文件id为'.$step2, 7);
+            /* 写上传日志 */
             $this->AddUpDown($user, $step2, 0);
-            return $this->Restful(true, 1, '上传文件成功!');
+            $ret['extend'] = [
+                'th' => $folder,
+                'list' => [
+                    'folder' => db('folder')->where(['user_id'  =>  $user['id'], 'pid' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
+                    'file' => db('file')->where(['user_id'  =>  $user['id'], 'folder_id' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
+                ],
+                'my_up' =>  $this->get_myup_list($user, 'month'),
+            ];
+            return $this->Restful($ret, 1, '上传文件成功!');
             
         }
 
@@ -222,6 +240,170 @@
             $this->Addlog('user', '('.$user['username'].')修改头像成功', 2);
             return $this->Restful($file, 1, '更新头像成功!');
         }
+
+        /* 获取上传记录 */
+        public function get_my_up()
+        {
+            $res = input('post.');
+            if(empty($res['type'])){
+                $ret['type'] = 'week';
+            }
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            $list = $this->get_myup_list($user, $res['type']);
+            
+            return $this->Restful($list, 1, '我的上传记录');
+        }
+
+        public function get_myup_list($user, $type='weeek'){
+            $list = db('up_down')->where(['user_id' => $user['id'],  'up_type' => 0, 'is_deleted' => 0, 'status' => 1])->whereTime('regtime', $type)->order('id', 'desc')->select();
+            if(!empty($list)){
+                $ids = [
+                    'file' => [],
+                    'folder'=> []  
+                ];
+                $res = [
+                    'file' => [],
+                    'folder' => []
+                ];
+                foreach($list as $k => $v){
+                    $ids['file'][] = $list[$k]['file_id'];
+                }
+  
+                $res['file'] = db('file')->where('id', 'in', $ids['file'])->column('*', 'id');
+
+                foreach($res['file'] as $k => $v){
+                    $ids['folder'][] = $res['file'][$k]['folder_id'];
+                }
+
+                $res['folder'] = db('folder')->where('id', 'in', $ids['folder'])->column('*', 'id');
+
+                                
+                foreach($list as $k => $v){
+                    if(!empty($res['file'][$list[$k]['file_id']])){
+                        $list[$k]['file'] = $res['file'][$list[$k]['file_id']];
+                        $list[$k]['folder'] = $res['folder'][$list[$k]['file']['folder_id']];
+                    } 
+                }
+            }
+            
+            return $list;
+        }
+
+        public function del_my_up()
+        {
+            $res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            $flag = db('up_down')->where('user_id', $user['id'])->where('id', 'in' ,$res['ids'])->update(['is_deleted' => 1, 'uptime' => time()]);
+            if(empty($flag)){
+                $this->Addlog('up_down', '('.$user['username'].')删除文件失败', 1);
+                return $this->Restful(false, 0, '删除失败!');
+            }else{
+                $this->Addlog('up_down', '('.$user['username'].')删除文件成功，删除了'.$flag.'条数据。ids为['.implode(',', $res['ids']).']', 1);
+                return $this->Restful(true, 1, '删除成功! 删除了'.$flag.'条数据。');
+            }
+            
+        }
+
+
+        /* 编辑文件/文件夹 */
+        public function edit()
+        {
+            $res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            $table = file_or_folder($res['type']);
+            $res = $this->removeXSS($res);
+            foreach($res as $k => $v){
+                $res[$k] = str_replace(' ','',$res[$k]);
+            }
+            if(empty($res['name'])){
+                return $this->Restful(false, 0, '请输入文件/文件夹名称');
+            }
+            if(!hasSpecial($res['name'])){
+                return $this->Restful(false, 0, '名称不能存在特殊字符');
+            }
+            $data = db($table)->where('id', $res['id'])->where('user_id', $user['id'])->where('is_deleted', 0)->where('status', 1)->find();
+
+            # 1.若是文件夹，主要判断文件夹名称是否被修改，如果被修改，与之有关的文件夹都要的path都得被修改，当然，可以做成被动的
+            #   主动修改：遍历所有与之有关的文件夹(path like %/old_name/%), 然后替换成新的名字再一次修改记录
+            if((int)$res['type'] == 1){
+                //文件夹
+                $folder = $data;
+                if($res['name'] == $folder['name'] && $res['context'] == $folder['remark_context']){
+                    return $this->Restful(false, 0, '没有改动');
+                }
+                if(empty($folder)){
+                    return $this->Restful(false, 0, '查无此文件夹');
+                }
+                if($res['name'] !== $folder['name']){
+                    $flag = $this->changeAllChildrenPath($folder, $user, $res['name']);
+
+                }
+                $ret = $this->Update($table, $res['id'], [
+                    'name'  =>  $res['name'],
+                    'remark_context'    =>  $res['context'],
+                    'uptime'            =>  time()
+                ]);
+
+            }else{
+                $file = $data;
+                if($res['name'].'.'.$file['ext'] == $file['name'] && $res['context'] == $file['description_context']){
+                    return $this->Restful(false, 0, '没有改动!');
+                }
+
+                $ret = $this->Update($table, $res['id'], [
+                    'name'  =>  $res['name'].'.'.$file['ext'],
+                    'description_context'    =>  $res['context'],
+                    'uptime'            =>  time()
+                ]);
+            }
+
+            return $this->Restful($ret, 1, '编辑成功!');
+
+            
+        }
+
+        /* 修改与之有关的子文件夹的path */
+        public function changeAllChildrenPath($folder, $user, $name){
+            $child = db('folder')->where('user_id', $user['id'])->where('path', 'like', '%/'.$folder['name'].'/%')->select();
+            $flag = 0;
+            foreach($child as $k => $v){
+                $pid_path = explode('/', $child[$k]['pid_path']);
+                $path = explode('/', $child[$k]['path']);
+                $p = array_search($folder['id'], $pid_path);
+                $path[$p] = $name;
+                $path = implode('/', $path);
+                $flag += db('folder')->where('id', $child[$k]['id'])->update(['path' => $path]);
+            } 
+            return $flag;
+        }
+
+        /* 删除文件/文件夹 */
+        public function del(){
+            $res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            //直接删除（？软删除），不设定回收站-回收站后续再开启，或者后续再加一条系统参数，是否软删除
+            //获取该文件夹以及子文件夹下所有的文件夹
+            //获取该文件夹以及文件夹下所有文件，并且统计是否为秒传，如果是秒传则不计入空间
+
+            
+  
+        }
+
+
+        
+
 
 
         /* wangEditor上传图片 */

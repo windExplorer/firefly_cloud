@@ -200,8 +200,10 @@ function getDomain()
 function hasSpecial($str){
   //$regex = "/\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/";
   //return preg_replace($regex, "", $str);
-  
-  if(preg_match("/[ '.,:;*?~`!@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/", $str)){ 
+  //$preg = "/[ '.,:;*?~`!@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/";
+  $preg = "/[ ',:;*`@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/";
+
+  if(preg_match($preg, $str)){ 
     return false;
   }else{
     return true;
@@ -228,4 +230,16 @@ function api_parent_folder($id, $user){
       $folder = db('folder')->where(['id' => $id, 'user_id' => $user['id']])->find();
   }
   return $folder;
+}
+
+/* 判断是文件还是文件夹，并返回相应的表名 */
+function file_or_folder($type){
+  // 1是文件夹 2是文件
+  return $type == 1 ? 'folder' : 'file';
+}
+
+
+/* 获取无限极目录文件 */
+function deldir($path){
+  
 }
