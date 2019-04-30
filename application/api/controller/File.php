@@ -59,10 +59,7 @@
             ])->order('id desc')->select();
 
             // 去除文件的真实链接
-            foreach($list['file'] as $k => $v){
-                $list['file'][$k]['path'] = '';
-                $list['file'][$k]['net_path'] = '';
-            }
+            $list['file'] = hideTruePlace($list['file']);
 
             return $this->Restful(['th' => $folder, 'list' => $list], 1, $folder['name'].' 目录的文件与子目录列表');
         }
@@ -169,7 +166,7 @@
                 'th' => $folder,
                 'list' => [
                     'folder' => db('folder')->where(['user_id'  =>  $user['id'], 'pid' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
-                    'file' => db('file')->where(['user_id'  =>  $user['id'], 'folder_id' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
+                    'file' => hideTruePlace(db('file')->where(['user_id'  =>  $user['id'], 'folder_id' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select()),
                 ],
                 'my_up' =>  $this->get_myup_list($user, 'month'),
             ];
@@ -205,7 +202,7 @@
                 'old_path'  =>  $folder['pid_path'].$folder['id'].'/',
                 'status'    =>  1,
                 'is_deleted'    =>  0,
-                'is_deleted'    =>  1, //是否秒传
+                'is_second'    =>  1, //是否秒传
                 'regtime'   =>  time(),
                 'uptime'    =>  time()
             ];
@@ -221,7 +218,7 @@
                 'th' => $folder,
                 'list' => [
                     'folder' => db('folder')->where(['user_id'  =>  $user['id'], 'pid' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
-                    'file' => db('file')->where(['user_id'  =>  $user['id'], 'folder_id' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
+                    'file' => hideTruePlace(db('file')->where(['user_id'  =>  $user['id'], 'folder_id' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select()),
                 ],
                 'my_up' =>  $this->get_myup_list($user, 'month'),
             ];
@@ -301,10 +298,10 @@
             }
             $flag = db('up_down')->where('user_id', $user['id'])->where('id', 'in' ,$res['ids'])->update(['is_deleted' => 1, 'uptime' => time()]);
             if(empty($flag)){
-                $this->Addlog('up_down', '('.$user['username'].')删除文件失败', 1);
+                $this->Addlog('up_down', '('.$user['username'].')删除上传记录失败', 1);
                 return $this->Restful(false, 0, '删除失败!');
             }else{
-                $this->Addlog('up_down', '('.$user['username'].')删除文件成功，删除了'.$flag.'条数据。ids为['.implode(',', $res['ids']).']', 1);
+                $this->Addlog('up_down', '('.$user['username'].')删除上传记录成功，删除了'.$flag.'条数据。ids为['.implode(',', $res['ids']).']', 1);
                 return $this->Restful(true, 1, '删除成功! 删除了'.$flag.'条数据。');
             }
             
@@ -365,7 +362,7 @@
                     'uptime'            =>  time()
                 ]);
             }
-
+            $this->Addlog($table, '('.$user['username'].')编辑文件/文件夹成功，id为['.$res['id'].']', 2);
             return $this->Restful($ret, 1, '编辑成功!');
 
             
@@ -373,7 +370,7 @@
 
         /* 修改与之有关的子文件夹的path */
         public function changeAllChildrenPath($folder, $user, $name){
-            $child = db('folder')->where('user_id', $user['id'])->where('path', 'like', '%/'.$folder['name'].'/%')->select();
+            $child = db('folder')->where('user_id', $user['id'])->where('pid_path', 'like', '%/'.$folder['id'].'/%')->select();
             $flag = 0;
             foreach($child as $k => $v){
                 $pid_path = explode('/', $child[$k]['pid_path']);
@@ -381,7 +378,7 @@
                 $p = array_search($folder['id'], $pid_path);
                 $path[$p] = $name;
                 $path = implode('/', $path);
-                $flag += db('folder')->where('id', $child[$k]['id'])->update(['path' => $path]);
+                $flag += db('folder')->where('id', $child[$k]['id'])->update(['path' => $path, 'uptime' => time()]);
             } 
             return $flag;
         }
@@ -396,9 +393,114 @@
             //直接删除（？软删除），不设定回收站-回收站后续再开启，或者后续再加一条系统参数，是否软删除
             //获取该文件夹以及子文件夹下所有的文件夹
             //获取该文件夹以及文件夹下所有文件，并且统计是否为秒传，如果是秒传则不计入空间
+            //(硬删除)实际上删除的时候还需要删除磁盘物理文件，删除的时候判断是否有其他用户使用了这个文件，通过md5判断，如果有就不删除物理文件，如果没有，就直接把物理文件删了
+            $flag = [
+                'folder' => 0,
+                'folder_success' => [],
+                'file'  => 0,
+                'file_success'  =>  [],
+            ];
+            $size = 0;
+            if(!empty($res['folder'])){
+                $del_folder = db('folder')->where(['user_id' => $user['id'], 'is_deleted' => 0])->where('id', 'in', $res['folder'])->select();
+                foreach($del_folder as $k0){
+                    //删除自己
+                    $up = db('folder')->where('id', $k0['id'])->update(['is_deleted' => 1, 'uptime' => time()]);
+                    if(!empty($up)){
+                        $flag['folder'] += $up;
+                        $flag['folder_success'][] = $k0['id'];
+                        //删除自己的所有子文件夹
+                        $up = db('folder')->where('user_id', $user['id'])->where('pid_path', 'like', '%/'.$k0['id'].'/%')->update(['is_deleted' =>  1, 'uptime' => time()]);
+                        $flag['folder'] += $up;
+                        //获取自己所有的子文件
+                        $child = db('file')->where('user_id', $user['id'])->where('user_path', 'like', '%/'.$k0['id'].'/%')->where('is_deleted', 0)->select();
+                        if(!empty($child)){
+                            $ids = [];
+                            foreach($child as $k){
+                                $ids[] = $k['id'];
+                                $flag['file_success'][] = $k['id'];
+                                if($k['is_second'] == 0){
+                                    $size += (int)$k['size'];
+                                }
+                            }
+                            //删除自己所有的子文件
+                            $up = db('file')->where('id', 'in', $ids)->update(['is_deleted' => 1, 'uptime' => time()]);
+                            $flag['file'] += $up;
+                        }
+                    }  
+                    
+                }
+            }
+
+            // 删除当前id的文件
+            if(!empty($res['file'])){
+                $child = db('file')->where(['user_id' => $user['id']])->where('id', 'in', $res['file'])->where('is_deleted', 0)->select();
+                if(!empty($child)){
+                    $ids = [];
+                    foreach($child as $k){
+                        $ids[] = $k['id'];
+                        $flag['file_success'][] = $k['id'];
+                        if($k['is_second'] == 0){
+                            $size += (int)$k['size'];
+                        }
+                    }
+                    //删除自己所有的子文件
+                    $up = db('file')->where('id', 'in', $ids)->update(['is_deleted' => 1, 'uptime' => time()]);
+                    $flag['file'] += $up;
+                }
+            }
 
             
-  
+            //减少空间
+            $last_size = $size > (int)$user['use_size'] ? (int)$user['use_size'] : $size;
+                
+            db('user')->where('id', $user['id'])->setDec('use_size', $last_size);
+            
+        
+            // a:folder_id b.数据库返回的记录 th为当前目录详情，list分为该目录中的folder和file
+            $folder = api_parent_folder($res['folder_id'], $user);
+            $data = [
+                'userInfo' => $this->checkToken(),
+                'delInfo' => $flag,
+                'size'  =>  $size,
+                'home_nav' => [
+                    'a' =>  $folder['id'],
+                    'b' => [
+                        'th'    =>  $folder,
+                        'list'  =>  [
+                            'folder' => db('folder')->where(['user_id'  =>  $user['id'], 'pid' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select(),
+                            'file' => hideTruePlace(db('file')->where(['user_id'  =>  $user['id'], 'folder_id' => $folder['id'], 'is_deleted' => 0, 'status' => 1])->order('id desc')->select()),
+                        ],
+                    ],
+                ],
+
+            ];
+
+            if(empty($flag['folder']) && empty($flag['file'])){
+                return $this->Restful(false, 0, '删除失败，没有文件/文件夹被删除');
+            }
+
+            //写删除日志
+            $this->Addlog('user', '('.$user['username'].')删除文件/文件夹成功, 共释放'.HumanReadableFilesize($size).', 删除的文件夹有ids['.implode(',', $flag['folder_success']).'], 删除的文件有ids['.implode(',', $flag['file_success']).']', 2);
+
+            return $this->Restful($data, 1, '删除成功，共删除'.count($flag['folder_success']).'个文件夹，'.count($flag['file_success']).'个文件。共释放'.HumanReadableFilesize($size).' 空间');
+
+        }
+
+        /* 获取文件夹无限极菜单 */
+        public function getFolderMenu(){
+            //$res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            $data = db('folder')->where([
+                'user_id'       =>  $user['id'],
+                'status'        => 1,
+                'is_deleted'    =>  0
+            ])->order('id', 'asc')->select();
+            $list = GetTree($data);
+            return $this->Restful($list, 1, '我的文件夹菜单');
         }
 
 

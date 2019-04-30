@@ -75,7 +75,7 @@ function getGeo($ip='171.43.239.104'){
  * 第二种获取未知信息方法
   */
   function getGeo2($ip = '171.43.239.104'){
-    //return '';
+    return '';
     $ip = getIP();
     ini_set('user_agent', \Request::header('user_agent'));
     header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
@@ -134,6 +134,7 @@ function adddir($path){
  * Returns a human readable filesize
  */
 function HumanReadableFilesize($size) {
+  $size = (int)$size;
   $mod = 1024; 
   //$units = explode(' ','B KB MB GB TB PB');
   $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
@@ -238,8 +239,24 @@ function file_or_folder($type){
   return $type == 1 ? 'folder' : 'file';
 }
 
+/* 删除文件的地址 */
+function hideTruePlace($fileList){
+  foreach($fileList as $k => $v){
+    $fileList[$k]['path'] = '';
+    $fileList[$k]['net_path'] = '';
+  }
+  return $fileList;
+}
 
 /* 获取无限极目录文件 */
-function deldir($path){
-  
+function GetTree($data, $pid = 0){
+  $tree = [];
+  foreach($data as $k => $v){
+      if($v['pid'] == $pid){
+          $v['child'] = GetTree($data, $v['id']);
+          $tree[] = $v;
+          //unset($data[$k]);
+      }
+  }
+  return $tree;
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 29/04/2019 19:44:51
+ Date: 30/04/2019 08:34:13
 */
 
 SET NAMES utf8mb4;
@@ -515,17 +515,22 @@ CREATE TABLE `file`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 208 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 250 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-INSERT INTO `file` VALUES (202, 4, 1, '0ab1bb678e5544b6965d329a30d606c0!400x400.jpeg', '9688a6160ee5297e60c301e62b4faed6.jpeg', 'image/jpeg', 'jpeg', '38357', './uploads/file/1/20190429/9688a6160ee5297e60c301e62b4faed6.jpeg', '/uploads/file/1/20190429/9688a6160ee5297e60c301e62b4faed6.jpeg', '4/', '4/', NULL, 0, 0, '1a459f4b176c0f8664621b265faf428e', 'f1cb4330a72fc177158491a79c8e9ce77a6b3246', 0, 0, 1, 0, 1556535537, 1556535537);
-INSERT INTO `file` VALUES (203, 4, 1, '1 - 副本.jpeg', '513a3e7a77de1daacddd3971696b6122.jpeg', 'image/jpeg', 'jpeg', '33809', './uploads/file/1/20190429/513a3e7a77de1daacddd3971696b6122.jpeg', '/uploads/file/1/20190429/513a3e7a77de1daacddd3971696b6122.jpeg', '4/', '4/', NULL, 0, 0, 'db4471ff0201f51aed09529a4ec57f19', 'f66fedac728398e68c16a0a540c5e5f3b1363791', 0, 0, 1, 0, 1556535642, 1556535642);
-INSERT INTO `file` VALUES (204, 4, 1, '1.jpeg', '513a3e7a77de1daacddd3971696b6122.jpeg', 'image/jpeg', 'jpeg', '33809', './uploads/file/1/20190429/513a3e7a77de1daacddd3971696b6122.jpeg', '/uploads/file/1/20190429/513a3e7a77de1daacddd3971696b6122.jpeg', '4/', '4/', NULL, 0, 0, 'db4471ff0201f51aed09529a4ec57f19', 'f66fedac728398e68c16a0a540c5e5f3b1363791', 0, 0, 1, 1, 1556535719, 1556535719);
-INSERT INTO `file` VALUES (205, 4, 1, '2b914489f2534aefbcc9c6d04a5bccc5!400x400.jpeg', 'b18d33b52bcd15231f635179600c351d.jpeg', 'image/jpeg', 'jpeg', '39234', './uploads/file/1/20190429/b18d33b52bcd15231f635179600c351d.jpeg', '/uploads/file/1/20190429/b18d33b52bcd15231f635179600c351d.jpeg', '4/', '4/', NULL, 0, 0, '6caf061a9928f57168c996aa924b8242', '979c99d111d329609c33bf2688a44b4cadd9f823', 0, 0, 1, 0, 1556535812, 1556535812);
-INSERT INTO `file` VALUES (206, 4, 1, '0625d12367714931aacb11aa5e221684!400x400.jpeg', 'bceb757c238b273f1c8bd02478520c56.jpeg', 'image/jpeg', 'jpeg', '31606', './uploads/file/1/20190429/bceb757c238b273f1c8bd02478520c56.jpeg', '/uploads/file/1/20190429/bceb757c238b273f1c8bd02478520c56.jpeg', '4/', '4/', NULL, 0, 0, '2c590596527a4380b207ce2d83eac45c', '9724bac2866b0ec43d9e0ae740c58bca069af63c', 0, 0, 1, 0, 1556535903, 1556535903);
-INSERT INTO `file` VALUES (207, 4, 1, '4ed8396a1ffe4576aabde08cdabd3abb!400x400.jpeg', '620fb18f391efc4ad909f3a41b366b2f.jpeg', 'image/jpeg', 'jpeg', '33315', './uploads/file/1/20190429/620fb18f391efc4ad909f3a41b366b2f.jpeg', '/uploads/file/1/20190429/620fb18f391efc4ad909f3a41b366b2f.jpeg', '4/', '4/', NULL, 0, 0, 'a22a6b8f4ba841317df7fdbe275951ae', 'a2e2df7e0e7be3a6d064416da9a5cffe76632e90', 0, 0, 1, 0, 1556536118, 1556536118);
+INSERT INTO `file` VALUES (239, 11, 1, '30ced021cd5346d5b1393e4cb4bf4252!400x400.jpeg', '2e3e30c87109b5be1460010d6a777353.jpeg', 'image/jpeg', 'jpeg', '27349', './uploads/file/1/20190429/2e3e30c87109b5be1460010d6a777353.jpeg', '/uploads/file/1/20190429/2e3e30c87109b5be1460010d6a777353.jpeg', '4/11/', '4/11/', NULL, 0, 0, 'f260487a5d9f9f8fd03e5e0121bf4495', '820e408abe7093ffcfcbd0ff8a54d91d686e8c6c', 0, 0, 1, 1, 1556548822, 1556548884);
+INSERT INTO `file` VALUES (240, 11, 1, 'c21bf361d8e54242a01c666008c77eeb!400x400.jpeg', '62b81a315773ed700e7162f2cdcbbc0e.jpeg', 'image/jpeg', 'jpeg', '45044', './uploads/file/1/20190429/62b81a315773ed700e7162f2cdcbbc0e.jpeg', '/uploads/file/1/20190429/62b81a315773ed700e7162f2cdcbbc0e.jpeg', '4/11/', '4/11/', NULL, 0, 0, 'f4ca9eb9d4f7f22f2c5783d2133ec5ec', '3c70c61e601b0d253b97b0ddedd1c0617ba99655', 0, 0, 1, 1, 1556548822, 1556548884);
+INSERT INTO `file` VALUES (241, 11, 1, 'f5e951fe320e46009afe136c2955015f!400x400.jpeg', '6c4713cf11a18416d4ec86094b1880fa.jpeg', 'image/jpeg', 'jpeg', '24669', './uploads/file/1/20190429/6c4713cf11a18416d4ec86094b1880fa.jpeg', '/uploads/file/1/20190429/6c4713cf11a18416d4ec86094b1880fa.jpeg', '4/11/', '4/11/', NULL, 0, 0, 'bf75ccd7246c5127a73b93e71b234eaa', 'deda70e44fe362b3914a539af73446aaf24dc9cc', 0, 0, 1, 1, 1556548823, 1556548884);
+INSERT INTO `file` VALUES (242, 11, 1, 'EK815  87Key驱动程序.exe', '34b9235cc8059f4ce9121fa0db50b28e.exe', 'application/x-msdownload', 'exe', '7044253', './uploads/file/1/20190429/34b9235cc8059f4ce9121fa0db50b28e.exe', '/uploads/file/1/20190429/34b9235cc8059f4ce9121fa0db50b28e.exe', '4/11/', '4/11/', NULL, 0, 0, '09902798572f0b63ae16859fd82bd89d', 'abf52f257f3c86b19229da6402feea3c5157176c', 0, 0, 1, 1, 1556548835, 1556548884);
+INSERT INTO `file` VALUES (243, 11, 1, 'crypto-js-develop.zip', '57b3da6546130dd45d3dbb5d696dbede.zip', 'application/zip', 'zip', '116262', './uploads/file/1/20190429/57b3da6546130dd45d3dbb5d696dbede.zip', '/uploads/file/1/20190429/57b3da6546130dd45d3dbb5d696dbede.zip', '4/11/', '4/11/', NULL, 0, 0, '04371247ca14a427030f6a10a1326f20', '54570f670cb5f4aa71d3b47075ba11aaa2dee68b', 0, 0, 1, 1, 1556548850, 1556548884);
+INSERT INTO `file` VALUES (244, 11, 1, 'crypto-js-master.zip', '282824c79966f2bd2e2ddf25683894ad.zip', 'application/zip', 'zip', '101387', './uploads/file/1/20190429/282824c79966f2bd2e2ddf25683894ad.zip', '/uploads/file/1/20190429/282824c79966f2bd2e2ddf25683894ad.zip', '4/11/', '4/11/', NULL, 0, 0, '19fbeebbd4c7f07bd801819ab3ea3a86', 'c74ee9479127806baf6bc7ae1d1342b6df881ad1', 0, 0, 1, 1, 1556548850, 1556548884);
+INSERT INTO `file` VALUES (245, 11, 1, 'EK815  87Key驱动程序.zip', 'aeb61cc9f1149c3fe48c47843d397938.zip', 'application/zip', 'zip', '6966645', './uploads/file/1/20190429/aeb61cc9f1149c3fe48c47843d397938.zip', '/uploads/file/1/20190429/aeb61cc9f1149c3fe48c47843d397938.zip', '4/11/', '4/11/', NULL, 0, 0, 'e335feb99db0ed044f1f7d1a38c4d801', '6fc459b60b3b7df6680b705dd170fdebf8af3214', 0, 0, 1, 1, 1556548851, 1556548884);
+INSERT INTO `file` VALUES (246, 4, 1, '30ced021cd5346d5b1393e4cb4bf4252!400x400.jpeg', '2e3e30c87109b5be1460010d6a777353.jpeg', 'image/jpeg', 'jpeg', '27349', './uploads/file/1/20190429/2e3e30c87109b5be1460010d6a777353.jpeg', '/uploads/file/1/20190429/2e3e30c87109b5be1460010d6a777353.jpeg', '4/', '4/', NULL, 0, 1, 'f260487a5d9f9f8fd03e5e0121bf4495', '820e408abe7093ffcfcbd0ff8a54d91d686e8c6c', 0, 0, 1, 1, 1556548863, 1556548906);
+INSERT INTO `file` VALUES (247, 4, 1, 'c21bf361d8e54242a01c666008c77eeb!400x400.jpeg', '62b81a315773ed700e7162f2cdcbbc0e.jpeg', 'image/jpeg', 'jpeg', '45044', './uploads/file/1/20190429/62b81a315773ed700e7162f2cdcbbc0e.jpeg', '/uploads/file/1/20190429/62b81a315773ed700e7162f2cdcbbc0e.jpeg', '4/', '4/', NULL, 0, 1, 'f4ca9eb9d4f7f22f2c5783d2133ec5ec', '3c70c61e601b0d253b97b0ddedd1c0617ba99655', 0, 0, 1, 1, 1556548863, 1556548906);
+INSERT INTO `file` VALUES (248, 4, 1, 'f5e951fe320e46009afe136c2955015f!400x400.jpeg', '6c4713cf11a18416d4ec86094b1880fa.jpeg', 'image/jpeg', 'jpeg', '24669', './uploads/file/1/20190429/6c4713cf11a18416d4ec86094b1880fa.jpeg', '/uploads/file/1/20190429/6c4713cf11a18416d4ec86094b1880fa.jpeg', '4/', '4/', NULL, 0, 1, 'bf75ccd7246c5127a73b93e71b234eaa', 'deda70e44fe362b3914a539af73446aaf24dc9cc', 0, 0, 1, 1, 1556548864, 1556548906);
+INSERT INTO `file` VALUES (249, 4, 1, 'EK815  87Key驱动程序.exe', '34b9235cc8059f4ce9121fa0db50b28e.exe', 'application/x-msdownload', 'exe', '7044253', './uploads/file/1/20190429/34b9235cc8059f4ce9121fa0db50b28e.exe', '/uploads/file/1/20190429/34b9235cc8059f4ce9121fa0db50b28e.exe', '4/', '4/', NULL, 0, 1, '09902798572f0b63ae16859fd82bd89d', 'abf52f257f3c86b19229da6402feea3c5157176c', 0, 0, 1, 1, 1556548873, 1556548906);
 
 -- ----------------------------
 -- Table structure for folder
@@ -544,7 +549,7 @@ CREATE TABLE `folder`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of folder
@@ -555,27 +560,31 @@ INSERT INTO `folder` VALUES (3, 0, 2, '首页', '', NULL, '注册时系统为用
 INSERT INTO `folder` VALUES (4, 0, 1, '首页', '', '', '注册时系统为用户创建的根目录，无法删除', 1, 0, 1556327936, 1556327936);
 INSERT INTO `folder` VALUES (5, 4, 1, '第一个文件夹', '首页/', '4/', '这是我的第一个文件夹', 1, 0, 1556348806, 1556348806);
 INSERT INTO `folder` VALUES (6, 4, 1, '你好，世界', '首页/', '4/', '根目录的第二个文件夹', 1, 0, 1556348894, 1556348894);
-INSERT INTO `folder` VALUES (7, 4, 1, '你好，世界1', '首页/', '4/', '', 1, 0, 1556348939, 1556348939);
+INSERT INTO `folder` VALUES (7, 4, 1, '你好，世界1', '首页/', '4/', '', 1, 1, 1556348939, 1556547662);
 INSERT INTO `folder` VALUES (8, 4, 1, '_', '首页/', '4/', '', 1, 0, 1556349882, 1556349882);
 INSERT INTO `folder` VALUES (9, 4, 1, '，', '首页/', '4/', '', 1, 0, 1556350999, 1556350999);
-INSERT INTO `folder` VALUES (10, 4, 1, 'today', '首页/', '4/', '345', 1, 0, 1556352258, 1556530377);
-INSERT INTO `folder` VALUES (11, 4, 1, 'abc', '首页/', '4/', '', 1, 0, 1556433104, 1556433104);
+INSERT INTO `folder` VALUES (10, 4, 1, 'today', '首页/', '4/', '345', 1, 1, 1556352258, 1556548906);
+INSERT INTO `folder` VALUES (11, 4, 1, 'abc', '首页/', '4/', '', 1, 1, 1556433104, 1556548906);
 INSERT INTO `folder` VALUES (12, 8, 1, '_文件夹第一个文件', '首页/_/', '4/8/', '_文件夹第一个文件', 1, 0, 1556455489, 1556455489);
 INSERT INTO `folder` VALUES (13, 12, 1, '123', '首页/_/_文件夹第一个文件/', '4/8/12/', '', 1, 0, 1556455652, 1556455652);
 INSERT INTO `folder` VALUES (14, 13, 1, '1', '首页/_/_文件夹第一个文件/123/', '4/8/12/13/', '', 1, 0, 1556455779, 1556455779);
 INSERT INTO `folder` VALUES (15, 14, 1, '2', '首页/_/_文件夹第一个文件/123/1/', '4/8/12/13/14/', '', 1, 0, 1556455828, 1556455828);
-INSERT INTO `folder` VALUES (16, 11, 1, '123', '首页/abc/', '4/11/', '', 1, 0, 1556458029, 1556458029);
-INSERT INTO `folder` VALUES (17, 16, 1, '456', '首页/abc/123/', '4/11/16/', '', 1, 0, 1556460528, 1556460528);
-INSERT INTO `folder` VALUES (18, 17, 1, '789', '首页/abc/123/456/', '4/11/16/17/', '', 1, 0, 1556460681, 1556460681);
-INSERT INTO `folder` VALUES (19, 18, 1, '789', '首页/abc/123/456/789/', '4/11/16/17/18/', '', 1, 0, 1556460689, 1556460689);
-INSERT INTO `folder` VALUES (20, 11, 1, '————16', '首页/abc/', '4/11/', '', 1, 0, 1556509733, 1556527411);
-INSERT INTO `folder` VALUES (21, 20, 1, '123', '首页/abc/————16/', '4/11/20/', '', 1, 0, 1556511097, 1556511097);
-INSERT INTO `folder` VALUES (22, 21, 1, '456', '首页/abc/————16/123/', '4/11/20/21/', '', 1, 0, 1556511263, 1556511263);
-INSERT INTO `folder` VALUES (23, 10, 1, '1', '首页/today/', '4/10/', '', 1, 0, 1556511452, 1556511452);
-INSERT INTO `folder` VALUES (24, 23, 1, '2', '首页/today/1/', '4/10/23/', '', 1, 0, 1556511514, 1556511514);
-INSERT INTO `folder` VALUES (25, 10, 1, '2', '首页/today/', '4/10/', '', 1, 0, 1556511598, 1556511598);
-INSERT INTO `folder` VALUES (26, 10, 1, 'tody', '首页/today/', '4/10/', '123', 1, 0, 1556516814, 1556516814);
+INSERT INTO `folder` VALUES (16, 11, 1, '123', '首页/abc/', '4/11/', '', 1, 1, 1556458029, 1556548906);
+INSERT INTO `folder` VALUES (17, 16, 1, '456', '首页/abc/123/', '4/11/16/', '', 1, 1, 1556460528, 1556548906);
+INSERT INTO `folder` VALUES (18, 17, 1, '789', '首页/abc/123/456/', '4/11/16/17/', '', 1, 1, 1556460681, 1556548906);
+INSERT INTO `folder` VALUES (19, 18, 1, '789', '首页/abc/123/456/789/', '4/11/16/17/18/', '', 1, 1, 1556460689, 1556548906);
+INSERT INTO `folder` VALUES (20, 11, 1, '————16', '首页/abc/', '4/11/', '', 1, 1, 1556509733, 1556548906);
+INSERT INTO `folder` VALUES (21, 20, 1, '123', '首页/abc/————16/', '4/11/20/', '', 1, 1, 1556511097, 1556548906);
+INSERT INTO `folder` VALUES (22, 21, 1, '456', '首页/abc/————16/123/', '4/11/20/21/', '', 1, 1, 1556511263, 1556548906);
+INSERT INTO `folder` VALUES (23, 10, 1, '1', '首页/today/', '4/10/', '', 1, 1, 1556511452, 1556548906);
+INSERT INTO `folder` VALUES (24, 23, 1, '2', '首页/today/1/', '4/10/23/', '', 1, 1, 1556511514, 1556548906);
+INSERT INTO `folder` VALUES (25, 10, 1, '2', '首页/today/', '4/10/', '', 1, 1, 1556511598, 1556548906);
+INSERT INTO `folder` VALUES (26, 10, 1, 'tody', '首页/today/', '4/10/', '123', 1, 1, 1556516814, 1556548906);
 INSERT INTO `folder` VALUES (27, 0, 10, '首页', '', '', '注册时系统为用户创建的根目录，无法删除', 1, 0, 1556533661, 1556533661);
+INSERT INTO `folder` VALUES (28, 4, 1, '123', '首页/', '4/', '', 1, 0, 1556547719, 1556547719);
+INSERT INTO `folder` VALUES (29, 4, 1, '1234', '首页/', '4/', '', 1, 0, 1556547771, 1556547771);
+INSERT INTO `folder` VALUES (30, 9, 1, '123', '首页/，/', '4/9/', '', 1, 0, 1556549067, 1556549067);
+INSERT INTO `folder` VALUES (31, 29, 1, '11', '首页/1234/', '4/29/', '', 1, 0, 1556550549, 1556550549);
 
 -- ----------------------------
 -- Table structure for menu
@@ -793,7 +802,7 @@ CREATE TABLE `up_down`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 128 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 170 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of up_down
@@ -924,6 +933,48 @@ INSERT INTO `up_down` VALUES (124, 1, 204, 0, 1, 0, 1556535720, 1556535720);
 INSERT INTO `up_down` VALUES (125, 1, 205, 0, 1, 0, 1556535812, 1556535812);
 INSERT INTO `up_down` VALUES (126, 1, 206, 0, 1, 0, 1556535903, 1556535903);
 INSERT INTO `up_down` VALUES (127, 1, 207, 0, 1, 0, 1556536118, 1556536118);
+INSERT INTO `up_down` VALUES (128, 1, 208, 0, 1, 0, 1556546528, 1556546528);
+INSERT INTO `up_down` VALUES (129, 1, 209, 0, 1, 0, 1556547376, 1556547376);
+INSERT INTO `up_down` VALUES (130, 1, 210, 0, 1, 0, 1556547376, 1556547376);
+INSERT INTO `up_down` VALUES (131, 1, 211, 0, 1, 0, 1556547377, 1556547377);
+INSERT INTO `up_down` VALUES (132, 1, 212, 0, 1, 0, 1556547821, 1556547821);
+INSERT INTO `up_down` VALUES (133, 1, 213, 0, 1, 0, 1556547821, 1556547821);
+INSERT INTO `up_down` VALUES (134, 1, 214, 0, 1, 0, 1556547821, 1556547821);
+INSERT INTO `up_down` VALUES (135, 1, 215, 0, 1, 0, 1556547823, 1556547823);
+INSERT INTO `up_down` VALUES (136, 1, 216, 0, 1, 0, 1556547823, 1556547823);
+INSERT INTO `up_down` VALUES (137, 1, 217, 0, 1, 0, 1556547823, 1556547823);
+INSERT INTO `up_down` VALUES (138, 1, 218, 0, 1, 0, 1556548114, 1556548114);
+INSERT INTO `up_down` VALUES (139, 1, 219, 0, 1, 0, 1556548136, 1556548136);
+INSERT INTO `up_down` VALUES (140, 1, 220, 0, 1, 0, 1556548212, 1556548212);
+INSERT INTO `up_down` VALUES (141, 1, 221, 0, 1, 0, 1556548223, 1556548223);
+INSERT INTO `up_down` VALUES (142, 1, 222, 0, 1, 0, 1556548224, 1556548224);
+INSERT INTO `up_down` VALUES (143, 1, 223, 0, 1, 0, 1556548224, 1556548224);
+INSERT INTO `up_down` VALUES (144, 1, 224, 0, 1, 0, 1556548418, 1556548418);
+INSERT INTO `up_down` VALUES (145, 1, 225, 0, 1, 0, 1556548418, 1556548418);
+INSERT INTO `up_down` VALUES (146, 1, 226, 0, 1, 0, 1556548419, 1556548419);
+INSERT INTO `up_down` VALUES (147, 1, 227, 0, 1, 0, 1556548471, 1556548471);
+INSERT INTO `up_down` VALUES (148, 1, 228, 0, 1, 0, 1556548471, 1556548471);
+INSERT INTO `up_down` VALUES (149, 1, 229, 0, 1, 0, 1556548472, 1556548472);
+INSERT INTO `up_down` VALUES (150, 1, 230, 0, 1, 0, 1556548549, 1556548549);
+INSERT INTO `up_down` VALUES (151, 1, 231, 0, 1, 0, 1556548549, 1556548549);
+INSERT INTO `up_down` VALUES (152, 1, 232, 0, 1, 0, 1556548550, 1556548550);
+INSERT INTO `up_down` VALUES (153, 1, 233, 0, 1, 0, 1556548692, 1556548692);
+INSERT INTO `up_down` VALUES (154, 1, 234, 0, 1, 0, 1556548692, 1556548692);
+INSERT INTO `up_down` VALUES (155, 1, 235, 0, 1, 0, 1556548693, 1556548693);
+INSERT INTO `up_down` VALUES (156, 1, 236, 0, 1, 0, 1556548708, 1556548708);
+INSERT INTO `up_down` VALUES (157, 1, 237, 0, 1, 0, 1556548708, 1556548708);
+INSERT INTO `up_down` VALUES (158, 1, 238, 0, 1, 0, 1556548709, 1556548709);
+INSERT INTO `up_down` VALUES (159, 1, 239, 0, 1, 0, 1556548823, 1556548823);
+INSERT INTO `up_down` VALUES (160, 1, 240, 0, 1, 0, 1556548823, 1556548823);
+INSERT INTO `up_down` VALUES (161, 1, 241, 0, 1, 0, 1556548824, 1556548824);
+INSERT INTO `up_down` VALUES (162, 1, 242, 0, 1, 0, 1556548835, 1556548835);
+INSERT INTO `up_down` VALUES (163, 1, 243, 0, 1, 0, 1556548850, 1556548850);
+INSERT INTO `up_down` VALUES (164, 1, 244, 0, 1, 0, 1556548850, 1556548850);
+INSERT INTO `up_down` VALUES (165, 1, 245, 0, 1, 0, 1556548852, 1556548852);
+INSERT INTO `up_down` VALUES (166, 1, 246, 0, 1, 0, 1556548863, 1556548863);
+INSERT INTO `up_down` VALUES (167, 1, 247, 0, 1, 0, 1556548864, 1556548864);
+INSERT INTO `up_down` VALUES (168, 1, 248, 0, 1, 0, 1556548865, 1556548865);
+INSERT INTO `up_down` VALUES (169, 1, 249, 0, 1, 0, 1556548873, 1556548873);
 
 -- ----------------------------
 -- Table structure for user
@@ -972,7 +1023,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'user1', '雾城风雨寻花', 'af92923cc2f5d5a1d5d179c726b971a2d797ed72', 'cZeb-', '/uploads/user_attachment/20190429/d0714dcb5d254944493daec9f0352c31.jpeg', 1, '644998459@163.com', '', 0, '1479221500', '2011-11-10', '本来无一物，何处惹尘埃。', '此人很懒，没有留下什么~<br/>\r\n此人很懒，没有留下什么~<br/>\r\n此人很懒，没有留下什么~', 0, 0, '', '', '1073741824', '176321', '', 0, 4, 4, 4, '', '20190402', '20190401', 1, 0, 1, 1555309968, 1556538247, 0, 0, 0);
+INSERT INTO `user` VALUES (1, 'user1', '雾城风雨寻花', 'af92923cc2f5d5a1d5d179c726b971a2d797ed72', 'cZeb-', '/uploads/user_attachment/20190429/0bcaa5450eb9a928f6fac96912d965c8.png', 1, '644998459@163.com', '', 0, '1479221500', '2011-11-10', '本来无一物，何处惹尘埃。', '此人很懒，没有留下什么~<br/>\r\n此人很懒，没有留下什么~<br/>\r\n此人很懒，没有留下什么~', 0, 0, '', '', '1073741824', '0', '10f57a405d95ac514e1229c792b3d5bac1f90f4a', 0, 5, 5, 5, '', '20190402', '20190401', 1, 0, 1, 1555309968, 1556584411, 0, 0, 0);
 INSERT INTO `user` VALUES (2, 'yl-198', '199-8', 'cd4b7d5602a57e8f89df6a13f2c2dd98b92cbf4f', 'R^zOK', '/uploads/user/20190417/dc5536ec6630065ab55b23ddd8612c45.jpeg', 0, '1445154365@qq.com', '', 0, '1445154365', '2019-04-17', '', '', 0, 0, '', '', '1073741824', '0', NULL, 0, 0, 0, 0, NULL, '20190403', '20190402', 1, 0, 2, 1555467681, 1556327929, 0, 0, 0);
 INSERT INTO `user` VALUES (8, 'user2', '寻觅2', 'e717b2df934cce565678fe4580a6691626ec174a', 'uyeD5', '/static/source/img/userHead.jpeg', 1, '1479221500@qq.com', '', 0, '', '2019-04-26', '', '', 0, 0, '', '', '1073741824', '0', '', 0, 1, 1, 1, 'H9W!*0', 'fPG1taJo', '20190331', 1, 0, 8, 1556170311, 1556327916, 0, 0, 0);
 INSERT INTO `user` VALUES (9, 'user3', 'user3', '135895ff7b2c95d9223fff39cfdd481b2289d3ab', '$g%.b', '/static/source/img/userHead.jpeg', 2, '1845535061@qq.com', '', 0, '', '2019-04-25', '', '', 0, 0, '', '', '1073741824', '0', '4cd09f7771b30f86cbd0a27c42825dd0b6454c53', 0, 1, 1, 1, NULL, '%*Y9dqLz', 'fPG1taJo', 1, 0, 9, 1556170994, 1556327908, 0, 0, 0);
@@ -999,7 +1050,7 @@ CREATE TABLE `user_attachment`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_attachment
@@ -1012,6 +1063,7 @@ INSERT INTO `user_attachment` VALUES (24, 1, 'c21bf361d8e54242a01c666008c77eeb!4
 INSERT INTO `user_attachment` VALUES (25, 1, '30ced021cd5346d5b1393e4cb4bf4252!400x400.jpeg', 'ab7456f29895df01122c0c02cfa283f0.jpeg', 'image/jpeg', 'jpeg', '27349', './uploads/user_attachment/20190427/ab7456f29895df01122c0c02cfa283f0.jpeg', '/uploads/user_attachment/20190427/ab7456f29895df01122c0c02cfa283f0.jpeg', 'f260487a5d9f9f8fd03e5e0121bf4495', '820e408abe7093ffcfcbd0ff8a54d91d686e8c6c', 1, 0, 1556335557, 1556335557);
 INSERT INTO `user_attachment` VALUES (26, 1, 'a8d31d950c714447b03a126f2c65d949!400x400.jpeg', '7fb14d2557b5cd7cd302ccfd3f0c3937.jpeg', 'image/jpeg', 'jpeg', '31116', './uploads/user_attachment/20190428/7fb14d2557b5cd7cd302ccfd3f0c3937.jpeg', '/uploads/user_attachment/20190428/7fb14d2557b5cd7cd302ccfd3f0c3937.jpeg', 'e562ee9adaaaf304481ba1e72ba3d66a', '2e17d68dcd906e5471d77cb82023d4040bbc74e8', 1, 0, 1556432961, 1556432961);
 INSERT INTO `user_attachment` VALUES (27, 1, '2759ee5b67074f8ea6dd412ff7e1a068!400x400.jpeg', 'd0714dcb5d254944493daec9f0352c31.jpeg', 'image/jpeg', 'jpeg', '55010', './uploads/user_attachment/20190429/d0714dcb5d254944493daec9f0352c31.jpeg', '/uploads/user_attachment/20190429/d0714dcb5d254944493daec9f0352c31.jpeg', '2f8f6ec44ba851288f33a736f7ff312c', 'df0f8ff7255a5ceddeb295b635ef003f01441ba0', 1, 0, 1556502291, 1556502291);
+INSERT INTO `user_attachment` VALUES (28, 1, '5c9afde264e0d.png', '0bcaa5450eb9a928f6fac96912d965c8.png', 'image/png', 'png', '37339', './uploads/user_attachment/20190429/0bcaa5450eb9a928f6fac96912d965c8.png', '/uploads/user_attachment/20190429/0bcaa5450eb9a928f6fac96912d965c8.png', 'c4c1d1b62e1c5d65eae301c70e491a2d', 'eb62ca2b3e77c1e3a4c67b70fb78c1bf2addc6b0', 1, 0, 1556539830, 1556539830);
 
 -- ----------------------------
 -- Table structure for user_log
@@ -1023,7 +1075,7 @@ CREATE TABLE `user_log`  (
   `ref` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源链接',
   `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '当前链接',
   `table` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '表名',
-  `info` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '详情',
+  `info` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '详情',
   `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
   `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地理位置',
   `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户端信息',
@@ -1033,7 +1085,7 @@ CREATE TABLE `user_log`  (
   `regtime` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `uptime` int(10) NULL DEFAULT NULL COMMENT '最近更新',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 602 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 700 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_log
@@ -1626,5 +1678,103 @@ INSERT INTO `user_log` VALUES (598, 10, 'http://127.0.0.1:8082/home', 'http://ww
 INSERT INTO `user_log` VALUES (599, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556537764, 1556537764);
 INSERT INTO `user_log` VALUES (600, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556538248, 1556538248);
 INSERT INTO `user_log` VALUES (601, 10, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556538254, 1556538254);
+INSERT INTO `user_log` VALUES (602, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556539810, 1556539810);
+INSERT INTO `user_log` VALUES (603, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/upavatar', 'user_attachment', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556539830, 1556539830);
+INSERT INTO `user_log` VALUES (604, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/upavatar', 'user', '(user1)修改头像成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556539830, 1556539830);
+INSERT INTO `user_log` VALUES (605, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/edit', 'file', '(user1)编辑文件/文件夹成功，id为[205]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556544624, 1556544624);
+INSERT INTO `user_log` VALUES (606, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556546528, 1556546528);
+INSERT INTO `user_log` VALUES (607, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为208', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556546528, 1556546528);
+INSERT INTO `user_log` VALUES (608, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放36.46 KB, 删除的文件夹有ids[], 删除的文件有ids[208]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556546535, 1556546535);
+INSERT INTO `user_log` VALUES (609, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放0 B, 删除的文件夹有ids[], 删除的文件有ids[]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556546550, 1556546550);
+INSERT INTO `user_log` VALUES (610, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放0 B, 删除的文件夹有ids[], 删除的文件有ids[]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556546566, 1556546566);
+INSERT INTO `user_log` VALUES (611, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放0 B, 删除的文件夹有ids[16,20], 删除的文件有ids[]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556547335, 1556547335);
+INSERT INTO `user_log` VALUES (612, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547376, 1556547376);
+INSERT INTO `user_log` VALUES (613, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547376, 1556547376);
+INSERT INTO `user_log` VALUES (614, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为209', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547376, 1556547376);
+INSERT INTO `user_log` VALUES (615, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为210', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547376, 1556547376);
+INSERT INTO `user_log` VALUES (616, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547377, 1556547377);
+INSERT INTO `user_log` VALUES (617, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为211', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547377, 1556547377);
+INSERT INTO `user_log` VALUES (618, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放0 B, 删除的文件夹有ids[7], 删除的文件有ids[]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556547662, 1556547662);
+INSERT INTO `user_log` VALUES (619, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/create_folder', 'folder', '(user1)创建文件夹成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 1, 1556547719, 1556547719);
+INSERT INTO `user_log` VALUES (620, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/create_folder', 'folder', '(user1)创建文件夹成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 1, 1556547772, 1556547772);
+INSERT INTO `user_log` VALUES (621, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547821, 1556547821);
+INSERT INTO `user_log` VALUES (622, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547821, 1556547821);
+INSERT INTO `user_log` VALUES (623, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547821, 1556547821);
+INSERT INTO `user_log` VALUES (624, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为212', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547821, 1556547821);
+INSERT INTO `user_log` VALUES (625, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为213', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547821, 1556547821);
+INSERT INTO `user_log` VALUES (626, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为214', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547821, 1556547821);
+INSERT INTO `user_log` VALUES (627, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547823, 1556547823);
+INSERT INTO `user_log` VALUES (628, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547823, 1556547823);
+INSERT INTO `user_log` VALUES (629, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为215', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547823, 1556547823);
+INSERT INTO `user_log` VALUES (630, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547823, 1556547823);
+INSERT INTO `user_log` VALUES (631, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为216', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547823, 1556547823);
+INSERT INTO `user_log` VALUES (632, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为217', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556547823, 1556547823);
+INSERT INTO `user_log` VALUES (633, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放24.91 MB, 删除的文件夹有ids[], 删除的文件有ids[209,210,211,212,213,214,215,216,217]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556547842, 1556547842);
+INSERT INTO `user_log` VALUES (634, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556547970, 1556547970);
+INSERT INTO `user_log` VALUES (635, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556547978, 1556547978);
+INSERT INTO `user_log` VALUES (636, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548114, 1556548114);
+INSERT INTO `user_log` VALUES (637, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为218', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548114, 1556548114);
+INSERT INTO `user_log` VALUES (638, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放6.72 MB, 删除的文件夹有ids[], 删除的文件有ids[218]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556548124, 1556548124);
+INSERT INTO `user_log` VALUES (639, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为219', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548136, 1556548136);
+INSERT INTO `user_log` VALUES (640, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放0 B, 删除的文件夹有ids[], 删除的文件有ids[219]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556548204, 1556548204);
+INSERT INTO `user_log` VALUES (641, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为220', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548212, 1556548212);
+INSERT INTO `user_log` VALUES (642, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548223, 1556548223);
+INSERT INTO `user_log` VALUES (643, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548223, 1556548223);
+INSERT INTO `user_log` VALUES (644, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为221', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548223, 1556548223);
+INSERT INTO `user_log` VALUES (645, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为222', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548224, 1556548224);
+INSERT INTO `user_log` VALUES (646, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548224, 1556548224);
+INSERT INTO `user_log` VALUES (647, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为223', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548224, 1556548224);
+INSERT INTO `user_log` VALUES (648, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放94.79 KB, 删除的文件夹有ids[], 删除的文件有ids[220,221,222,223]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556548233, 1556548233);
+INSERT INTO `user_log` VALUES (649, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548417, 1556548417);
+INSERT INTO `user_log` VALUES (650, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548417, 1556548417);
+INSERT INTO `user_log` VALUES (651, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为224', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548418, 1556548418);
+INSERT INTO `user_log` VALUES (652, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为225', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548418, 1556548418);
+INSERT INTO `user_log` VALUES (653, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548418, 1556548418);
+INSERT INTO `user_log` VALUES (654, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为226', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548419, 1556548419);
+INSERT INTO `user_log` VALUES (655, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为227', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548471, 1556548471);
+INSERT INTO `user_log` VALUES (656, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为228', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548471, 1556548471);
+INSERT INTO `user_log` VALUES (657, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为229', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548472, 1556548472);
+INSERT INTO `user_log` VALUES (658, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放0 B, 删除的文件夹有ids[], 删除的文件有ids[227,228,229]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556548488, 1556548488);
+INSERT INTO `user_log` VALUES (659, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为230', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548549, 1556548549);
+INSERT INTO `user_log` VALUES (660, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为231', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548549, 1556548549);
+INSERT INTO `user_log` VALUES (661, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为232', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548550, 1556548550);
+INSERT INTO `user_log` VALUES (662, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556548657, 1556548657);
+INSERT INTO `user_log` VALUES (663, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556548664, 1556548664);
+INSERT INTO `user_log` VALUES (664, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放0 B, 删除的文件夹有ids[], 删除的文件有ids[230,231,232]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556548682, 1556548682);
+INSERT INTO `user_log` VALUES (665, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为233', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548692, 1556548692);
+INSERT INTO `user_log` VALUES (666, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为234', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548692, 1556548692);
+INSERT INTO `user_log` VALUES (667, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为235', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548693, 1556548693);
+INSERT INTO `user_log` VALUES (668, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548707, 1556548707);
+INSERT INTO `user_log` VALUES (669, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548707, 1556548707);
+INSERT INTO `user_log` VALUES (670, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为236', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548708, 1556548708);
+INSERT INTO `user_log` VALUES (671, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为237', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548708, 1556548708);
+INSERT INTO `user_log` VALUES (672, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548709, 1556548709);
+INSERT INTO `user_log` VALUES (673, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为238', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548709, 1556548709);
+INSERT INTO `user_log` VALUES (674, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放6.85 MB, 删除的文件夹有ids[], 删除的文件有ids[233,234,235,236,237,238]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556548720, 1556548720);
+INSERT INTO `user_log` VALUES (675, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/user/logout', 'user', '退出成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 5, 1556548799, 1556548799);
+INSERT INTO `user_log` VALUES (676, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556548810, 1556548810);
+INSERT INTO `user_log` VALUES (677, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548822, 1556548822);
+INSERT INTO `user_log` VALUES (678, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548822, 1556548822);
+INSERT INTO `user_log` VALUES (679, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为239', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548823, 1556548823);
+INSERT INTO `user_log` VALUES (680, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为240', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548823, 1556548823);
+INSERT INTO `user_log` VALUES (681, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548823, 1556548823);
+INSERT INTO `user_log` VALUES (682, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为241', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548824, 1556548824);
+INSERT INTO `user_log` VALUES (683, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548835, 1556548835);
+INSERT INTO `user_log` VALUES (684, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为242', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548835, 1556548835);
+INSERT INTO `user_log` VALUES (685, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548850, 1556548850);
+INSERT INTO `user_log` VALUES (686, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548850, 1556548850);
+INSERT INTO `user_log` VALUES (687, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为243', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548850, 1556548850);
+INSERT INTO `user_log` VALUES (688, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为244', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548850, 1556548850);
+INSERT INTO `user_log` VALUES (689, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '上传成功!', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548852, 1556548852);
+INSERT INTO `user_log` VALUES (690, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/up_file', 'file', '(user1)上传文件成功,文件id为245', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548852, 1556548852);
+INSERT INTO `user_log` VALUES (691, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为246', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548863, 1556548863);
+INSERT INTO `user_log` VALUES (692, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为247', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548863, 1556548863);
+INSERT INTO `user_log` VALUES (693, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为248', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548865, 1556548865);
+INSERT INTO `user_log` VALUES (694, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/checkmd5', 'file', '(user1)上传文件成功,文件id为249', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 7, 1556548873, 1556548873);
+INSERT INTO `user_log` VALUES (695, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/del', 'user', '(user1)删除文件/文件夹成功, 共释放13.66 MB, 删除的文件夹有ids[], 删除的文件有ids[239,240,241,242,243,244,245]', '127.0.0.1', '中国----本机地址', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 2, 1556548885, 1556548885);
+INSERT INTO `user_log` VALUES (696, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/create_folder', 'folder', '(user1)创建文件夹成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 1, 1556549067, 1556549067);
+INSERT INTO `user_log` VALUES (697, 1, 'http://127.0.0.1:8082/home', 'http://www.firefly.test/api/file/create_folder', 'folder', '(user1)创建文件夹成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 1, 1556550549, 1556550549);
+INSERT INTO `user_log` VALUES (698, 1, 'http://127.0.0.1:8082/personal', 'http://www.firefly.test/api/user/check_login', 'user', '登录成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556584360, 1556584360);
+INSERT INTO `user_log` VALUES (699, 1, 'http://127.0.0.1:8082/login', 'http://www.firefly.test/api/user/login', 'user', '登录成功', '127.0.0.1', '', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36', 1, 0, 4, 1556584411, 1556584411);
 
 SET FOREIGN_KEY_CHECKS = 1;
