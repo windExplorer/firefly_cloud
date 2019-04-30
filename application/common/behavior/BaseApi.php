@@ -85,7 +85,7 @@ class BaseApi extends Controller
 
     /**
      * 写用户日志表
-     * user_log_type 日志类型[-1:注册,0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮箱,7:上传]
+     * user_log_type 日志类型[-1:注册,0:增,1:删,2:改,3:查,4:登录,5:退出,6:邮箱,7:上传,8:下载,9.复制,10.移动,11.分享,12.删除]
      */
     public function Addlog($table, $info, $user_log_type)
     {

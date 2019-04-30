@@ -481,7 +481,7 @@
             }
 
             //写删除日志
-            $this->Addlog('user', '('.$user['username'].')删除文件/文件夹成功, 共释放'.HumanReadableFilesize($size).', 删除的文件夹有ids['.implode(',', $flag['folder_success']).'], 删除的文件有ids['.implode(',', $flag['file_success']).']', 2);
+            $this->Addlog('user', '('.$user['username'].')删除文件/文件夹成功, 共释放'.HumanReadableFilesize($size).', 删除的文件夹有ids['.implode(',', $flag['folder_success']).'], 删除的文件有ids['.implode(',', $flag['file_success']).']', 12);
 
             return $this->Restful($data, 1, '删除成功，共删除'.count($flag['folder_success']).'个文件夹，'.count($flag['file_success']).'个文件。共释放'.HumanReadableFilesize($size).' 空间');
 
@@ -498,12 +498,157 @@
                 'user_id'       =>  $user['id'],
                 'status'        => 1,
                 'is_deleted'    =>  0
-            ])->order('id', 'asc')->select();
+            ])->order('regtime', 'desc')->select();
             $list = GetTree($data);
+            //$list[0]['disabled'] = true;
             return $this->Restful($list, 1, '我的文件夹菜单');
         }
 
+        /* 复制文件/文件夹 */
+        public function  copy()
+        {
+            $res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            //获取目标文件夹的文件夹和文件
+            $folder = [
+                'folder'    =>  getChildFolder($user, $res['to_key']),
+                'file'    =>  getChildFile($user, $res['to_key']),
+                'th'    =>  db('folder')->where('id', $res['to_key'])->find()
+            ];
 
+            $need_file = [];
+            $need_folder = [];
+
+            //获取需要复制的文件夹的信息
+            if(!empty($res['folder'])){
+                $need_folder = getFolderInfo($user, $res['folder']);
+                //比对与目标文件夹中子文件夹是否有同名的
+                $same = checkSameName($folder['folder'], $need_folder);
+                if($same){
+                    return $this->Restful($same, 0, '目标文件夹中已存在名称为: ['.$same.']的文件夹！');
+                }
+            }
+
+            //获取需要复制的文件信息
+            if(!empty($res['file'])){
+                $need_file = getFileInfo($user, $res['file']);
+                //比对与目标文件夹中子文件是否有同名的
+                $same = checkSameName($folder['file'], $need_file);
+                if($same){
+                    return $this->Restful($same, 0, '目标文件夹中已存在名称为: ['.$same.']的文件！');
+                }
+            }
+
+            //获取该目标文件夹下的所有子文件夹与文件
+            $child['folder'] = [];
+            $count_file = 0;
+            $data = db('folder')->where(['user_id'=> $user['id'], 'is_deleted' => 0])->select();
+            $need_child = [
+                'id'        =>  $folder['th']['id'],
+                'pid_path'  =>  $folder['th']['pid_path'].$folder['th']['id'].'/',
+                'path'      =>  $folder['th']['path'].$folder['th']['name'].'/'
+            ];
+            foreach($need_folder as $arr){
+                // 复制当前文件夹
+                $need = TreeCopyFolder($arr, $need_child, $user);
+                $child['folder'][] = $need;
+                //复制子文件
+                $count_file += TreeCopyFile($arr, $need, $user);
+                //复制子文件夹
+                $child_folder = TreeCopy($data, $arr['id'], $need, $user); 
+                $child['folder'][] = $child_folder['folder'];
+                $count_file += $child_folder['count_file'];
+            }
+            
+            //return $this->Restful($child, 1, '');
+
+            //复制文件
+            foreach($need_file as $arr){
+                $count_file += TreeCopyFile_Only($arr, $need_child, $user);
+            }
+            $child['count_file'] = $count_file;
+
+            //写日志
+            $this->Addlog('user', '('.$user['username'].')复制文件/文件夹成功, 共复制了'.count($child['folder']).'个文件夹，'.$child['count_file'].'个文件。目标文件夹为'.$res['to_key'], 9);
+            return $this->Restful($child, 1, '复制文件/文件夹成功,共复制了'.count($child['folder']).'个文件夹，'.$child['count_file'].'个文件');
+        }
+
+
+        /* 移动文件/文件夹 */
+        public function  move()
+        {
+            $res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，请重新登录');
+            }
+            //获取目标文件夹的文件夹和文件
+            $folder = [
+                'folder'    =>  getChildFolder($user, $res['to_key']),
+                'file'    =>  getChildFile($user, $res['to_key']),
+                'th'    =>  db('folder')->where('id', $res['to_key'])->find()
+            ];
+
+            $need_file = [];
+            $need_folder = [];
+
+            //获取需要复制的文件夹的信息
+            if(!empty($res['folder'])){
+                $need_folder = getFolderInfo($user, $res['folder']);
+                //比对与目标文件夹中子文件夹是否有同名的
+                $same = checkSameName($folder['folder'], $need_folder);
+                if($same){
+                    return $this->Restful($same, 0, '目标文件夹中已存在名称为: ['.$same.']的文件夹！');
+                }
+            }
+
+            //获取需要复制的文件信息
+            if(!empty($res['file'])){
+                $need_file = getFileInfo($user, $res['file']);
+                //比对与目标文件夹中子文件是否有同名的
+                $same = checkSameName($folder['file'], $need_file);
+                if($same){
+                    return $this->Restful($same, 0, '目标文件夹中已存在名称为: ['.$same.']的文件！');
+                }
+            }
+
+            //获取该目标文件夹下的所有子文件夹与文件
+            $child['folder'] = [];
+            $count_file = 0;
+            $data = db('folder')->where(['user_id'=> $user['id'], 'is_deleted' => 0])->select();
+            $need_child = [
+                'id'        =>  $folder['th']['id'],
+                'pid_path'  =>  $folder['th']['pid_path'].$folder['th']['id'].'/',
+                'path'      =>  $folder['th']['path'].$folder['th']['name'].'/'
+            ];
+            foreach($need_folder as $arr){
+                // 移动当前文件夹
+                $need = TreeMoveFolder($arr, $need_child, $user);
+                $child['folder'][] = $need;
+                //移动子文件
+                $count_file += TreeMoveFile($arr, $need, $user);
+                //移动子文件夹
+                $child_folder = TreeMove($data, $arr['id'], $need, $user); 
+                $child['folder'][] = $child_folder['folder'];
+                $count_file += $child_folder['count_file'];
+            }
+            
+            //return $this->Restful($child, 1, '');
+
+            //复制文件
+            foreach($need_file as $arr){
+                $count_file += TreeMoveFile_Only($arr, $need_child, $user);
+            }
+            $child['count_file'] = $count_file;
+
+            //写日志
+            $this->Addlog('user', '('.$user['username'].')移动文件/文件夹成功, 共移动了'.count($child['folder']).'个文件夹，'.$child['count_file'].'个文件。目标文件夹为'.$res['to_key'], 10);
+            return $this->Restful($child, 1, '移动文件/文件夹成功,共复制了'.count($child['folder']).'个文件夹，'.$child['count_file'].'个文件');
+           
+        }
         
 
 

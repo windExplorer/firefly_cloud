@@ -260,3 +260,147 @@ function GetTree($data, $pid = 0){
   }
   return $tree;
 }
+
+/* 根据user和folder_id获取文件夹下的子文件夹 */
+function getChildFolder($user, $folder_id){
+  return db('folder')->where([
+    'user_id' =>  $user['id'],
+    'pid' =>  $folder_id,
+    'is_deleted'  => 0,
+  ])->select();
+}
+
+/* 根据user和folder_id获取文件夹下的子文件 */
+function getChildFile($user, $folder_id){
+  return db('file')->where([
+    'user_id' =>  $user['id'],
+    'folder_id' =>  $folder_id,
+    'is_deleted'  => 0,
+  ])->select();
+}
+
+/* 根据user和folderIds获取这些文件夹的信息 */
+function getFolderInfo($user, $ids){
+  return db('folder')->where([
+    'user_id' =>  $user['id'],
+    'is_deleted'  =>  0
+  ])->whereIn('id', $ids)->select();
+}
+
+/* 根据user和fileIds获取这些文件的信息 */
+function getFileInfo($user, $ids){
+  return db('file')->where([
+    'user_id' =>  $user['id'],
+    'is_deleted'  =>  0
+  ])->whereIn('id', $ids)->select();
+}
+
+/* 比对两个数组中是否存在同名的元素 */
+function checkSameName($arr1, $arr2){
+  foreach($arr1 as $a1){
+    foreach($arr2 as $a2){
+      if($a1['name'] == $a2['name']){
+        return $a1['name'];
+      }
+    }
+  }
+  return false;
+}
+
+
+/* 递归复制目录文件 */
+function TreeCopy($data, $pid, $need, $user){
+  $tree['folder'] = [];
+  $count_file = 0;
+  foreach($data as $arr){
+      if($arr['pid'] == $pid){
+        $need_child = TreeCopyFolder($arr, $need, $user);
+        $count_file +=  TreeCopyFile($arr, $need_child, $user);
+        $arr['child'] = TreeCopy($data, $arr['id'], $need_child, $user);
+        $tree['folder'][] = $need_child;
+        //unset($data[$k]);
+      }
+  }
+  $tree['count_file'] = $count_file;
+  return $tree;
+}
+
+/* 复制文件夹写库 正在操作的目录，需要的pid目录 */
+function TreeCopyFolder($arr, $need, $user){
+  $pid_path = $need['pid_path'];
+  $path = $need['path'];
+  $sql = [
+      'pid'   =>  $need['id'],
+      'user_id'   =>  $user['id'],
+      'name'  =>  $arr['name'],
+      'remark_context'    =>  $arr['remark_context'],
+      'regtime'   =>  time(),
+      'uptime'    =>  time(),
+      'pid_path'  =>  $pid_path,
+      'path'      =>  $path
+  ];
+  $need_id = db('folder')->insertGetId($sql);
+  $need_child = [
+      'id'    =>  $need_id,
+      'pid_path'  =>  $pid_path.$need_id.'/',
+      'path'      =>  $path.$arr['name'].'/'
+  ];
+  return $need_child;
+}
+
+/* 复制文件[文件夹类的文件] */
+function TreeCopyFile($arr, $need, $user){
+  //获取当前文件夹中所有的文件
+  $files = db('file')->where([
+    'user_id' =>  $user['id'],
+    'is_deleted' => 0,
+    'folder_id' =>  $arr['id']
+  ])->select();
+  // 遍历所有获取到的文件并进行重新写库
+  $count = 0;
+  foreach($files as $file){
+    //$sql = array_splice($file['id']);
+    $sql = [
+      'uptime'    =>  time(),
+      'regtime'   =>  time(),
+      'is_second' =>  1,
+      'folder_id' =>  $need['id'],
+      'user_path' =>  $need['pid_path'],
+      'old_path'  =>  $need['pid_path'],
+      'user_id'   =>  $user['id'],
+      'share_frequency' =>  0,
+      'down_frequency'  =>  0,
+      'is_encrypt'  =>  0
+    ];
+    unset($file['id']);
+    $sql = array_merge($file, $sql);
+    $res = db('file')->insertGetId($sql);
+    $count += 1;
+  }  
+  return $count;
+
+}
+/* 复制文件[单个文件] */
+function TreeCopyFile_Only($arr, $need, $user){
+  //$sql = array_splice($file['id']);
+  $sql = [
+    'uptime'    =>  time(),
+    'regtime'   =>  time(),
+    'is_second' =>  1,
+    'folder_id' =>  $need['id'],
+    'user_path' =>  $need['pid_path'],
+    'old_path'  =>  $need['pid_path'],
+    'user_id'   =>  $user['id'],
+    'share_frequency' =>  0,
+    'down_frequency'  =>  0,
+    'is_encrypt'  =>  0
+  ];
+  unset($arr['id']);
+  $sql = array_merge($arr, $sql);
+  $res = db('file')->insertGetId($sql);
+  return 1;
+}
+
+
+/* 移动 */
+
