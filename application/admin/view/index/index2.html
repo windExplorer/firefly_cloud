@@ -180,7 +180,7 @@
               <div class="layui-card-header">空闲空间 / 已分配空间 / 用户已使用</div>
               <div class="layui-card-body">
                 <span class="env-text">
-                  {:round(disk_free_space('/')/1024/1024/1024, 2)} GB / {:round($disk_user_total/1024/1024/1024, 2)} GB / {:round($disk_user_free/1024/1024/1024, 2)} GB
+                  {:round(disk_free_space('./')/1024/1024/1024, 2)} GB / {:round($disk_user_total/1024/1024/1024, 2)} GB / {:round($disk_user_free/1024/1024/1024, 2)} GB
                 </span>
               </div>
           </div>
