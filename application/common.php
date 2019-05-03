@@ -16,9 +16,16 @@
  * 获取10位随机字符串
  */
 function getLenRand($len = 10){
-  $strs = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm.*^$&@!#%-+/";
+  $strs = "QQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm.*^$&@!#%-+//";
   return substr(str_shuffle($strs), mt_rand(0, strlen($strs) - 11), $len);
 }
+
+/* 获取随机字符串2 */
+function getLenRand2($len = 10){
+  $strs = "QQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm__";
+  return substr(str_shuffle($strs), mt_rand(0, strlen($strs) - 11), $len);
+}
+
 
 /**
  * 获取32位唯一字符串
@@ -403,4 +410,99 @@ function TreeCopyFile_Only($arr, $need, $user){
 
 
 /* 移动 */
+/* 获取文件夹新的pid_path和path，以及user_path */
+function TreeMoveFolderPath($arr, $need, $id){
+  $start = $need['pid_path'];
+  $str = $arr['pid_path'];
+  $start_name= $need['path'];
+  $str_name = $arr['path'];
+  $start_arr = explode('/', $start);
+  unset($start_arr[count($start_arr)-1]);
+  $str_arr = explode('/', $str);
+  $start_name_arr = explode('/', $start_name);
+  unset($start_name_arr[count($start_name_arr)-1]);
+  $str_name_arr = explode('/', $str_name);
+  $ind = array_search($id, $str_arr);
+  $str_arr = array_splice($str_arr, $ind);
+  $str_name_arr = array_splice($str_name_arr, $ind);
+  $new_arr = array_merge($start_arr, $str_arr);
+  $new_name_arr = array_merge($start_name_arr, $str_name_arr);
+  $last = implode('/', $new_arr);
+  $last_name = implode('/', $new_name_arr);
+  return [
+    'id_path' =>  $last,
+    'name_path' =>  $last_name
+  ];
+}
+
+function TreeMoveFilePath($arr, $need, $id){
+  $start = $need['pid_path'];
+  $str = $arr['user_path'];
+  $start_arr = explode('/', $start);
+  unset($start_arr[count($start_arr)-1]);
+  $str_arr = explode('/', $str);
+  $ind = array_search($id, $str_arr);
+  $str_arr = array_splice($str_arr, $ind);
+  $new_arr = array_merge($start_arr, $str_arr);
+  $last = implode('/', $new_arr);
+
+  return [
+    'id_path' =>  $last,
+  ];
+}
+
+/* 下载文件 */
+
+function download($file){
+  //url使用相对路径\
+  $url = $file['path'];
+  //$file = file_get_contents($url);
+  //$file_size =  round(strlen($file)/1024/1024, 2).'MB';
+  $size = filesize($url);
+  $size2=$size-1;//文件总字节数 
+  if(isset($_SERVER['HTTP_RANGE'])) {  
+    list($a, $range)=explode("=",$_SERVER['HTTP_RANGE']); 
+     //if yes, download missing part 
+    str_replace($range, "-", $range);//这句干什么的呢。。。。 
+    $new_length=$size2-$range;//获取下次下载的长度 
+    header("HTTP/1.1 206 Partial Content"); 
+    header("Content-Length: $new_length");//输入总长 
+    header("Content-Range: bytes $range-$size2/$size"); //Content-Range: bytes 4908618-4988927/4988928   95%的时候 
+  } else {//第一次连接 
+    header("Content-Range: bytes 0-$size2/$size"); //Content-Range: bytes 0-4988927/4988928 
+    header("Content-Length: ".$size);//输出总长 
+  } 
+
+  header('Content-Description: File Transfer');
+  //header('Content-Range: bytes 0-' . $size . '/' . $file_size);          // 返回内容范围，断点续传
+  //header('Content-Type: application/octet-stream');                  // 文件类型强制为二进制
+  header("Content-type:".$file['mime']);
+  //header("Accept-Ranges:bytes");
+  header("Accept-Length:".$size);
+  //header('Content-Length:'.$size);
+  header('Content-Transfer-Encoding: binary');
+  header('Expires: 0');
+  header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+  header('Pragma: public');
+  header("Content-Disposition:attachment;filename=".$file['name']);
+
+  readfile($url);
+  exit();
+}
+
+//屏蔽数组键值对
+function removeKey($list, $need){
+    foreach($need as $k => $v){
+        unset($list[$v]);
+    }
+    return $list;
+}
+//筛选数组键值对
+function filterKey($list, $need){
+    $arr = [];
+    foreach($need as $k => $v){
+        $arr[$v] = $list[$v];
+    }
+    return $arr;
+}
 

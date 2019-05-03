@@ -2,6 +2,7 @@
     namespace app\api\controller;
 
     use app\common\behavior\BaseApi;
+    use app\common\extend\FileDownload;
 
     class File extends BaseApi{
 
@@ -11,7 +12,7 @@
             $table = api_upload_type($res['type']);
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
 
             $flag = checkFileExist($res['md5'], $table);
@@ -35,7 +36,7 @@
             $table2 = 'file'; 
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $folder = api_parent_folder($res['folder_id'], $user);
             if(empty($folder)){
@@ -71,7 +72,7 @@
             $table = 'folder'; 
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $res = $this->removeXSS($res);
             foreach($res as $k => $v){
@@ -118,7 +119,7 @@
         {
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             return $this->Restful(['allow_ext' => sysConf('upload_ext'), 'allow_size' => sysConf('upload_maxsize')], 1, '允许上传的文件信息');
         }
@@ -127,7 +128,7 @@
         public function up_file(){
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $file = request()->file('file');
             $res = input('post.');
@@ -247,7 +248,7 @@
             }
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $list = $this->get_myup_list($user, $res['type']);
             
@@ -281,6 +282,8 @@
                 foreach($list as $k => $v){
                     if(!empty($res['file'][$list[$k]['file_id']])){
                         $list[$k]['file'] = $res['file'][$list[$k]['file_id']];
+                        unset($list[$k]['file']['path']);
+                        unset($list[$k]['file']['net_path']);
                         $list[$k]['folder'] = $res['folder'][$list[$k]['file']['folder_id']];
                     } 
                 }
@@ -294,7 +297,7 @@
             $res = input('post.');
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $flag = db('up_down')->where('user_id', $user['id'])->where('id', 'in' ,$res['ids'])->update(['is_deleted' => 1, 'uptime' => time()]);
             if(empty($flag)){
@@ -314,7 +317,7 @@
             $res = input('post.');
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $table = file_or_folder($res['type']);
             $res = $this->removeXSS($res);
@@ -388,7 +391,7 @@
             $res = input('post.');
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             //直接删除（？软删除），不设定回收站-回收站后续再开启，或者后续再加一条系统参数，是否软删除
             //获取该文件夹以及子文件夹下所有的文件夹
@@ -492,7 +495,7 @@
             //$res = input('post.');
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $data = db('folder')->where([
                 'user_id'       =>  $user['id'],
@@ -510,7 +513,7 @@
             $res = input('post.');
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             //获取目标文件夹的文件夹和文件
             $folder = [
@@ -542,7 +545,7 @@
                 }
             }
 
-            //获取该目标文件夹下的所有子文件夹与文件
+            //
             $child['folder'] = [];
             $count_file = 0;
             $data = db('folder')->where(['user_id'=> $user['id'], 'is_deleted' => 0])->select();
@@ -583,7 +586,7 @@
             $res = input('post.');
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             //获取目标文件夹的文件夹和文件
             $folder = [
@@ -595,7 +598,7 @@
             $need_file = [];
             $need_folder = [];
 
-            //获取需要复制的文件夹的信息
+            //获取需要移动的文件夹的信息
             if(!empty($res['folder'])){
                 $need_folder = getFolderInfo($user, $res['folder']);
                 //比对与目标文件夹中子文件夹是否有同名的
@@ -605,7 +608,7 @@
                 }
             }
 
-            //获取需要复制的文件信息
+            //获取需要移动的文件信息
             if(!empty($res['file'])){
                 $need_file = getFileInfo($user, $res['file']);
                 //比对与目标文件夹中子文件是否有同名的
@@ -615,41 +618,266 @@
                 }
             }
 
-            //获取该目标文件夹下的所有子文件夹与文件
-            $child['folder'] = [];
-            $count_file = 0;
-            $data = db('folder')->where(['user_id'=> $user['id'], 'is_deleted' => 0])->select();
+            //
+            $flag = [
+                'folder'    =>  0,
+                'folder_success'    =>  [],
+                'file'  =>  0,
+                'file_success'  =>  []
+            ];
             $need_child = [
                 'id'        =>  $folder['th']['id'],
                 'pid_path'  =>  $folder['th']['pid_path'].$folder['th']['id'].'/',
                 'path'      =>  $folder['th']['path'].$folder['th']['name'].'/'
             ];
             foreach($need_folder as $arr){
-                // 移动当前文件夹
-                $need = TreeMoveFolder($arr, $need_child, $user);
-                $child['folder'][] = $need;
-                //移动子文件
-                $count_file += TreeMoveFile($arr, $need, $user);
-                //移动子文件夹
-                $child_folder = TreeMove($data, $arr['id'], $need, $user); 
-                $child['folder'][] = $child_folder['folder'];
-                $count_file += $child_folder['count_file'];
+                //移动自己
+                $up = db('folder')->where('id', $arr['id'])->update([
+                    'pid' => $need_child['id'],
+                    'pid_path' => $need_child['pid_path'],
+                    'path'  =>  $need_child['path'], 
+                    'uptime' => time()
+                ]);
+                if(!empty($up)){
+                    $flag['folder'] += $up;
+                    $flag['folder_success'][] = $arr['id'];
+                    
+                    //获取自己的所有子文件夹
+                    $child_fo = db('folder')->where('user_id', $user['id'])->where('pid_path', 'like', '%/'.$arr['id'].'/%')->where('is_deleted', 0)->select();
+                    if(!empty($child_fo)){
+                        $ids = [];
+                        foreach($child_fo as $k){
+                            //替换每个文件夹的pid_path,path
+                            //获取每个文件夹的pid_path,查看/$arr['id']/的位置，并把之前的数据全部替换
+                            //$ind = strpos($k['pid_path'], '/'.$arr['id'].'/');
+                            //$pid_path = $need_child['pid_path'].substr($k['pid_path'], $ind+1);
+                            //将$pid_path化成数组，查找$arr['id']的位置，然后把该位置之前的都替换成新的
+                            $path_arr = TreeMoveFolderPath($k, $need_child, $arr['id']);
+
+                            $up = db('folder')->where('id', $k['id'])->update([
+                                'pid_path'  =>  $path_arr['id_path'],
+                                'path'  =>  $path_arr['name_path'],
+                                'uptime'    =>  time(),
+                            ]);
+                            if(!empty($up)){
+                                $flag['folder'] += $up;
+                                $flag['folder_success'][] = $k['id'];
+                            }
+                            
+                        }
+                    }
+
+
+                    //获取自己所有的子文件
+                    $child_fi = db('file')->where('user_id', $user['id'])->where('user_path', 'like', '%/'.$arr['id'].'/%')->where('is_deleted', 0)->select();
+                    if(!empty($child_fi)){
+                        foreach($child_fi as $k){
+                            $path_arr = TreeMoveFilePath($k, $need_child, $arr['id']);
+
+                            $up = db('folder')->where('id', $k['id'])->update([
+                                'user_path'  =>  $path_arr['id_path'],
+                                'old_path'  =>  $k['user_path'],
+                                'uptime'    =>  time(),
+                            ]);
+                            if(!empty($up)){
+                                $flag['file'] += $up;
+                                $flag['file_success'][] = $k['id'];
+                            }
+                            
+                        }
+                    }
+                }  
+                    
+                
             }
             
-            //return $this->Restful($child, 1, '');
 
-            //复制文件
+            //移动文件
+           // $file_ids = [];
             foreach($need_file as $arr){
-                $count_file += TreeMoveFile_Only($arr, $need_child, $user);
+                //$path_arr = TreeMoveFilePath($arr, $need_child, $res['folder_id']);
+                //$file_ids[] = $arr['id'];
+                $up = db('file')->where('id', $arr['id'])->update([
+                    'folder_id' =>  $need_child['id'],
+                    'user_path' =>  $need_child['pid_path'],
+                    'old_path'  =>  $arr['user_path'],
+                    'uptime'    =>  time()
+                ]);
+                if(!empty($up)){
+                    $flag['file'] += $up;
+                    $flag['file_success'][] = $arr['id'];
+                }
             }
-            $child['count_file'] = $count_file;
 
             //写日志
-            $this->Addlog('user', '('.$user['username'].')移动文件/文件夹成功, 共移动了'.count($child['folder']).'个文件夹，'.$child['count_file'].'个文件。目标文件夹为'.$res['to_key'], 10);
-            return $this->Restful($child, 1, '移动文件/文件夹成功,共复制了'.count($child['folder']).'个文件夹，'.$child['count_file'].'个文件');
+            $this->Addlog('user', '('.$user['username'].')移动文件/文件夹成功, 共移动了'.$flag['folder'].'个文件夹，'.$flag['file'].'个文件。目标文件夹为'.$res['to_key'], 10);
+            return $this->Restful($flag, 1, '移动文件/文件夹成功,共复制了'.$flag['folder'].'个文件夹，'.$flag['file'].'个文件');
            
         }
+
+        /* 下载用户文件通道 */
+        public function download()
+        {
+            $res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
+            }
+            //检测文件是否可以被下载
+            $file = db('file')->where([
+                'id'    =>  $res['id'],
+                'user_id'   =>  $user['id'],
+                'is_deleted'    =>  0,
+                'status'    =>  1
+            ])->find();
+
+            if(empty($file)){
+                return $this->Restful(false, 0, '没有找到该文件');
+            }
+            
+            $data = [
+                'href' => getDomain().'/downmyfile.html?fid='.$file['id'].'&uid='.$user['id'].'&token='.$user['token'],
+            ];
+
+            return $this->Restful($data, 1, '下载链接');
+
+            //return download($file);
+
+            //$down =  new FileDownload();
+            //$down_file = $down->download($file['path'], $file['name'], true);
+            /* dump($down_file);
+            die;
+            unset($file['net_path']);
+            unset($file['path']);
+            $data = [
+                'down'  =>  $down_file,
+                'file'  =>  $file
+            ];
+
+            return $this->Restful($data, 1, '下载信息'); */
+
+        }
+
+        /* 下载分享文件通道 */
         
+
+        /* 下载文件 */
+        public function downMyFile(){
+            $res = input('get.');
+            if(!(empty($res['id']) || empty($res['fid']) || empty($res['token']))){
+                return $this->Restful(false, 0, '参数错误，无法下载');
+            }
+            $user = db('user')->where([
+                'id'    =>  $res['uid'],
+                'token' =>  $res['token'],
+                'status'    =>  1,
+                'is_deleted'    =>  0
+            ])->find();
+            if(empty($user)){
+                return $this->Restful(false, 0, '令牌错误，无下载权限');
+            }
+            $file = db('file')->where([
+                'id'    =>  $res['fid'],
+                'user_id'   =>  $user['id'],
+                'is_deleted'    =>  0,
+                'status'    =>  1
+            ])->find();
+
+            if(empty($file)){
+                return $this->Restful(false, 0, '没有找到该文件');
+            }
+            if(!file_exists($file['path'])){
+                return $this->Restful(false, 0, '没有找到该文件');
+            }
+            $this->User = $user;
+            $this->Header = request()->header();
+            //写下载记录
+            $this->Addlog('file', '('.$user['username'].')下载文件成功,文件id为'.$file['id'], 8);
+            /* 写上传日志 */
+            $this->AddUpDown($user, $file['id'], 1);
+            db('file')->where('id', $file['id'])->setInc('down_frequency');
+            download($file);
+
+            /* $ret = [
+                'my_down' =>  $this->get_mydown_list($user, 'month'),
+            ]; */
+            //return $this->Restful($ret, 1, '上传文件成功!');
+            //$down =  new FileDownload();
+            //$down_file = $down->download($file['path'], $file['name'], true, $file['mime']);
+        }
+
+        /* 获取下载记录 */
+        public function get_my_down()
+        {
+            $res = input('post.');
+            if(empty($res['type'])){
+                $ret['type'] = 'week';
+            }
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
+            }
+            $list = $this->get_mydown_list($user, $res['type']);
+            
+            return $this->Restful($list, 1, '我的下载记录');
+        }
+
+        public function get_mydown_list($user, $type='weeek'){
+            $list = db('up_down')->where(['user_id' => $user['id'],  'up_type' => 1, 'is_deleted' => 0, 'status' => 1])->whereTime('regtime', $type)->order('id', 'desc')->select();
+            if(!empty($list)){
+                $ids = [
+                    'file' => [],
+                    'folder'=> []  
+                ];
+                $res = [
+                    'file' => [],
+                    'folder' => []
+                ];
+                foreach($list as $k => $v){
+                    $ids['file'][] = $list[$k]['file_id'];
+                }
+  
+                $res['file'] = db('file')->where('id', 'in', $ids['file'])->column('*', 'id');
+
+                foreach($res['file'] as $k => $v){
+                    $ids['folder'][] = $res['file'][$k]['folder_id'];
+                }
+
+                $res['folder'] = db('folder')->where('id', 'in', $ids['folder'])->column('*', 'id');
+
+                                
+                foreach($list as $k => $v){
+                    if(!empty($res['file'][$list[$k]['file_id']])){
+                        $list[$k]['file'] = $res['file'][$list[$k]['file_id']];
+                        unset($list[$k]['file']['path']);
+                        unset($list[$k]['file']['net_path']);
+                        $list[$k]['folder'] = $res['folder'][$list[$k]['file']['folder_id']];
+                    } 
+                }
+            }
+            
+            return $list;
+        }
+
+        public function del_my_down()
+        {
+            $res = input('post.');
+            $user = $this->checkToken();
+            if(empty($user)){
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
+            }
+            $flag = db('up_down')->where('user_id', $user['id'])->where('id', 'in' ,$res['ids'])->update(['is_deleted' => 1, 'uptime' => time()]);
+            if(empty($flag)){
+                $this->Addlog('up_down', '('.$user['username'].')删除下载记录失败', 1);
+                return $this->Restful(false, 0, '删除失败!');
+            }else{
+                $this->Addlog('up_down', '('.$user['username'].')删除下载记录成功，删除了'.$flag.'条数据。ids为['.implode(',', $res['ids']).']', 1);
+                return $this->Restful(true, 1, '删除成功! 删除了'.$flag.'条数据。');
+            }
+            
+        }
+
+
 
 
 

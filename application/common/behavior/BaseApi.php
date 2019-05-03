@@ -15,8 +15,6 @@ class BaseApi extends Controller
 
     public function initialize(){
         $this->Header = request()->header();
-        $this->Token = $this->Header['token'];
-        $this->Username = $this->Header['username'];
     }
 
     public function Restful($data = '', $code = 1, $msg = '请求成功'){
@@ -32,6 +30,8 @@ class BaseApi extends Controller
 
     /* 检测token */
     public function checkToken(){
+        $this->Token = $this->Header['token'];
+        $this->Username = $this->Header['username'];
         // 由于header不能用中文，不得不把username换成id
         $data = db('user')->where(['token' => $this->Token, 'id' => $this->Username])->find();
         $this->User = $data;

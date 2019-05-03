@@ -21,6 +21,11 @@ Route::get('installC', 'install/index/confirm');
 
 Route::get('login', 'admin/login/index');
 
+Route::get('downmyfile', 'api/file/downmyfile');
+
+Route::get('download/:id/:encrypt/:link', 'api/share/download');
+
+
 return [
 
 ];

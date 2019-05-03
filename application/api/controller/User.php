@@ -40,7 +40,7 @@
                 $this->Addlog($table, '退出成功', 5);
                 return $this->Restful(true, 1, '退出成功');
             }else{
-                return $this->Restful(false, 0, '退出失败，查无此用户');
+                return $this->Restful(false, -100, '退出失败，token错误');
             }
         
             
@@ -358,7 +358,7 @@
             }
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             if($res['password1'] == $res['password2']){
                 return $this->Restful(false, 0, '新密码没有改动'); 
@@ -396,7 +396,7 @@
             $user = $this->checkToken();
 
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             if(!empty($res['vcode'])){
                 if($res['vcode'] !== $user['vcode']){
@@ -445,7 +445,7 @@
             $user = $this->checkToken();
 
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             # 1.判断昵称是否为空
             if(empty($res['nickname'])){
@@ -486,7 +486,7 @@
         public function upavatar(){
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌错误，请重新登录');
+                return $this->Restful(false, -100, '令牌错误，请重新登录');
             }
             $file = request()->file('file');
             $res = input('post.');
@@ -513,7 +513,7 @@
         {
             $user = $this->checkToken();
             if(empty($user)){
-                return $this->Restful(false, 0, '令牌失效，请重新登录');
+                return $this->Restful(false, -100, '令牌失效，请重新登录');
             }
             return $this->login_control($user);
             
@@ -568,6 +568,8 @@
             $res['uptime'] = $now;
             $this->User = $res;
             $this->Addlog($table, '登录成功', 4);
+            //屏蔽返回的数据
+            $res = removeKey($res, ['password', 'file_password', 'vcode', 'weigh']);
             return $this->Restful($res, 1,'登录成功');
         }
 
