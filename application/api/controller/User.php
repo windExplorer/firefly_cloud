@@ -124,7 +124,7 @@
             }
 
             ## 5. 剩余空间 = 磁盘空闲空间+用户已使用空间-用户已分配空间 
-            $free = disk_free_space('/') + db('user')->sum('use_size') - (int)sysConf('more_space') - db('user')->sum('total_size');
+            $free = disk_free_space('./') + db('user')->sum('use_size') - (int)sysConf('more_space') - db('user')->sum('total_size');
             if($free < (int)sysConf('user_default_space')){
                 set_sysConf('open_register', 'false');
                 return $this->Restful(false, 0, '注册通道已被强制关闭，请与站长联系!');
