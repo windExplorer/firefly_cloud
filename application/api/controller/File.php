@@ -321,9 +321,9 @@
             }
             $table = file_or_folder($res['type']);
             $res = $this->removeXSS($res);
-            foreach($res as $k => $v){
+            /* foreach($res as $k => $v){
                 $res[$k] = str_replace(' ','',$res[$k]);
-            }
+            } */
             if(empty($res['name'])){
                 return $this->Restful(false, 0, '请输入文件/文件夹名称');
             }
