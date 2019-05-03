@@ -73,6 +73,7 @@
                 $sql['is_encrypt'] = 1;
             }else{
                 $sql['is_encrypt'] = 0;
+                $sql['share_password'] = '';
             }
 
             if($res['is_expire']){
