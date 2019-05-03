@@ -50,7 +50,7 @@ class Index
         dump(substr(md5(getLenRand2(6).uniqid().getLenRand2(4)), 0, mt_rand(20,25)));
 
         //dump(config());
-        dump(env());
+        //dump(env());
 
         $data = db('user')->where('id', 1)->value(['username, nickname']);
 
