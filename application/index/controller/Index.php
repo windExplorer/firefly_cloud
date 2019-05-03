@@ -49,9 +49,12 @@ class Index
         dump(substr(md5(getLenRand2(6).uniqid().getLenRand2(4)), 0, mt_rand(20,25)));
         dump(substr(md5(getLenRand2(6).uniqid().getLenRand2(4)), 0, mt_rand(20,25)));
 
+        dump(config());
+
         $data = db('user')->where('id', 1)->value(['username, nickname']);
 
-        dump($data);
+        //dump($data);
+
 
         $arr = [5,4,3,2,1];
         //dump(array_splice($arr, 2));
