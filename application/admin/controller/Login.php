@@ -18,7 +18,7 @@ class Login extends BaseAdmin
   public function check()
   {
     $res = input('post.');
-    $res = $this->removeXSS($res);
+    //$res = $this->removeXSS($res);
     $info = $this->Retrieve($this->table, ['username' => $res['username']]);
     $res['password'] = sha1($res['password'].$info['salt']); 
     $res = $this->Retrieve($this->table, $res);
