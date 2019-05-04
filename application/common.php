@@ -57,9 +57,57 @@ function getIP(){
   return $realip;
 }
 
+function get_real_ip(){
+    $ip=FALSE;
+    //客户端IP 或 NONE 
+    if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+        $ip = $_SERVER["HTTP_CLIENT_IP"];
+    }
+    //多重代理服务器下的客户端真实IP地址（可能伪造）,如果没有使用代理，此字段为空
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
+        if ($ip) { array_unshift($ips, $ip); $ip = FALSE; }
+        for ($i = 0; $i < count($ips); $i++) {
+            if (!eregi ("^(10│172.16│192.168).", $ips[$i])) {
+                $ip = $ips[$i];
+                break;
+            }
+        }
+    }
+    //客户端IP 或 (最后一个)代理服务器 IP 
+    return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
+}
+
+function get_client_ip(){
+	if ($_SERVER['REMOTE_ADDR']) {
+		$cip = $_SERVER['REMOTE_ADDR'];
+	} elseif (getenv("REMOTE_ADDR")) {
+		$cip = getenv("REMOTE_ADDR");
+	} elseif (getenv("HTTP_CLIENT_IP")) {
+		$cip = getenv("HTTP_CLIENT_IP");
+	} else {
+		$cip = "unknown";
+	}
+	return $cip;
+}
+
+function get_online_ip(){
+	$ip = '';
+	if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
+	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	}elseif(isset($_SERVER['HTTP_CLIENT_IP'])){
+	$ip = $_SERVER['HTTP_CLIENT_IP'];
+	}else{
+	$ip = $_SERVER['REMOTE_ADDR'];
+	}
+	$ip_arr = explode(',', $ip);
+	return $ip_arr[0];
+}
+
+
 //获取地理位置
 function getGeo($ip='171.43.239.104'){
-  $ip = getIp();
+  $ip = get_client_ip();
   //ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; GreenBrowser)');
   ini_set('user_agent', \Request::header('user_agent'));
   header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
@@ -83,7 +131,7 @@ function getGeo($ip='171.43.239.104'){
   */
   function getGeo2($ip = '171.43.239.104'){
     //return '';
-    $ip = getIP();
+    $ip = get_client_ip();
     ini_set('user_agent', \Request::header('user_agent'));
     header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
     $url = 'http://whois.pconline.com.cn/ipJson.jsp?ip='.$ip;

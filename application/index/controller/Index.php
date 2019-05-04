@@ -65,6 +65,10 @@ class Index
         array_splice($arrs,2);
         print_r($arrs);
   
+        dump(getIp());
+        dump(get_real_ip());
+        dump(get_client_ip());
+        dump(get_online_ip());
 
 
     }
