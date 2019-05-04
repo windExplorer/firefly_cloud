@@ -35,7 +35,7 @@
             custom_location: '' //自定义地理位置 */
             $res = $res['share'];
             $res = $this->removeXSS($res);
-            $sql['ip'] = getRealIP();
+            $sql['ip'] = getIP();
             $sql['location'] = getGeo2();
             if($res['is_open']){
                 if(empty($res['subject'])){

@@ -68,7 +68,7 @@ function get_real_ip(){
         $ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
         if ($ip) { array_unshift($ips, $ip); $ip = FALSE; }
         for ($i = 0; $i < count($ips); $i++) {
-            if (!eregi ("^(10│172.16│192.168).", $ips[$i])) {
+            if (!preg_match ("(10│172.16│192.168)", $ips[$i])) {
                 $ip = $ips[$i];
                 break;
             }
@@ -115,7 +115,7 @@ function getRealIp(){
 
 //获取地理位置
 function getGeo($ip='171.43.239.104'){
-  $ip = getRealIp();
+  $ip = getIp();
   //ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; GreenBrowser)');
   ini_set('user_agent', \Request::header('user_agent'));
   header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
@@ -139,7 +139,7 @@ function getGeo($ip='171.43.239.104'){
   */
   function getGeo2($ip = ''){
     //return '';
-    $ip = getRealIp();
+    $ip = getIp();
     ini_set('user_agent', \Request::header('user_agent'));
     header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
     $url = 'http://whois.pconline.com.cn/ipJson.jsp?ip='.$ip;

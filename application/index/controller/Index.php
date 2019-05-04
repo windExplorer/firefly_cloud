@@ -69,7 +69,7 @@ class Index
         dump(get_real_ip());
         dump(get_client_ip());
         dump(get_online_ip());
-        dump(getGeo2('171.43.236.206'));
+        dump(getGeo2());
 
 
     }
