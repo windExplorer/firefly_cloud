@@ -807,12 +807,339 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate', 'carousel']
 
     })
     
-  }
-  
+  }  
+
+function Render_Echarts() {
+    echarts_file()
+    echarts_user_location()
+    echarts_test1()
+    echarts_test2()
+    echarts_test3()
+    echarts_test4()
+}
+
+/* echarts */
+echarts_file()
+echarts_user_location()
+echarts_test1()
+echarts_test2()
+echarts_test3()
+echarts_test4()
+// 文件统计
+function echarts_file() {
+    var dom = document.getElementById('file_total')
+    if(!dom){
+        return 
+    }
+    var myChart = echarts.init(dom)
+
+    /* $.ajax({
+        type: 'get',
+
+    }) */
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '文件统计'
+        },
+        tooltip: {},
+        legend: {
+            data:['数量']
+        },
+        xAxis: {
+            data: ["软件","压缩包","图片","视频","文档","其他"]
+        },
+        yAxis: {},
+        series: [{
+            name: '数量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+// 用户来源
+function echarts_user_location() {
+    var dom = document.getElementById('user_location')
+    if(!dom){
+        return 
+    }
+    var myChart = echarts.init(dom)
+
+    // 指定图表的配置项和数据
+    var option = {
+        title : {
+            text: '南丁格尔玫瑰图',
+            subtext: '纯属虚构',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : 'center',
+            y : 'bottom',
+            data:['rose1','rose2','rose3','rose4','rose5','rose6','rose7','rose8']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel']
+                },
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'面积模式',
+                type:'pie',
+                radius : [30, 110],
+                center : ['50%', '50%'],
+                roseType : 'area',
+                data:[
+                    {value:10, name:'rose1'},
+                    {value:5, name:'rose2'},
+                    {value:15, name:'rose3'},
+                    {value:25, name:'rose4'},
+                    {value:20, name:'rose5'},
+                    {value:35, name:'rose6'},
+                    {value:30, name:'rose7'},
+                    {value:40, name:'rose8'}
+                ]
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+
+// 
+function echarts_test1() {
+    var dom = document.getElementById('echarts_test1')
+    if(!dom){
+        return 
+    }
+    var myChart = echarts.init(dom)
+
+    // 指定图表的配置项和数据
+    var option = {
+        angleAxis: {
+        },
+        radiusAxis: {
+            type: 'category',
+            data: ['周一', '周二', '周三', '周四'],
+            z: 10
+        },
+        polar: {
+        },
+        series: [{
+            type: 'bar',
+            data: [1, 2, 3, 4],
+            coordinateSystem: 'polar',
+            name: 'A',
+            stack: 'a'
+        }, {
+            type: 'bar',
+            data: [2, 4, 6, 8],
+            coordinateSystem: 'polar',
+            name: 'B',
+            stack: 'a'
+        }, {
+            type: 'bar',
+            data: [1, 2, 3, 4],
+            coordinateSystem: 'polar',
+            name: 'C',
+            stack: 'a'
+        }],
+        legend: {
+            show: true,
+            data: ['A', 'B', 'C']
+        }
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+
+function echarts_test2() {
+    var dom = document.getElementById('echarts_test2')
+    if(!dom){
+        return 
+    }
+    var myChart = echarts.init(dom)
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '基础雷达图'
+        },
+        tooltip: {},
+        legend: {
+            data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+        },
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    backgroundColor: '#999',
+                    borderRadius: 3,
+                    padding: [3, 5]
+               }
+            },
+            indicator: [
+               { name: '销售（sales）', max: 6500},
+               { name: '管理（Administration）', max: 16000},
+               { name: '信息技术（Information Techology）', max: 30000},
+               { name: '客服（Customer Support）', max: 38000},
+               { name: '研发（Development）', max: 52000},
+               { name: '市场（Marketing）', max: 25000}
+            ]
+        },
+        series: [{
+            name: '预算 vs 开销（Budget vs spending）',
+            type: 'radar',
+            // areaStyle: {normal: {}},
+            data : [
+                {
+                    value : [4300, 10000, 28000, 35000, 50000, 19000],
+                    name : '预算分配（Allocated Budget）'
+                },
+                 {
+                    value : [5000, 14000, 28000, 31000, 42000, 21000],
+                    name : '实际开销（Actual Spending）'
+                }
+            ]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+
+function echarts_test3() {
+    var dom = document.getElementById('echarts_test3')
+    if(!dom){
+        return 
+    }
+    var myChart = echarts.init(dom)
+
+    // 指定图表的配置项和数据
+    var axisData = ['周一','周二','周三','很长很长的周四','周五','周六','周日'];
+    var data = axisData.map(function (item, i) {
+        return Math.round(Math.random() * 1000 * (i + 1));
+    });
+    var links = data.map(function (item, i) {
+        return {
+            source: i,
+            target: i + 1
+        };
+    });
+    links.pop();
+    var option = {
+        title: {
+            text: '笛卡尔坐标系上的 Graph'
+        },
+        tooltip: {},
+        xAxis: {
+            type : 'category',
+            boundaryGap : false,
+            data : axisData
+        },
+        yAxis: {
+            type : 'value'
+        },
+        series: [
+            {
+                type: 'graph',
+                layout: 'none',
+                coordinateSystem: 'cartesian2d',
+                symbolSize: 40,
+                label: {
+                    normal: {
+                        show: true
+                    }
+                },
+                edgeSymbol: ['circle', 'arrow'],
+                edgeSymbolSize: [4, 10],
+                data: data,
+                links: links,
+                lineStyle: {
+                    normal: {
+                        color: '#2f4554'
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+
+function echarts_test4() {
+    var dom = document.getElementById('echarts_test4')
+    if(!dom){
+        return 
+    }
+    var myChart = echarts.init(dom)
+
+    // 指定图表的配置项和数据
+    var option = {
+        title : {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:335, name:'直接访问'},
+                    {value:310, name:'邮件营销'},
+                    {value:234, name:'联盟广告'},
+                    {value:135, name:'视频广告'},
+                    {value:1548, name:'搜索引擎'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
 
  
-
-
   /* 默认操作 **************************************************************************************************************** */
   // PJAX开始
   $(document).on('pjax:start', () => {
@@ -823,6 +1150,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate', 'carousel']
   $(document).on('pjax:end', () => {
     //layer.close(pjax_load)
     PJAX_END()
+    Render_Echarts()
     NProgress.done()
   })
   // PJAX事件
