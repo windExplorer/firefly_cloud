@@ -46,7 +46,8 @@
     //数据库建表该类型字段应如一下格式建立      日志类型[0:增,1:删,2:改,3:查,4:登录,5:退出]
     'need_enum' => [
       'status', 'is_deleted', 'type', 'menu_type', 'gender', 'admin_log', 'user_log', 'email_type', 'is_encrypt', 'share_type', 'allow_comment',
-      'show_location', 'is_system', 'is_read', 'config_type', 'up_type', 'user_log_type', 'role', 'admin_log_type', 'is_success'
+      'show_location', 'is_system', 'is_read', 'config_type', 'up_type', 'user_log_type', 'role', 'admin_log_type', 'is_success', 'is_open', 'is_encrypt', 
+      'is_frequency', 'is_expire'
     ],
     //所有需要检测唯一性的字段
     'column_unique' => [
