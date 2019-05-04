@@ -137,7 +137,7 @@ function getGeo($ip='171.43.239.104'){
 /**
  * 第二种获取未知信息方法
   */
-  function getGeo2($ip){
+  function getGeo2($ip = ''){
     //return '';
     $ip = getRealIp();
     ini_set('user_agent', \Request::header('user_agent'));
