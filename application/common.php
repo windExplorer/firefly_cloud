@@ -105,9 +105,8 @@ function get_online_ip(){
 }
 
 function getRealIp(){
-	$ip = request()->header('X-real-ip');
-	if(!empty($ip)){
-		return $ip;
+	if(null != request()->header('X-real-ip')) {
+		return request()->header('X-real-ip');
 	}else{
 		return get_client_ip();
 	}
