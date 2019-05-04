@@ -97,7 +97,7 @@ class BaseApi extends Controller
             'url'               =>  getDomain().$_SERVER['REQUEST_URI'],
             'table'             =>  $table,
             'info'              =>  $info,
-            'ip'                =>  getIp(),
+            'ip'                =>  getRealIp(),
             'location'          =>  getGeo2(),
             'user_agent'        =>  $header['user-agent'],
             'user_log_type'    =>   $user_log_type,

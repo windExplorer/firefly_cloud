@@ -108,14 +108,14 @@ function getRealIp(){
 	if(null != request()->header('X-real-ip')) {
 		return request()->header('X-real-ip');
 	}else{
-		return get_client_ip();
+		return getIp();
 	}
 }
 
 
 //获取地理位置
 function getGeo($ip='171.43.239.104'){
-  $ip = getIp();
+  $ip = getRealIp();
   //ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; GreenBrowser)');
   ini_set('user_agent', \Request::header('user_agent'));
   header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
@@ -139,7 +139,7 @@ function getGeo($ip='171.43.239.104'){
   */
   function getGeo2($ip = ''){
     //return '';
-    $ip = getIp();
+    $ip = getRealIp();
     ini_set('user_agent', \Request::header('user_agent'));
     header($_SERVER['SERVER_PROTOCOL'].'charset=utf-8'); //h2需要很严格的header
     $url = 'http://whois.pconline.com.cn/ipJson.jsp?ip='.$ip;
