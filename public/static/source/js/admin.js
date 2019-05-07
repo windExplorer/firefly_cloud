@@ -537,7 +537,7 @@ layui.use(['element', 'layer', 'form', 'table', 'upload', 'laydate', 'carousel']
       size: UPLOAD_MAXSIZE,
       accept: 'file',
       //acceptMime: 'image/*',
-      exts: UPLOAD_EXT,
+      //exts: UPLOAD_EXT,
       multiple: true,
       auto: false,
       choose: function(obj){

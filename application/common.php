@@ -378,9 +378,9 @@ function TreeCopy($data, $pid, $need, $user){
   $count_file = 0;
   foreach($data as $arr){
       if($arr['pid'] == $pid){
-        $need_child = TreeCopyFolder($arr, $need, $user);
-        $count_file +=  TreeCopyFile($arr, $need_child, $user);
-        $arr['child'] = TreeCopy($data, $arr['id'], $need_child, $user);
+        $need_child = TreeCopyFolder($arr, $need, $user); //文件夹写库
+        $count_file +=  TreeCopyFile($arr, $need_child, $user); //文件写库
+        $arr['child'] = TreeCopy($data, $arr['id'], $need_child, $user); //递归获取子目录和子文件
         $tree['folder'][] = $need_child;
         //unset($data[$k]);
       }
