@@ -33,7 +33,7 @@ class BaseApi extends Controller
         $this->Token = $this->Header['token'];
         $this->Username = $this->Header['username'];
         // 由于header不能用中文，不得不把username换成id
-        $data = db('user')->where(['token' => $this->Token, 'id' => $this->Username])->find();
+        $data = db('user')->where(['token' => $this->Token, 'id' => $this->Username])->find(); //根据token和id查询数据库中是否有这个用户
         $this->User = $data;
         return $data;
     }

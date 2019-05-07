@@ -216,8 +216,10 @@
 <script type="text/html" id="Tpl_config_type">
   {{# if(d.config_type == 0){ }}
     <button class='layui-btn layui-btn-sm layui-btn-normal tpl-btn'>站点</button>
+  {{# }else if(d.config_type == 1) { }}
+    <button class='layui-btn layui-btn-sm layui-btn-warm tpl-btn'>邮箱</button>
   {{# }else { }}
-    <button class='layui-btn layui-btn-sm tpl-btn'>邮箱</button>
+    <button class='layui-btn layui-btn-sm tpl-btn'>用户</button>
   {{# } }}
 </script>
 <script type="text/html" id="Tpl_email_type">

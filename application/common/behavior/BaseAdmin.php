@@ -229,7 +229,7 @@ class BaseAdmin extends Controller
                     $data[$column]['child'][$a[0]] = $a[1];
                } 
             }else{
-                $data[] = [
+                $data[$column] = [
                     'name'          =>  $column,
                     'title'         =>  $comment,
                     'default'       =>  $default,
