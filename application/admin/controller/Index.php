@@ -33,7 +33,7 @@ class Index extends BaseAdmin
                 'count' =>  db('user')->count(),
                 'forbidden' =>  db('user')->where('status', 0)->count(),
                 'login'     =>  count(db('user_log')->distinct(true)->field('user_id')->where('user_log_type', 4)->whereTime('regtime', date('Y-m-d'))->select()),
-                'register'  =>  count(db('user_log')->distinct(true)->field('user_id')->where('user_log_type', 5)->whereTime('regtime', date('Y-m-d'))->select())
+                'register'  =>  count(db('user_log')->distinct(true)->field('user_id')->where('user_log_type', -1)->whereTime('regtime', date('Y-m-d'))->select())
             ],
             'admin_total'   =>  [
                 'count'     =>  db('admin')->count(),
