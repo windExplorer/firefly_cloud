@@ -5,6 +5,17 @@
 
 	class Share extends BaseApi{
 
+        /*  subject: '', //主题
+            content: '', //内容
+            is_open: 0, //是否公开发布到动态
+            is_encrypt: true, //是否加密
+            is_expire: 0, //是否有期限
+            is_frequency: 0, //是否有次数
+            expire_type: '2', //到期时间类型 1: 1天, 2: 7天, 3: 一个月 ,默认7天
+            frequency: 1, //设定次数
+            allow_comment: true, //是否允许评论
+            show_location: 0, //是否显示地理位置
+            custom_location: '' //自定义地理位置 */
 		public function share()
 		{
 			$res = input('post.');
@@ -22,17 +33,6 @@
             $frequency = '';
             $sql['file_ids'] = implode(',', $res['file']);
             $sql['folder_ids'] = implode(',', $res['folder']);
-           /*  subject: '', //主题
-            content: '', //内容
-            is_open: 0, //是否公开发布到动态
-            is_encrypt: true, //是否加密
-            is_expire: 0, //是否有期限
-            is_frequency: 0, //是否有次数
-            expire_type: '2', //到期时间类型 1: 1天, 2: 7天, 3: 30天 ,默认7天
-            frequency: 1, //设定次数
-            allow_comment: true, //是否允许评论
-            show_location: 0, //是否显示地理位置
-            custom_location: '' //自定义地理位置 */
             $res = $res['share'];
             $res = $this->removeXSS($res);
             $sql['ip'] = getRealIP();
